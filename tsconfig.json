@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    // Module and target
+    "module": "nodenext",
+    "target": "esnext",
+
+    // Environment and libraries
+    "lib": ["dom", "esnext"],
+    "types": ["node"],
+
+    // JSX
+    "jsx": "react-jsx",
+
+    // Base URL and paths
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    // Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Strict type checking
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+    "verbatimModuleSyntax": true
+  }
+}
