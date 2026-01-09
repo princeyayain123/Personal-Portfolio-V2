@@ -38,6 +38,19 @@ const SLIDE_COUNT = 3;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
 function App() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth >= 992);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const items = [
     {
       label: 'Home',
@@ -116,9 +129,13 @@ function App() {
       <section className="relative overflow-hidden h-screen w-full" aria-label="Home">
         <div className="overflow-hidden h-screen">
           <TargetCursor spinDuration={2} hideDefaultCursor={true} parallaxOn={true} />
-          <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-1 pointer-events-none opacity-0`}>
-            <Ballpit count={100} gravity={0.01} friction={0.9975} wallBounce={0.95} followCursor={false} colors={['#808080', '#800080', '#FFFFFF']} ambientColor={0xffffff} ambientIntensity={1} lightIntensity={200} minSize={0.5} maxSize={1} size0={1} maxVelocity={0.15} maxX={5} maxY={5} maxZ={5} />
-          </div>
+
+          {isMobile && (
+            <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-1 pointer-events-none opacity-0`}>
+              <Ballpit count={100} gravity={0.01} friction={0.9975} wallBounce={0.95} followCursor={false} colors={['#808080', '#800080', '#FFFFFF']} ambientColor={0xffffff} ambientIntensity={1} lightIntensity={200} minSize={0.5} maxSize={1} size0={1} maxVelocity={0.15} maxX={5} maxY={5} maxZ={5} />
+            </div>
+          )}
+
           <div className="relative z-50 pointer-events-auto flex items-center justify-center gap-2">
             <AnimatedContent className="w-full" distance={60} direction="vertical" reverse={false} duration={0.8} ease="power3.out" initialOpacity={0} animateOpacity={true} scale={1} threshold={0.1} delay={1}>
               <div className="w-full" style={{ width: '1000px' }}>
