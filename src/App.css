@@ -119,8 +119,6 @@ body {
 
 #root {
   width: 100%;
-  height: 100%;
-  max-width: 100%;
   margin: 0 auto;
   text-align: center;
 }
@@ -374,4 +372,9 @@ span.text-rotate-element {
   opacity: 0;
   transition: opacity .5s ease;
   pointer-events: none;
+}
+
+section {
+  width: 100%;
+  overflow: hidden;
 }
