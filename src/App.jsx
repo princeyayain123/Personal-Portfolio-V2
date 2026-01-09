@@ -38,6 +38,7 @@ import EmblaCarousel from './components/Embla/EmblaCarousel';
 import Aurora from './components/Aurora';
 import Plasma from './components/Plasma';
 import Beams from './components/Beams';
+import Stepper, { Step } from './components/Stepper';
 
 const OPTIONS = { loop: true };
 const SLIDE_COUNT = 3;
@@ -331,7 +332,21 @@ function App() {
         <ExperienceTimeline></ExperienceTimeline>
       </section>
 
-      <section className="relative h-screen"></section>
+      <section className="relative h-screen">
+        <Stepper step={3}>
+          <Step>
+            <p>Custom step content!</p>
+          </Step>
+          <Step>
+            <h2>How about an input?</h2>
+            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name?" />
+          </Step>
+          <Step>
+            <h2>Final Step</h2>
+            <p>You made it!</p>
+          </Step>
+        </Stepper>
+      </section>
     </>
   );
 }
