@@ -26,6 +26,7 @@ import ExperienceTimeline from './components/Tracker/ExperienceTimeline';
 import ElectricBorder from './components/ElectricBorder';
 import MetaBalls from './components/MetaBalls';
 import SpotlightCard from './components/SpotlightCard';
+import LightPillar from './components/LightPillar';
 
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
 
@@ -130,9 +131,13 @@ function App() {
         <div className="overflow-hidden h-screen">
           <TargetCursor spinDuration={2} hideDefaultCursor={true} parallaxOn={true} />
 
-          {isMobile && (
+          {isMobile ? (
             <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-1 pointer-events-none opacity-0`}>
               <Ballpit count={100} gravity={0.01} friction={0.9975} wallBounce={0.95} followCursor={false} colors={['#808080', '#800080', '#FFFFFF']} ambientColor={0xffffff} ambientIntensity={1} lightIntensity={200} minSize={0.5} maxSize={1} size0={1} maxVelocity={0.15} maxX={5} maxY={5} maxZ={5} />
+            </div>
+          ) : (
+            <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-0 pointer-events-none opacity-0`}>
+              <LightPillar topColor="#5227FF" bottomColor="#FF9FFC" intensity={1.0} rotationSpeed={0.3} glowAmount={0.002} pillarWidth={3.0} pillarHeight={0.4} noiseIntensity={0.5} pillarRotation={25} interactive={false} mixBlendMode="normal" />
             </div>
           )}
 
@@ -299,11 +304,11 @@ function App() {
         </AnimatedContent>
       </section>
 
-      <section className="relative overflow-hidden w-full items-center justify-center flex flex-col h-screen mt-[80px] pb-[50px] projects" aria-label="Projects">
+      <section className="relative overflow-hidden w-full items-center justify-center flex flex-col  mt-[80px] pb-[50px] projects" aria-label="Projects">
         <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
           <h2 className="text-6xl font-bold pb-20">Projects</h2>
         </AnimatedContent>
-        <div className="flex flex-col w-full justify-center items-center lg:flex-row gap-10 max-w-[1600px]  ">
+        <div className="flex flex-col w-full justify-center items-center lg:flex-row gap-10 max-w-[1600px]">
           <EmblaCarousel slides={SLIDES} options={OPTIONS} />
         </div>
       </section>

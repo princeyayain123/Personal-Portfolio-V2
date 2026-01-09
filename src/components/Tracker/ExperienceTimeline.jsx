@@ -25,33 +25,51 @@ const experiences = [
 const ExperienceTimeline = () => {
   const containerRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Track scroll progress for the line
   const handleScroll = () => {
     if (!containerRef.current) return;
-    const container = containerRef.current;
-    const rect = container.getBoundingClientRect();
+    const rect = containerRef.current.getBoundingClientRect();
     const windowHeight = window.innerHeight;
-    const totalHeight = rect.height - windowHeight;
-    const scrolled = Math.min(Math.max(-rect.top, 0), totalHeight);
+
+    // how much of container is scrolled into view
+    const totalHeight = rect.height;
+    const scrolled = Math.min(Math.max(windowHeight - rect.top, 0), totalHeight) - 200;
+
     const progress = totalHeight > 0 ? scrolled / totalHeight : 0;
     setScrollProgress(progress);
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // init
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <div ref={containerRef} style={{ position: 'relative', maxWidth: '800px', margin: '0 auto', padding: '2rem 1rem' }}>
+    <div
+      ref={containerRef}
+      style={{
+        position: 'relative',
+        maxWidth: '800px',
+        margin: '0 auto',
+        padding: '0rem 1rem',
+      }}
+    >
       {/* Vertical line background */}
       <div
         style={{
           position: 'absolute',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          left: isMobile ? '20px' : '50%',
+          transform: isMobile ? 'none' : 'translateX(-50%)',
           top: 0,
           bottom: 0,
           width: '4px',
@@ -62,8 +80,8 @@ const ExperienceTimeline = () => {
       <motion.div
         style={{
           position: 'absolute',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          left: isMobile ? '20px' : '50%',
+          transform: isMobile ? 'none' : 'translateX(-50%)',
           top: 0,
           width: '4px',
           backgroundColor: '#007bff',
@@ -73,15 +91,15 @@ const ExperienceTimeline = () => {
       />
 
       {experiences.map((exp, index) => (
-        <ExperienceCard key={index} experience={exp} position={index % 2 === 0 ? 'left' : 'right'} />
+        <ExperienceCard key={index} experience={exp} position={index % 2 === 0 ? 'left' : 'right'} isMobile={isMobile} />
       ))}
     </div>
   );
 };
 
-const ExperienceCard = ({ experience, position }) => {
+const ExperienceCard = ({ experience, position, isMobile }) => {
   const ref = useRef(null);
-  const inView = useInView(ref, { margin: '-100px', once: true });
+  const inView = useInView(ref, { once: true });
   const controls = useAnimation();
 
   useEffect(() => {
@@ -97,15 +115,15 @@ const ExperienceCard = ({ experience, position }) => {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: position === 'left' ? -100 : 100 }}
+      initial={{ opacity: 0, x: isMobile ? 0 : position === 'left' ? -100 : 100 }}
       animate={controls}
       style={{
         position: 'relative',
-        width: '50%',
+        width: isMobile ? '100%' : '50%',
         padding: '1rem',
-        textAlign: position === 'left' ? 'right' : 'left',
+        textAlign: isMobile ? 'left' : position === 'left' ? 'right' : 'left',
         marginBottom: '3rem',
-        left: position === 'left' ? 0 : '50%',
+        left: isMobile ? '0' : position === 'left' ? 0 : '50%',
       }}
     >
       <div
@@ -122,7 +140,7 @@ const ExperienceCard = ({ experience, position }) => {
           style={{
             position: 'absolute',
             top: '1rem',
-            left: position === 'left' ? 'calc(100% + 8px)' : '-14px',
+            left: isMobile ? '-16px' : position === 'left' ? 'calc(100% + 10px)' : '-22px',
             width: '12px',
             height: '12px',
             backgroundColor: '#007bff',
@@ -130,16 +148,15 @@ const ExperienceCard = ({ experience, position }) => {
             border: '2px solid #fff',
           }}
         />
-        <h3 style={{ fontWeight: 'bold', marginBottom: '0.5rem', color: 'black', fontWeight: '700' }}>{experience.title}</h3>
+        <h3 style={{ fontWeight: '700', marginBottom: '0.5rem', color: 'black' }}>{experience.title}</h3>
         <p style={{ fontSize: '0.9rem', color: '#555', marginBottom: '0.5rem' }}>{experience.company}</p>
         <p style={{ color: '#333' }}>{experience.description}</p>
         <span
           style={{
-            position: 'absolute',
-            top: '10px',
+            display: 'block',
+            marginTop: '0.5rem',
             fontWeight: '600',
             color: '#007bff',
-            [position === 'left' ? 'right' : 'left']: '-135px',
           }}
         >
           {experience.year}

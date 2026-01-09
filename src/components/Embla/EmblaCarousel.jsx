@@ -158,7 +158,7 @@ const EmblaCarousel = ({ slides, options }) => {
         </AnimatedContent>
       </div>
 
-      <div className="w-full items-center lg:w-2/5 lg:p-5">
+      <div className="w-full px-[20px] items-center lg:w-2/5 lg:p-5">
         <AnimatedContent distance={100} direction="horizontal" duration={1.3} delay={0.5} ease="power3.out" initialOpacity={0} animateOpacity={true}>
           <SpotlightCard className="custom-spotlight-card lg:h-[380px]" spotlightColor="rgba(0, 229, 255, 0.2)">
             <AnimatePresence mode="wait">
