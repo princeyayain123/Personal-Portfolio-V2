@@ -37,6 +37,7 @@ import EmblaCarousel from './components/Embla/EmblaCarousel';
 
 import Aurora from './components/Aurora';
 import Plasma from './components/Plasma';
+import Beams from './components/Beams';
 
 const OPTIONS = { loop: true };
 const SLIDE_COUNT = 3;
@@ -144,7 +145,8 @@ function App() {
               {/* <LightPillar topColor="#5227FF" bottomColor="#FF9FFC" intensity={1.0} rotationSpeed={0.3} glowAmount={0.002} pillarWidth={3.0} pillarHeight={0.4} noiseIntensity={0.5} pillarRotation={25} interactive={false} mixBlendMode="normal" /> */}
               {/* <Silk speed={5} scale={1.5} color="#800080" noiseIntensity={5.5} rotation={0} /> */}
               {/* <Aurora colorStops={['#3A29FF', '#FF94B4', '#FF3232']} blend={0.5} amplitude={1.0} speed={0.5} /> */}
-              <Plasma color="#ff6b35" speed={0.6} direction="forward" scale={1.1} opacity={0.8} mouseInteractive={true} />
+              {/* <Plasma color="#ff6b35" speed={0.6} direction="forward" scale={0.8} opacity={0.8} mouseInteractive={true} /> */}
+              <Beams beamWidth={2} beamHeight={15} beamNumber={12} lightColor="#ffffff" speed={2} noiseIntensity={1.75} scale={0.2} rotation={0} />
             </div>
           )}
 
