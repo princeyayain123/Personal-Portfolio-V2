@@ -160,6 +160,7 @@ function App() {
               scale={10}
               threshold={0.1}
               delay={0}
+              className="w-full"
               onComplete={() => {
                 showBg();
               }}
@@ -192,7 +193,8 @@ function App() {
           </div>
         </div>
       </section>
-      <section className="relative" aria-label="About">
+
+      <section className="relative overflow-hidden pb-20 w-full" aria-label="About">
         <div className={`flex p-8 bg-white items-center justify-center flex-col md:flex-row md:h-screen `}>
           <div className="w-full max-w-[1000px] md:w-1/2 text-start items-center justify-center px-0 text-black md:px-10">
             <div className="relative">
