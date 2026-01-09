@@ -146,7 +146,7 @@ function App() {
               {/* <Silk speed={5} scale={1.5} color="#800080" noiseIntensity={5.5} rotation={0} /> */}
               {/* <Aurora colorStops={['#3A29FF', '#FF94B4', '#FF3232']} blend={0.5} amplitude={1.0} speed={0.5} /> */}
               {/* <Plasma color="#ff6b35" speed={0.6} direction="forward" scale={0.8} opacity={0.8} mouseInteractive={true} /> */}
-              <Beams beamWidth={2} beamHeight={15} beamNumber={12} lightColor="#ffffff" speed={2} noiseIntensity={1.75} scale={0.2} rotation={0} />
+              <Beams beamWidth={1.3} beamHeight={25} beamNumber={15} lightColor="##fb00ff" speed={4} noiseIntensity={2.5} scale={0.2} rotation={30} />
             </div>
           )}
 
