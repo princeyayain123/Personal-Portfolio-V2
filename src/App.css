@@ -110,7 +110,7 @@ html {
 }
 
 body {
-  font-family: 'Figtree', sans-serif;
+  font-family: 'Figtree', sans-serif !important;
   background-color: rgb(25, 25, 25);
   overflow-x: hidden;
   color: white;
@@ -377,4 +377,8 @@ span.text-rotate-element {
 section {
   width: 100%;
   overflow: hidden;
+}
+
+.hero-banner {
+  font-family: 'Montserrat', sans-serif !important,
 }

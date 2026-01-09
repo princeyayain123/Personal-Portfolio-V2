@@ -4,7 +4,7 @@ import { NextButton, PrevButton, usePrevNextButtons } from './EmblaCarouselArrow
 import { DotButton, useDotButton } from './EmblaCarouselDotButton';
 import './embla.css';
 import VideoJS from '../Videojs/VideoJS';
-import SpotlightCard from '../SpotlightCard';
+import SpotlightCard from '../ReactBits/SpotlightCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedContent from '../ReactBits/AnimatedContent';
 

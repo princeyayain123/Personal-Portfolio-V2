@@ -23,11 +23,11 @@ import CountUp from './components/ReactBits/CountUp';
 import GradualBlur from './components/ReactBits/GradualBlur';
 import ScrollStack, { ScrollStackItem } from './components/ReactBits/ScrollStack';
 import ExperienceTimeline from './components/Tracker/ExperienceTimeline';
-import ElectricBorder from './components/ElectricBorder';
-import MetaBalls from './components/MetaBalls';
-import SpotlightCard from './components/SpotlightCard';
-import LightPillar from './components/LightPillar';
-import Silk from './components/Silk';
+import ElectricBorder from './components/ReactBits/ElectricBorder';
+import MetaBalls from './components/ReactBits/MetaBalls';
+import SpotlightCard from './components/ReactBits/SpotlightCard';
+import LightPillar from './components/ReactBits/LightPillar';
+import Silk from './components/ReactBits/Silk';
 
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
 
@@ -150,7 +150,7 @@ function App() {
               </div>
             </AnimatedContent>
           </div>
-          <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center items-center justify-center flex w-full max-w-[320px] md:max-w-full`} style={{ fontFamily: "'Montserrat', sans-serif", color: 'white', transition: '0.5s ease', alignItems: 'center' }}>
+          <div className={`hero-banner absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center items-center justify-center flex w-full max-w-[320px] md:max-w-full`} style={{ color: 'white', transition: '0.5s ease', alignItems: 'center' }}>
             <AnimatedContent
               distance={100}
               direction="vertical"
