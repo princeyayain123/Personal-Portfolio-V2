@@ -175,8 +175,8 @@ function App() {
               }}
             >
               <div className="flex flex-col text-4xl lg:text-6xl text-center items-center justify-center gap-3 md:flex-row" style={{ fontWeight: 900, lineHeight: '1em' }}>
-                <RotatingText style={{ transition: '0.5s ease', color: 'white' }} texts={['FRONT-END', 'BACK-END', 'FULL-STACK']} loop={false} mainClassName="px-2 sm:px-2 md:px-3 bg-[#800080] text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg" splitBy={'characters'} staggerFrom={'first'} animatePresenceMode={'wait'} animatePresenceInitial={true} initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '-120%' }} staggerDuration={0} splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1" transition={{ type: 'spring', damping: 30, stiffness: 400 }} rotationInterval={5000} />
-                <div className="flex items-center shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">DEVELOPER</div>
+                <RotatingText style={{ transition: '0.5s ease', color: 'white' }} texts={['FRONT-END', 'BACK-END', 'FULL-STACK']} loop={false} mainClassName="px-2 sm:px-2 md:px-3 bg-[#800080] text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg hero-banner" splitBy={'characters'} staggerFrom={'first'} animatePresenceMode={'wait'} animatePresenceInitial={true} initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '-120%' }} staggerDuration={0} splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1" transition={{ type: 'spring', damping: 30, stiffness: 400 }} rotationInterval={5000} />
+                <div className="flex items-center shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent hero-banner">DEVELOPER</div>
               </div>
               <div className="py-5 text-1xl lg:text-3xl shadowText opacity-90">
                 <TextType text={['From concept to code — websites that users love.']} initialDelay={2000} typingSpeed={75} pauseDuration={2000} deletingSpeed={30} cursorCharacter={'█'} cursorBlinkDuration={0.5} loop={false} />
