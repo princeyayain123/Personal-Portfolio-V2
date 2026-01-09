@@ -110,7 +110,7 @@ html {
 }
 
 body {
-
+  font-family: 'Figtree', sans-serif !important;
   background-color: rgb(25, 25, 25);
   overflow-x: hidden;
   color: white;
