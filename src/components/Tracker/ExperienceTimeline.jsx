@@ -40,11 +40,13 @@ const ExperienceTimeline = () => {
     const rect = containerRef.current.getBoundingClientRect();
     const windowHeight = window.innerHeight;
 
-    // how much of container is scrolled into view
-    const totalHeight = rect.height;
-    const scrolled = Math.min(Math.max(windowHeight - rect.top, 0), totalHeight) - 200;
+    // Offset to start the progress a bit later
+    const offset = 200;
 
-    const progress = totalHeight > 0 ? scrolled / totalHeight : 0;
+    // How much of the container is visible in the viewport
+    const scrolled = Math.min(Math.max(windowHeight - rect.top - offset, 0), rect.height);
+
+    const progress = rect.height > 0 ? scrolled / rect.height : 0;
     setScrollProgress(progress);
   };
 

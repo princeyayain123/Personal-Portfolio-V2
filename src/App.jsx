@@ -27,6 +27,7 @@ import ElectricBorder from './components/ElectricBorder';
 import MetaBalls from './components/MetaBalls';
 import SpotlightCard from './components/SpotlightCard';
 import LightPillar from './components/LightPillar';
+import Silk from './components/Silk';
 
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
 
@@ -137,7 +138,8 @@ function App() {
             </div>
           ) : (
             <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-0 pointer-events-none opacity-0`}>
-              <LightPillar topColor="#5227FF" bottomColor="#FF9FFC" intensity={1.0} rotationSpeed={0.3} glowAmount={0.002} pillarWidth={3.0} pillarHeight={0.4} noiseIntensity={0.5} pillarRotation={25} interactive={false} mixBlendMode="normal" />
+              {/* <LightPillar topColor="#5227FF" bottomColor="#FF9FFC" intensity={1.0} rotationSpeed={0.3} glowAmount={0.002} pillarWidth={3.0} pillarHeight={0.4} noiseIntensity={0.5} pillarRotation={25} interactive={false} mixBlendMode="normal" /> */}
+              <Silk speed={5} scale={1} color="#7B7481" noiseIntensity={1.5} rotation={0} />
             </div>
           )}
 
@@ -321,6 +323,8 @@ function App() {
         </AnimatedContent>
         <ExperienceTimeline></ExperienceTimeline>
       </section>
+
+      <section className="relative h-screen"></section>
     </>
   );
 }
