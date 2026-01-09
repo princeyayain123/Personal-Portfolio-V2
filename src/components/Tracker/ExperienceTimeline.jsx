@@ -35,25 +35,32 @@ const ExperienceTimeline = () => {
   }, []);
 
   // Track scroll progress for the line
-  const handleScroll = () => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    // Offset to start the progress a bit later
-    const offset = 200;
-
-    // How much of the container is visible in the viewport
-    const scrolled = Math.min(Math.max(windowHeight - rect.top - offset, 0), rect.height);
-
-    const progress = rect.height > 0 ? scrolled / rect.height : 0;
-    setScrollProgress(progress);
-  };
-
   useEffect(() => {
+    let animationFrameId = null;
+
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const offset = 200;
+
+      const scrolled = Math.min(Math.max(windowHeight - rect.top - offset, 0), rect.height);
+      const progress = rect.height > 0 ? scrolled / rect.height : 0;
+
+      // Schedule state update on next animation frame
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      animationFrameId = requestAnimationFrame(() => {
+        setScrollProgress(progress);
+      });
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   return (
