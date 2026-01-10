@@ -382,3 +382,13 @@ section {
 .hero-banner {
   font-family: 'Montserrat', sans-serif !important;
 }
+
+.globe-position {
+  transform: translate(20%, 0);
+}
+
+@media screen and (max-width: 992px) {
+  .globe-position {
+    transform: translate(0, 0);
+  }
+}

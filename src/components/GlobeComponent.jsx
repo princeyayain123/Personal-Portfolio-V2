@@ -22,6 +22,19 @@ const GlobeComponent = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 992);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   useEffect(() => {
     const globe = globeEl.current;
     if (!globe) return;
@@ -64,8 +77,8 @@ const GlobeComponent = () => {
   }, []);
 
   return (
-    <div className="w-full h-full">
-      <Globe ref={globeEl} animateIn={false} globeImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-blue-marble.jpg" bumpImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-topology.png" width={dimensions.width} height={dimensions.height} />
+    <div className="w-full h-full globe-position">
+      <Globe ref={globeEl} animateIn={false} globeImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-blue-marble.jpg" bumpImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-topology.png" width={isMobile ? dimensions.width : dimensions.width + 900} height={isMobile ? dimensions.height : dimensions.height + 600} />
     </div>
   );
 };
