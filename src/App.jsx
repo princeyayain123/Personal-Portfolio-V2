@@ -334,17 +334,17 @@ function App() {
         <ExperienceTimeline></ExperienceTimeline>
       </section>
 
-      <section className="relative w-full h-screen bg-black">
+      <section className="relative w-full md:h-screen bg-black">
         <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-          <h2 className="text-2xl font-bold pt-10 md:text-4xl md:pt-20 pb-5 text-white">Get In Touch</h2>
-          <h2 className="text-4xl md:text-6xl font-bold pb-10 text-[#ff5733]">Let's Work Together</h2>
+          <h2 className="text-4xl font-bold pt-20 md:text-4xl md:pt-20 pb-5 text-white">Get In Touch</h2>
+          <h2 className="text-6xl md:text-6xl font-bold pb-10 text-[#ff5733]">Let's Work Together</h2>
         </AnimatedContent>
-        <div className="w-full h-full">
-          <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" delay={1} initialOpacity={0} animateOpacity={true}>
+        <div className="w-full h-full absolute">
+          <AnimatedContent distance={100} direction="horizontal" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <GlobeComponent />
           </AnimatedContent>
         </div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex flex-col md:flex-row gap-5 pt-40 px-5">
+        <div className="md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full flex flex-col md:flex-row gap-5 md:pt-40 px-5">
           <div className="w-full md:w-1/2">
             <GlassContactForm></GlassContactForm>
           </div>

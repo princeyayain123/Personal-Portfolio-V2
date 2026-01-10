@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GlassContactForm = () => {
+const GlassSocialMedia = () => {
   return (
     <div className="flex items-center justify-end ">
       <div className="text-start bg-white/10 backdrop-blur-md rounded-2xl p-10 w-full max-w-md shadow-[0_8px_32px_rgba(128,0,128,0.3)] border border-white/20 text-white ">
@@ -19,4 +19,4 @@ const GlassContactForm = () => {
   );
 };
 
-export default GlassContactForm;
+export default GlassSocialMedia;
