@@ -206,7 +206,7 @@ function App() {
         </div>
       </section>
 
-      {/* <section className="relative overflow-hidden pb-20 w-full" aria-label="About">
+      <section className="relative overflow-hidden pb-20 w-full" aria-label="About">
         <div className={`flex p-8 bg-white items-center justify-center flex-col md:flex-row md:h-screen `}>
           <div className="w-full max-w-[1000px] md:w-1/2 text-start items-center justify-center px-0 text-black md:px-10">
             <div className="relative">
@@ -332,7 +332,7 @@ function App() {
           <h2 className="text-6xl font-bold pt-40 pb-20 text-black">Experiences</h2>
         </AnimatedContent>
         <ExperienceTimeline></ExperienceTimeline>
-      </section> */}
+      </section>
 
       <section className="relative w-full h-screen bg-black">
         <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
