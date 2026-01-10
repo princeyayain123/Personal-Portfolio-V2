@@ -35,10 +35,12 @@ import Lenis from '@studio-freight/lenis';
 
 import EmblaCarousel from './components/Embla/EmblaCarousel';
 
-import Aurora from './components/Aurora';
-import Plasma from './components/Plasma';
-import Beams from './components/Beams';
-import Stepper, { Step } from './components/Stepper';
+import Aurora from './components/ReactBits/Aurora';
+import Plasma from './components/ReactBits/Plasma';
+import Beams from './components/ReactBits/Beams';
+import Stepper, { Step } from './components/ReactBits/Stepper';
+import GlobeComponent from './components/GlobeComponent';
+import GlassContactForm from './components/GlassContactForm';
 
 const OPTIONS = { loop: true };
 const SLIDE_COUNT = 3;
@@ -135,7 +137,7 @@ function App() {
     <>
       <section className="relative overflow-hidden h-screen w-full" aria-label="Home">
         <div className="overflow-hidden h-screen">
-          <TargetCursor spinDuration={2} hideDefaultCursor={true} parallaxOn={true} />
+          {/* <TargetCursor spinDuration={2} hideDefaultCursor={true} parallaxOn={true} /> */}
 
           {isMobile ? (
             <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-1 pointer-events-none opacity-0`}>
@@ -332,20 +334,19 @@ function App() {
         <ExperienceTimeline></ExperienceTimeline>
       </section>
 
-      <section className="relative h-screen">
-        <Stepper step={3}>
-          <Step>
-            <p>Custom step content!</p>
-          </Step>
-          <Step>
-            <h2>How about an input?</h2>
-            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name?" />
-          </Step>
-          <Step>
-            <h2>Final Step</h2>
-            <p>You made it!</p>
-          </Step>
-        </Stepper>
+      <section className="relative w-full h-screen">
+        <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+          <h2 className="text-4xl font-bold pt-20 pb-5 text-white">Get In Touch</h2>
+          <h2 className="text-6xl font-bold pb-10 text-[#ff5733]">Let's Work Together</h2>
+        </AnimatedContent>
+        <div className="w-full h-full">
+          <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" delay={1} initialOpacity={0} animateOpacity={true}>
+            <GlobeComponent />
+          </AnimatedContent>
+        </div>
+        <div className="absolute top-1/2 left-0 w-full">
+          <GlassContactForm></GlassContactForm>
+        </div>
       </section>
     </>
   );
