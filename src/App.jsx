@@ -41,6 +41,8 @@ import Beams from './components/ReactBits/Beams';
 import Stepper, { Step } from './components/ReactBits/Stepper';
 import GlobeComponent from './components/GlobeComponent';
 import GlassContactForm from './components/GlassContactForm';
+import ScrollVelocity from './components/ScrollVelocity';
+import MagnetLines from './components/MagnetLines';
 
 const OPTIONS = { loop: true };
 const SLIDE_COUNT = 3;
@@ -137,14 +139,14 @@ function App() {
     <>
       <section className="relative overflow-hidden h-screen w-full" aria-label="Home">
         <div className="overflow-hidden h-screen">
-          {/* <TargetCursor spinDuration={2} hideDefaultCursor={true} parallaxOn={true} /> */}
+          <TargetCursor spinDuration={2} hideDefaultCursor={true} parallaxOn={true} />
 
           {isMobile ? (
             <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-1 pointer-events-none opacity-0`}>
               <Ballpit count={100} gravity={0.01} friction={0.9975} wallBounce={0.95} followCursor={false} colors={['#808080', '#800080', '#FFFFFF']} ambientColor={0xffffff} ambientIntensity={1} lightIntensity={200} minSize={0.5} maxSize={1} size0={1} maxVelocity={0.15} maxX={5} maxY={5} maxZ={5} />
             </div>
           ) : (
-            <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-0 pointer-events-none `}>
+            <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-0 pointer-events-none opacity-0`}>
               {/* <LightPillar topColor="#5227FF" bottomColor="#FF9FFC" intensity={1.0} rotationSpeed={0.3} glowAmount={0.002} pillarWidth={3.0} pillarHeight={0.4} noiseIntensity={0.5} pillarRotation={25} interactive={false} mixBlendMode="normal" /> */}
               {/* <Silk speed={5} scale={1.5} color="#800080" noiseIntensity={5.5} rotation={0} /> */}
               {/* <Aurora colorStops={['#3A29FF', '#FF94B4', '#FF3232']} blend={0.5} amplitude={1.0} speed={0.5} /> */}
@@ -327,28 +329,46 @@ function App() {
         </div>
       </section>
 
+      <div className="mt-40"></div>
+      <ScrollVelocity texts={['React Portfolio', 'Full Stack Developer']} velocity={50} />
+      <div className="mb-40"></div>
       <section className="relative bg-white">
         <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-          <h2 className="text-6xl font-bold pt-40 pb-20 text-black">Experiences</h2>
+          <h2 className="text-6xl font-bold pt-40 pb-40 text-black">Experiences</h2>
         </AnimatedContent>
+
         <ExperienceTimeline></ExperienceTimeline>
       </section>
 
       <section className="relative w-full md:h-screen bg-black">
-        <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-          <h2 className="text-4xl font-bold pt-20 md:text-4xl md:pt-20 pb-5 text-white">Get In Touch</h2>
-          <h2 className="text-6xl md:text-6xl font-bold pb-10 text-[#ff5733]">Let's Work Together</h2>
-        </AnimatedContent>
-        <div className="w-full h-full absolute">
+        {/* Globe background */}
+        <div className="absolute inset-0">
           <AnimatedContent distance={100} direction="horizontal" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <GlobeComponent />
           </AnimatedContent>
         </div>
-        <div className="md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full flex flex-col md:flex-row gap-5 md:pt-40 px-5">
-          <div className="w-full md:w-1/2">
-            <GlassContactForm></GlassContactForm>
+
+        {/* Main content */}
+        <div className="relative z-10 flex flex-col w-full max-w-[1800px] mx-auto p-10 gap-10 h-full">
+          <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+            <h2 className="text-4xl font-bold text-white text-center pb-5 pt-20">Get In Touch</h2>
+            <h2 className="text-6xl font-bold text-[#ff5733] text-center pb-10">Let's Work Together</h2>
+          </AnimatedContent>
+
+          {/* Map + Contact Form */}
+          <div className="flex flex-col md:flex-row flex-1 gap-10 h-full max-h-[700px]">
+            {/* Map section */}
+            <div className="w-full md:w-2/3 h-80 md:h-full bg-gray-800 rounded-xl overflow-hidden flex-1">
+              {/* Uncomment and replace with your iframe if needed */}
+
+              <iframe className="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d73671.05206690024!2d121.55166866530044!3d13.967073040029291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd4b578caf4ccd%3A0x2be1e905c862fe1!2sLucena%20City%2C%20Quezon!5e0!3m2!1sen!2sph!4v1768105374959!5m2!1sen!2sph" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            {/* Contact Form */}
+            <div className="w-full md:w-1/3 h-full flex flex-col">
+              <GlassContactForm />
+            </div>
           </div>
-          <div className="w-full md:w-1/2"></div>
         </div>
       </section>
     </>
