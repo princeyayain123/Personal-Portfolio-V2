@@ -2,12 +2,9 @@ import './App.css';
 
 import { useState, useEffect, useRef } from 'react';
 import Ballpit from './components/ReactBits/Ballpit';
-import BlurText from './components/ReactBits/BlurText';
 import MagicBento from './components/ReactBits/MagicBento';
-import Noise from './components/ReactBits/Noise';
 import RotatingText from './components/ReactBits/RotatingText';
 import GradientText from './components/ReactBits/GradientText';
-import TrueFocus from './components/ReactBits/TrueFocus';
 import TargetCursor from './components/ReactBits/TargetCursor';
 import Magnet from './components/ReactBits/Magnet';
 import TextType from './components/ReactBits/TextType';
