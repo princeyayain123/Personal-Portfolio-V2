@@ -339,23 +339,20 @@ function App() {
         <div className="relative z-10 flex flex-col w-full max-w-[1800px] mx-auto p-10 gap-10 h-full">
           <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <h2 className="text-4xl font-bold text-white text-center pb-5 pt-20">Get In Touch</h2>
-            <h2 className="text-6xl font-bold text-[#ff5733] text-center pb-10">Let's Work Together</h2>
+            <h2 className="text-6xl font-bold text-[#ff9cff] text-center pb-10">Let's Work Together</h2>
           </AnimatedContent>
 
-          {/* Map + Contact Form */}
-          <div className="flex flex-col md:flex-row flex-1 gap-10 h-full max-h-[700px]">
-            {/* Map section */}
-            <div className="w-full md:w-2/3 h-80 md:h-full bg-gray-800 rounded-xl overflow-hidden flex-1">
-              {/* Uncomment and replace with your iframe if needed */}
+          <AnimatedContent className="h-full" distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+            <div className="flex flex-col md:flex-row flex-1 gap-10 h-full max-h-[700px]">
+              <div className="w-full md:w-2/3 h-80 md:h-full bg-gray-800 rounded-xl overflow-hidden flex-1">
+                <iframe className="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d73671.05206690024!2d121.55166866530044!3d13.967073040029291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd4b578caf4ccd%3A0x2be1e905c862fe1!2sLucena%20City%2C%20Quezon!5e0!3m2!1sen!2sph!4v1768105374959!5m2!1sen!2sph" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+              </div>
 
-              <iframe className="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d73671.05206690024!2d121.55166866530044!3d13.967073040029291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd4b578caf4ccd%3A0x2be1e905c862fe1!2sLucena%20City%2C%20Quezon!5e0!3m2!1sen!2sph!4v1768105374959!5m2!1sen!2sph" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+              <div className="w-full md:w-1/3 h-full flex flex-col">
+                <GlassContactForm />
+              </div>
             </div>
-
-            {/* Contact Form */}
-            <div className="w-full md:w-1/3 h-full flex flex-col">
-              <GlassContactForm />
-            </div>
-          </div>
+          </AnimatedContent>
         </div>
       </section>
     </>
