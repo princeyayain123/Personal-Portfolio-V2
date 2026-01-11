@@ -26,10 +26,10 @@ import Lenis from '@studio-freight/lenis';
 import EmblaCarousel from './components/Embla/EmblaCarousel';
 
 import Beams from './components/ReactBits/Beams';
-import GlobeComponent from './components/GlobeComponent';
-import GlassContactForm from './components/GlassContactForm';
+import GlobeComponent from './components/ReactBits/GlobeComponent';
+import GlassContactForm from './components/ReactBits/GlassContactForm';
 import ScrollVelocity from './components/ScrollVelocity';
-import MagnetLines from './components/MagnetLines';
+import MagnetLines from './components/ReactBits/MagnetLines';
 
 const OPTIONS = { loop: true };
 const SLIDE_COUNT = 3;
