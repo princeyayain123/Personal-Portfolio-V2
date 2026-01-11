@@ -10,21 +10,14 @@ import Magnet from './components/ReactBits/Magnet';
 import TextType from './components/ReactBits/TextType';
 import CircularText from './components/ReactBits/CircularText';
 import StarBorder from './components/ReactBits/StarBorder';
-import GlareHover from './components/ReactBits/GlareHover';
-import DotGrid from './components/ReactBits/DotGrid';
 import AnimatedContent from './components/ReactBits/AnimatedContent';
 import CardNav from './components/ReactBits/CardNav';
 import logo from './components/ReactBits/logo.svg';
 import LogoLoop from './components/ReactBits/LogoLoop';
 import CountUp from './components/ReactBits/CountUp';
-import GradualBlur from './components/ReactBits/GradualBlur';
-import ScrollStack, { ScrollStackItem } from './components/ReactBits/ScrollStack';
 import ExperienceTimeline from './components/Tracker/ExperienceTimeline';
 import ElectricBorder from './components/ReactBits/ElectricBorder';
 import MetaBalls from './components/ReactBits/MetaBalls';
-import SpotlightCard from './components/ReactBits/SpotlightCard';
-import LightPillar from './components/ReactBits/LightPillar';
-import Silk from './components/ReactBits/Silk';
 
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
 
@@ -32,10 +25,7 @@ import Lenis from '@studio-freight/lenis';
 
 import EmblaCarousel from './components/Embla/EmblaCarousel';
 
-import Aurora from './components/ReactBits/Aurora';
-import Plasma from './components/ReactBits/Plasma';
 import Beams from './components/ReactBits/Beams';
-import Stepper, { Step } from './components/ReactBits/Stepper';
 import GlobeComponent from './components/GlobeComponent';
 import GlassContactForm from './components/GlassContactForm';
 import ScrollVelocity from './components/ScrollVelocity';
@@ -326,9 +316,9 @@ function App() {
         </div>
       </section>
 
-      <div className="mt-40"></div>
+      <div className="mt-20 md:mt-40"></div>
       <ScrollVelocity texts={['React Portfolio', 'Full Stack Developer']} velocity={50} />
-      <div className="mb-40"></div>
+      <div className="mb-20 md:mb-40"></div>
       <section className="relative bg-white">
         <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
           <h2 className="text-6xl font-bold pt-40 pb-40 text-black">Experiences</h2>
