@@ -35,6 +35,7 @@ import MagicHoverCard from './components/MagicHoverCard';
 import ChatScreenWithReaction from './components/ChatScreenWithReaction';
 import { CgFacebook } from 'react-icons/cg';
 import { BsInstagram, BsLinkedin, BsTwitter } from 'react-icons/bs';
+import { FaGithub } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
 import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
 
@@ -377,19 +378,21 @@ function App() {
                         </span>
                       </div>
                     </div>
-
                     <div className="flex items-center gap-[10px] text-[#424242]">
-                      <a className="icon text-[1.3rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300">
+                      <a className="icon text-[1.3rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300" href="https://www.facebook.com/julius.yayain/" target="_blank" rel="noopener noreferrer">
                         <CgFacebook />
                       </a>
-                      <a className="icon text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300">
+                      <a className="icon text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300" href="https://www.twine.net/juliusyayain" target="_blank" rel="noopener noreferrer">
                         <BsTwitter />
                       </a>
-                      <a className="icon text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300">
+                      <a className="icon text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300" href="https://www.instagram.com/juliusyayain/" target="_blank" rel="noopener noreferrer">
                         <BsInstagram />
                       </a>
-                      <a className="icon text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300">
+                      <a className="icon text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300" href="https://www.linkedin.com/in/julius-anthony-yayain-13606b2a3/" target="_blank" rel="noopener noreferrer">
                         <BsLinkedin />
+                      </a>
+                      <a className="icon text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300" href="https://github.com/princeyayain123" target="_blank" rel="noopener noreferrer">
+                        <FaGithub />
                       </a>
                     </div>
                   </div>
