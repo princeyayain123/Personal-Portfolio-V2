@@ -137,14 +137,14 @@ const ChatScreenWithReaction = () => {
 
   return (
     <div className="flex flex-col border border-white/30 rounded-lg shadow w-full h-full">
-      <div className="flex-1 p-2 md:p-4 overflow-y-auto max-h-[320px]">
+      <div className="flex-1 p-4 pr-8 overflow-y-auto max-h-[320px]" data-lenis-prevent>
         <AnimatePresence>
           {messages.map((message) => (
             <motion.div key={message.id} variants={messageVariants} custom={message} initial="hidden" animate="visible" exit="exit" layout className={`mb-4 flex ${message.sender === 'me' ? 'justify-end' : 'justify-start'}`}>
               <div className="relative max-w-md flex items-end gap-2">
                 {message.sender === 'other' && <img src={message.senderProfile?.avatar} alt={message.senderProfile?.name} className="w-8 h-8 rounded-full" />}
                 <div>
-                  <div className={`px-4 py-2 rounded-xl text-black dark:text-[#d2e5f5] text-sm ${message.sender === 'me' ? 'bg-blue-50 dark:bg-blue-900/90 rounded-br-none' : 'bg-gray-50 dark:bg-slate-800 rounded-bl-none'}`}>{message.text}</div>
+                  <div className={`px-4 py-2 rounded-xl text-black dark:text-[#d2e5f5] text-start text-sm ${message.sender === 'me' ? 'bg-blue-50 dark:bg-blue-900/90 rounded-br-none' : 'bg-gray-50 dark:bg-slate-800 rounded-bl-none'}`}>{message.text}</div>
                   <div className={`${message.sender === 'me' ? 'text-right' : 'text-left'} mt-1 text-xs text-gray-500 dark:text-[#abc2d3]/80 mt`}>{message.timestamp}</div>
                 </div>
                 {message.sender === 'me' && <img src={message.senderProfile?.avatar} alt={message.senderProfile?.name} className="w-8 h-8 rounded-full" />}
@@ -188,10 +188,10 @@ const ChatScreenWithReaction = () => {
       </div>
 
       {/* Message Input */}
-      <div className="rounded-lg p-0 md:p-4">
+      <div className="rounded-lg p-4">
         <div className="flex gap-2">
           <input ref={inputRef} type="text" value={newMessage} onChange={(e) => setNewMessage(e.target.value)} onKeyPress={handleKeyPress} placeholder="Type a message..." className="flex-1 px-4 py-3 border dark:bg-slate-900 dark:border-slate-700 dark:text-[#d2e5f5] rounded-full focus:outline-none focus:ring-2 focus:ring-[#0FABCA]" />
-          <motion.button whileTap={{ scale: 0.95 }} onClick={handleSendMessage} className="bg-[#0FABCA]/80 text-white min-w-[50px] rounded-full hover:bg-[#0FABCA] flex items-center justify-center focus:outline-none">
+          <motion.button whileTap={{ scale: 0.95 }} onClick={handleSendMessage} className="bg-[#ff9cff]/80 text-white min-w-[50px] rounded-full hover:bg-[#800080] flex items-center justify-center focus:outline-none transition-all duration-300 ease-in-out">
             <LuSend size={20} />
           </motion.button>
         </div>
