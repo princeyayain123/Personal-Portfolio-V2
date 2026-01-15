@@ -30,6 +30,13 @@ import GlobeComponent from './components/ReactBits/GlobeComponent';
 import GlassContactForm from './components/ReactBits/GlassContactForm';
 import ScrollVelocity from './components/ScrollVelocity';
 import MagnetLines from './components/ReactBits/MagnetLines';
+import Masonry from './components/Masonry';
+import MagicHoverCard from './components/MagicHoverCard';
+import ChatScreenWithReaction from './components/ChatScreenWithReaction';
+import { CgFacebook } from 'react-icons/cg';
+import { BsInstagram, BsLinkedin, BsTwitter } from 'react-icons/bs';
+import { IoLocationOutline } from 'react-icons/io5';
+import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
 
 const OPTIONS = { loop: true };
 const SLIDE_COUNT = 3;
@@ -105,22 +112,22 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    const lenis = new Lenis({
-      autoRaf: true,
-    });
+  // useEffect(() => {
+  //   const lenis = new Lenis({
+  //     autoRaf: true,
+  //   });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+  //   function raf(time) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
 
-    requestAnimationFrame(raf);
+  //   requestAnimationFrame(raf);
 
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
+  //   return () => {
+  //     lenis.destroy();
+  //   };
+  // }, []);
 
   return (
     <>
@@ -220,91 +227,93 @@ function App() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 py-[100px] text-4xl font-bold w-full place-items-center md:grid-cols-2 lg:grid-cols-4">
-          <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-            <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
-              <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
-                <CountUp from={0} to={8} duration={2} startWhen={true} className="count-up-text" />+
-              </GradientText>
-              <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Completed Projects</div>
-            </div>
+        <div className="bg-image">
+          <div className="grid grid-cols-1 gap-5 py-[100px] text-4xl font-bold w-full place-items-center md:grid-cols-2 lg:grid-cols-4">
+            <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+              <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
+                <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
+                  <CountUp from={0} to={8} duration={2} startWhen={true} className="count-up-text" />+
+                </GradientText>
+                <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Completed Projects</div>
+              </div>
+            </AnimatedContent>
+            <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0.2} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+              <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
+                <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
+                  <CountUp from={0} to={60} duration={3} startWhen={true} className="count-up-text" />+
+                </GradientText>
+                <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Happy Clients</div>
+              </div>
+            </AnimatedContent>
+            <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0.4} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+              <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
+                <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
+                  <CountUp from={0} to={1} duration={3} startWhen={true} className="count-up-text" />+
+                </GradientText>
+                <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Year Experiences</div>
+              </div>
+            </AnimatedContent>
+            <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0.5} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+              <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
+                <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
+                  <CountUp from={0} to={24} duration={1} startWhen={true} className="count-up-text" />+
+                </GradientText>
+                <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Client Reviews</div>
+              </div>
+            </AnimatedContent>
+          </div>
+
+          <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+            <h2 className="text-6xl font-bold pb-40">Professional Certificates</h2>
           </AnimatedContent>
-          <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0.2} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-            <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
-              <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
-                <CountUp from={0} to={60} duration={3} startWhen={true} className="count-up-text" />+
-              </GradientText>
-              <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Happy Clients</div>
-            </div>
-          </AnimatedContent>
-          <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0.4} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-            <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
-              <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
-                <CountUp from={0} to={1} duration={3} startWhen={true} className="count-up-text" />+
-              </GradientText>
-              <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Year Experiences</div>
-            </div>
-          </AnimatedContent>
-          <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0.5} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-            <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
-              <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
-                <CountUp from={0} to={24} duration={1} startWhen={true} className="count-up-text" />+
-              </GradientText>
-              <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Client Reviews</div>
+          <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true} className="pb-40">
+            <div className="items-center justify-center flex flex-col gap-20 md:flex-row">
+              <ElectricBorder color="#bf00bfff" speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
+                <div className="eb-demo-card h-[360px] w-[300px] items-start">
+                  <div className="eb-demo-badge items-start">Featured</div>
+                  <h3 className="eb-demo-title">Huawei Certified ICT Associate (HCIA) - Cloud Computing</h3>
+                  <p className="eb-demo-desc">Beginner-level Huawei certification that validates foundational knowledge in cloud computing.</p>
+
+                  <div className="eb-demo-row">
+                    <span className="eb-demo-chip">2022</span>
+                    <span className="eb-demo-chip">HUAWEI</span>
+                    <span className="eb-demo-chip">Cloud Computing</span>
+                  </div>
+                  <button className="eb-demo-cta cursor-target">View Certificate</button>
+                </div>
+              </ElectricBorder>
+
+              <ElectricBorder color="#808080" speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
+                <div className="eb-demo-card h-[360px] w-[300px] items-start">
+                  <div className="eb-demo-badge items-start">Featured</div>
+                  <h3 className="eb-demo-title">NC II – Computer System Servicing (CSS)</h3>
+                  <p className="eb-demo-desc">A technical-vocational certification in the Philippines for people who want to work in IT support and computer maintenance.</p>
+
+                  <div className="eb-demo-row">
+                    <span className="eb-demo-chip">2021</span>
+                    <span className="eb-demo-chip">TESDA</span>
+                    <span className="eb-demo-chip">NCII</span>
+                  </div>
+                  <button className="eb-demo-cta cursor-target">View Certificate</button>
+                </div>
+              </ElectricBorder>
+
+              <ElectricBorder color="#B19EEF" speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
+                <div className="eb-demo-card h-[360px] w-[300px] items-start">
+                  <div className="eb-demo-badge items-start">Featured</div>
+                  <h3 className="eb-demo-title">IBM Full Stack Software Developer</h3>
+                  <p className="eb-demo-desc">A professional training and certification program offered by IBM, usually online through platforms like Coursera</p>
+
+                  <div className="eb-demo-row">
+                    <span className="eb-demo-chip">2024</span>
+                    <span className="eb-demo-chip">IBM</span>
+                  </div>
+                  <button className="eb-demo-cta cursor-target">View Certificate</button>
+                </div>
+              </ElectricBorder>
             </div>
           </AnimatedContent>
         </div>
-
-        <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-          <h2 className="text-6xl font-bold pb-40">Professional Certificates</h2>
-        </AnimatedContent>
-        <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-          <div className="items-center justify-center flex flex-col gap-20 md:flex-row">
-            <ElectricBorder color="#bf00bfff" speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
-              <div className="eb-demo-card h-[360px] w-[300px] items-start">
-                <div className="eb-demo-badge items-start">Featured</div>
-                <h3 className="eb-demo-title">Huawei Certified ICT Associate (HCIA) - Cloud Computing</h3>
-                <p className="eb-demo-desc">Beginner-level Huawei certification that validates foundational knowledge in cloud computing.</p>
-
-                <div className="eb-demo-row">
-                  <span className="eb-demo-chip">2022</span>
-                  <span className="eb-demo-chip">HUAWEI</span>
-                  <span className="eb-demo-chip">Cloud Computing</span>
-                </div>
-                <button className="eb-demo-cta cursor-target">View Certificate</button>
-              </div>
-            </ElectricBorder>
-
-            <ElectricBorder color="#808080" speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
-              <div className="eb-demo-card h-[360px] w-[300px] items-start">
-                <div className="eb-demo-badge items-start">Featured</div>
-                <h3 className="eb-demo-title">NC II – Computer System Servicing (CSS)</h3>
-                <p className="eb-demo-desc">A technical-vocational certification in the Philippines for people who want to work in IT support and computer maintenance.</p>
-
-                <div className="eb-demo-row">
-                  <span className="eb-demo-chip">2021</span>
-                  <span className="eb-demo-chip">TESDA</span>
-                  <span className="eb-demo-chip">NCII</span>
-                </div>
-                <button className="eb-demo-cta cursor-target">View Certificate</button>
-              </div>
-            </ElectricBorder>
-
-            <ElectricBorder color="#B19EEF" speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
-              <div className="eb-demo-card h-[360px] w-[300px] items-start">
-                <div className="eb-demo-badge items-start">Featured</div>
-                <h3 className="eb-demo-title">IBM Full Stack Software Developer</h3>
-                <p className="eb-demo-desc">A professional training and certification program offered by IBM, usually online through platforms like Coursera</p>
-
-                <div className="eb-demo-row">
-                  <span className="eb-demo-chip">2024</span>
-                  <span className="eb-demo-chip">IBM</span>
-                </div>
-                <button className="eb-demo-cta cursor-target">View Certificate</button>
-              </div>
-            </ElectricBorder>
-          </div>
-        </AnimatedContent>
       </section>
 
       <section className="relative overflow-hidden w-full items-center justify-center flex flex-col  mt-[80px] pb-[50px] projects" aria-label="Projects">
@@ -316,9 +325,6 @@ function App() {
         </div>
       </section>
 
-      <div className="mt-20 md:mt-40"></div>
-      <ScrollVelocity texts={['React Portfolio', 'Full Stack Developer']} velocity={50} />
-      <div className="mb-20 md:mb-40"></div>
       <section className="relative bg-white">
         <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
           <h2 className="text-6xl font-bold pt-40 pb-40 text-black">Experiences</h2>
@@ -327,25 +333,77 @@ function App() {
         <ExperienceTimeline></ExperienceTimeline>
       </section>
 
-      <section className="relative w-full md:h-screen bg-black">
-        {/* Globe background */}
+      <div className="mt-20 md:mt-40"></div>
+      <ScrollVelocity texts={['React Portfolio', 'Full Stack Developer']} velocity={50} />
+      <div className="mb-20 md:mb-40"></div>
+
+      <section className="relative w-full bg-black h-full">
         <div className="absolute inset-0">
           <AnimatedContent distance={100} direction="horizontal" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <GlobeComponent />
           </AnimatedContent>
         </div>
 
-        {/* Main content */}
-        <div className="relative z-10 flex flex-col w-full max-w-[1800px] mx-auto p-10 gap-10 h-full">
+        <div className="relative z-10 flex flex-col w-full max-w-[1800px] mx-auto  p-5 md:p-10 gap-10 h-full">
           <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <h2 className="text-4xl font-bold text-white text-center pb-5 pt-20">Get In Touch</h2>
             <h2 className="text-6xl font-bold text-[#ff9cff] text-center pb-10">Let's Work Together</h2>
           </AnimatedContent>
 
           <AnimatedContent className="h-full" distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-            <div className="flex flex-col md:flex-row flex-1 gap-10 h-full max-h-[700px]">
-              <div className="w-full md:w-2/3 h-80 md:h-full bg-gray-800 rounded-xl overflow-hidden flex-1">
-                <iframe className="w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d73671.05206690024!2d121.55166866530044!3d13.967073040029291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd4b578caf4ccd%3A0x2be1e905c862fe1!2sLucena%20City%2C%20Quezon!5e0!3m2!1sen!2sph!4v1768105374959!5m2!1sen!2sph" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            <div className="flex flex-col-reverse md:flex-row flex-1 gap-10 h-full md:h-[650px]">
+              <div className="w-full md:w-2/3 h-full overflow-hidden flex flex-col gap-5 ">
+                <div className="flex flex-1/3 flex-col md:flex-row gap-5">
+                  <div className="w-full md:w-1/2 p-6 flex flex-col justify-start border border-white/30 rounded-xl shadow bg-gray-800 backdrop-blur-md rounded-2xl shadow-[0_8px_32px_rgba(128,0,128,0.3)] border border-white/20 text-white">
+                    <div className="text-start pb-6">
+                      <div className="flex flex-col gap-[20px] text-[#3B9DF8]">
+                        <span>
+                          <p className="text-[0.9rem] flex items-center gap-[8px] hover:text-blue-400 cursor-pointer text-white transition-all duration-300">
+                            <IoLocationOutline className="text-[1.2rem]" />
+                            Barangay Gulang-Gulang, Lucena City, Philippines
+                          </p>
+                        </span>
+                        <span>
+                          <p className="text-[0.9rem] flex items-center gap-[8px] hover:text-blue-400 cursor-pointer text-white transition-all duration-300">
+                            <MdOutlineEmail className="text-[1.1rem]" />
+                            princeyayain123@gmail.com
+                          </p>
+                        </span>
+                        <span>
+                          <p className="text-[0.9rem] flex items-center gap-[8px] hover:text-blue-400 cursor-pointer text-white transition-all duration-300">
+                            <MdOutlineLocalPhone className="text-[1.1rem]" />
+                            +639070135836
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-[10px] text-[#424242]">
+                      <a className="text-[1.3rem] p-1.5 cursor-pointer rounded-full hover:text-white hover:bg-[#3B9DF8] dark:text-slate-400 transition-all duration-300">
+                        <CgFacebook />
+                      </a>
+                      <a className="text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white hover:bg-[#3B9DF8] dark:text-slate-400 transition-all duration-300">
+                        <BsTwitter />
+                      </a>
+                      <a className="text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white hover:bg-[#3B9DF8] dark:text-slate-400 transition-all duration-300">
+                        <BsInstagram />
+                      </a>
+                      <a className="text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white hover:bg-[#3B9DF8] dark:text-slate-400 transition-all duration-300">
+                        <BsLinkedin />
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="w-full md:w-1/2 border border-white/30 rounded-xl shadow">
+                    <iframe className="w-full h-full rounded-xl" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d73671.05206690024!2d121.55166866530044!3d13.967073040029291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd4b578caf4ccd%3A0x2be1e905c862fe1!2sLucena%20City%2C%20Quezon!5e0!3m2!1sen!2sph!4v1768105374959!5m2!1sen!2sph" allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                  </div>
+                </div>
+
+                <div className="flex flex-2/3">
+                  <div className="w-full h-full">
+                    <ChatScreenWithReaction></ChatScreenWithReaction>
+                  </div>
+                </div>
               </div>
 
               <div className="w-full md:w-1/3 h-full flex flex-col">
@@ -355,6 +413,7 @@ function App() {
           </AnimatedContent>
         </div>
       </section>
+      <footer className="py-5 text-center text-gray-400">© {new Date().getFullYear()} Julius Yayain. All Rights Reserved.</footer>
     </>
   );
 }

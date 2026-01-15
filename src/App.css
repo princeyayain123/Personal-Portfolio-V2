@@ -188,9 +188,6 @@ body {
   /* width of "FULL-STACK" */
 }
 
-.cursor-target {
-  background-color: white;
-}
 
 span.text-rotate-element {
   text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -391,4 +388,17 @@ section {
   .globe-position {
     transform: translate(0, 0);
   }
+}
+
+.bg-image {
+  background-image: url('./images/hero.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+}
+
+/* width */
+::-webkit-scrollbar {
+  display: none;
 }
