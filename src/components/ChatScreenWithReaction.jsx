@@ -144,7 +144,7 @@ const ChatScreenWithReaction = () => {
               <div className="relative max-w-md flex items-end gap-2">
                 {message.sender === 'other' && <img src={message.senderProfile?.avatar} alt={message.senderProfile?.name} className="w-8 h-8 rounded-full" />}
                 <div>
-                  <div className={`px-4 py-2 rounded-high text-black dark:text-[#d2e5f5] text-sm ${message.sender === 'me' ? 'bg-blue-50 dark:bg-blue-900/90 rounded-br-none' : 'bg-gray-50 dark:bg-slate-800 rounded-bl-none'}`}>{message.text}</div>
+                  <div className={`px-4 py-2 rounded-xl text-black dark:text-[#d2e5f5] text-sm ${message.sender === 'me' ? 'bg-blue-50 dark:bg-blue-900/90 rounded-br-none' : 'bg-gray-50 dark:bg-slate-800 rounded-bl-none'}`}>{message.text}</div>
                   <div className={`${message.sender === 'me' ? 'text-right' : 'text-left'} mt-1 text-xs text-gray-500 dark:text-[#abc2d3]/80 mt`}>{message.timestamp}</div>
                 </div>
                 {message.sender === 'me' && <img src={message.senderProfile?.avatar} alt={message.senderProfile?.name} className="w-8 h-8 rounded-full" />}
@@ -160,7 +160,7 @@ const ChatScreenWithReaction = () => {
 
                 {/* Reaction button */}
                 {message.sender === 'other' && !message.reaction && (
-                  <button onClick={() => toggleReactionMenu(message.id)} title="add reaction" className="absolute bottom-2 -right-2 bg-gray-100 rounded-full p-1 shadow-sm hover:bg-gray-200 dark:bg-slate-700 dark:text-[#d2e5f5] dark:hover:bg-slate-800 transition-colors">
+                  <button onClick={() => toggleReactionMenu(message.id)} title="add reaction" className="reaction-button absolute bottom-2 -right-2 bg-gray-100 rounded-full p-1 shadow-sm hover:bg-gray-200 dark:bg-slate-700 dark:text-[#d2e5f5] dark:hover:bg-slate-800 transition-colors">
                     <FaRegSmile size={14} />
                   </button>
                 )}

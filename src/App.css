@@ -402,3 +402,15 @@ section {
 ::-webkit-scrollbar {
   display: none;
 }
+
+a.icon {
+  color: #ff9cff !important;
+}
+
+a.icon:hover {
+  color: white !important;
+}
+
+.reaction-button {
+  padding: 0 !important;
+}

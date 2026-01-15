@@ -112,22 +112,22 @@ function App() {
     }
   };
 
-  // useEffect(() => {
-  //   const lenis = new Lenis({
-  //     autoRaf: true,
-  //   });
+  useEffect(() => {
+    const lenis = new Lenis({
+      autoRaf: true,
+    });
 
-  //   function raf(time) {
-  //     lenis.raf(time);
-  //     requestAnimationFrame(raf);
-  //   }
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
 
-  //   requestAnimationFrame(raf);
+    requestAnimationFrame(raf);
 
-  //   return () => {
-  //     lenis.destroy();
-  //   };
-  // }, []);
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   return (
     <>
@@ -379,16 +379,16 @@ function App() {
                     </div>
 
                     <div className="flex items-center gap-[10px] text-[#424242]">
-                      <a className="text-[1.3rem] p-1.5 cursor-pointer rounded-full hover:text-white hover:bg-[#3B9DF8] dark:text-slate-400 transition-all duration-300">
+                      <a className="icon text-[1.3rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300">
                         <CgFacebook />
                       </a>
-                      <a className="text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white hover:bg-[#3B9DF8] dark:text-slate-400 transition-all duration-300">
+                      <a className="icon text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300">
                         <BsTwitter />
                       </a>
-                      <a className="text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white hover:bg-[#3B9DF8] dark:text-slate-400 transition-all duration-300">
+                      <a className="icon text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300">
                         <BsInstagram />
                       </a>
-                      <a className="text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white hover:bg-[#3B9DF8] dark:text-slate-400 transition-all duration-300">
+                      <a className="icon text-[1.2rem] p-1.5 cursor-pointer rounded-full hover:text-white transition-all duration-300">
                         <BsLinkedin />
                       </a>
                     </div>
