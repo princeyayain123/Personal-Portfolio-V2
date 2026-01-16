@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
 import './Masonry.css';
+import GradualBlur from './GradualBlur';
 
 const useMedia = (queries, values, defaultValue) => {
   const get = () => values[queries.findIndex((q) => matchMedia(q).matches)] ?? defaultValue;
@@ -204,7 +205,7 @@ const Masonry = ({ items, ease = 'power3.out', duration = 0.6, stagger = 0.05, a
     <div ref={containerRef} className="list" style={{ height: containerHeight }}>
       {grid.map((item) => {
         return (
-          <div key={item.id} data-key={item.id} className="item-wrapper" onClick={() => window.open(item.url, '_blank', 'noopener')} onMouseEnter={(e) => handleMouseEnter(e, item)} onMouseLeave={(e) => handleMouseLeave(e, item)}>
+          <div key={item.id} data-key={item.id} className="item-wrapper" onMouseEnter={(e) => handleMouseEnter(e, item)} onMouseLeave={(e) => handleMouseLeave(e, item)}>
             <div className="item-img" style={{ backgroundImage: `url(${item.img})` }}>
               {colorShiftOnHover && (
                 <div

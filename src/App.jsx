@@ -91,90 +91,22 @@ function App() {
   ];
 
   const item = [
-    {
-      id: '1',
-      img: 'https://picsum.photos/id/1015/600/900?grayscale',
-      url: 'https://example.com/one',
-      height: 400,
-    },
-    {
-      id: '2',
-      img: 'https://picsum.photos/id/1011/600/750?grayscale',
-      url: 'https://example.com/two',
-      height: 250,
-    },
-    {
-      id: '3',
-      img: 'https://picsum.photos/id/1020/600/800?grayscale',
-      url: 'https://example.com/three',
-      height: 600,
-    },
-    {
-      id: '4',
-      img: 'https://picsum.photos/id/1035/600/850?grayscale',
-      url: 'https://example.com/four',
-      height: 500,
-    },
-    {
-      id: '5',
-      img: 'https://picsum.photos/id/1043/600/700?grayscale',
-      url: 'https://example.com/five',
-      height: 300,
-    },
-    {
-      id: '6',
-      img: 'https://picsum.photos/id/1050/600/900?grayscale',
-      url: 'https://example.com/six',
-      height: 650,
-    },
-    {
-      id: '7',
-      img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&h=900&fit=crop&grayscale',
-      url: 'https://example.com/seven',
-      height: 550,
-    },
-    {
-      id: '8',
-      img: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&h=750&fit=crop&grayscale',
-      url: 'https://example.com/eight',
-      height: 350,
-    },
-    {
-      id: '9',
-      img: 'https://picsum.photos/id/180/600/900?grayscale',
-      url: 'https://example.com/fifteen',
-      height: 450,
-    },
-    {
-      id: '10',
-      img: 'https://picsum.photos/id/1069/600/900?grayscale',
-      url: 'https://example.com/ten',
-      height: 580,
-    },
-    {
-      id: '11',
-      img: 'https://picsum.photos/id/1074/600/780?grayscale',
-      url: 'https://example.com/eleven',
-      height: 420,
-    },
-    {
-      id: '12',
-      img: 'https://picsum.photos/id/1084/600/820?grayscale',
-      url: 'https://example.com/twelve',
-      height: 500,
-    },
-    {
-      id: '13',
-      img: 'https://picsum.photos/id/1012/600/850?grayscale',
-      url: 'https://example.com/thirteen',
-      height: 600,
-    },
-    {
-      id: '14',
-      img: 'https://picsum.photos/id/1008/600/700?grayscale',
-      url: 'https://example.com/fourteen',
-      height: 350,
-    },
+    { id: '1', img: './images/masonry/1.jpeg', url: 'https://example.com/one', height: 400 },
+    { id: '2', img: './images/masonry/2.jpeg', url: 'https://example.com/two', height: 250 },
+    { id: '3', img: './images/masonry/3.jpeg', url: 'https://example.com/three', height: 600 },
+    { id: '4', img: './images/masonry/4.jpeg', url: 'https://example.com/four', height: 500 },
+    { id: '5', img: './images/masonry/5.jpeg', url: 'https://example.com/five', height: 300 },
+    { id: '6', img: './images/masonry/16.jpeg', url: 'https://example.com/six', height: 650 },
+    { id: '7', img: './images/masonry/17.jpeg', url: 'https://example.com/seven', height: 550 },
+    { id: '8', img: './images/masonry/8.jpeg', url: 'https://example.com/eight', height: 350 },
+    { id: '9', img: './images/masonry/9.jpeg', url: 'https://example.com/nine', height: 450 },
+    { id: '10', img: './images/masonry/10.jpeg', url: 'https://example.com/ten', height: 500 },
+    { id: '11', img: './images/masonry/11.jpeg', url: 'https://example.com/eleven', height: 320 },
+    { id: '12', img: './images/masonry/12.jpeg', url: 'https://example.com/twelve', height: 500 },
+    { id: '13', img: './images/masonry/13.jpeg', url: 'https://example.com/thirteen', height: 420 },
+    { id: '14', img: './images/masonry/15.jpeg', url: 'https://example.com/fourteen', height: 400 },
+    { id: '15', img: './images/masonry/14.jpeg', url: 'https://example.com/fourteen', height: 250 },
+    { id: '16', img: './images/masonry/6.jpeg', url: 'https://example.com/fourteen', height: 200 },
   ];
 
   const techLogos = [
@@ -270,7 +202,7 @@ function App() {
               <AnimatedContent distance={60} direction="horizontal" reverse={true} duration={0.8} ease="power3.out" initialOpacity={0} animateOpacity={true} scale={1} threshold={0.1} delay={0.7}>
                 <div className="flex flex-row justify-center items-center gap-3 shadowText md:flex-row">
                   <StarBorder as="button" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="5s" thickness={4}>
-                    <button className="cursor-target bg-white text-black text-sm rounded-[50px] lg:text-xl w-full max-w-[160px] lg:max-w-[230px]">View Projects</button>
+                    <button className="cursor-target bg-white text-black text-sm rounded-[50px] lg:text-xl w-full max-w-[160px] lg:max-w-[230px]">View Dashboards</button>
                   </StarBorder>
                   <StarBorder as="button" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="4s" thickness={4}>
                     <button className="cursor-target bg-white text-white text-sm rounded-[50px] lg:text-xl hover:bg-black transition-all duration-300 ease-in-out inset-0 w-full max-w-[160px] lg:max-w-[230px]" style={{ background: '#800080' }}>
@@ -415,22 +347,23 @@ function App() {
 
       <section className="relative bg-white items-center justify-center flex flex-col">
         <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-          <h2 className="text-6xl font-bold py-20 md:py-40 text-black">Experiences</h2>
+          <h2 className="text-6xl font-bold py-20 text-black ">Experiences</h2>
         </AnimatedContent>
         <div className="flex flex-col md:flex-row max-w-[1800px] w-full">
-          <div className="w-full md:w-1/2">
+          <div className="w-full px-6 lg:px-20 lg:w-2/3">
             <AnimatedContent distance={100} direction="horizontal" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-              <Masonry items={item} ease="power3.out" duration={0.6} stagger={0.1} animateFrom="bottom" scaleOnHover={true} hoverScale={1.05} blurToFocus={true} colorShiftOnHover={true} />
+              <p className="text-black text-xl  mb-10 text-justify">I have 1+ year of experience in front-end and web development, building responsive and user-friendly web interfaces. I’ve worked on projects ranging from image labeling for machine learning to custom boat seat configurators, and most recently, online cybersecurity training platforms. I focus on creating interactive, accessible, and visually engaging web applications.</p>
+              <Masonry items={item} ease="power3.out" duration={0.6} stagger={0.1} animateFrom="bottom" scaleOnHover={true} hoverScale={0.9} blurToFocus={true} />
             </AnimatedContent>
           </div>
-          <div className="w-full md:w-1/2">
+          <div className="w-full px-6 lg:w-1/3">
             <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
               <Timeline></Timeline>
             </AnimatedContent>
           </div>
         </div>
 
-        <div className="pb-20"></div>
+        <div className="pb-10 md:pb-20"></div>
       </section>
 
       <div className="mt-20 md:mt-40"></div>

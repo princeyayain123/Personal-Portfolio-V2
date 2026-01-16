@@ -1,35 +1,35 @@
-import { TimelineData } from './Data.js';
 import MagicHoverCard from './MagicHoverCard.jsx';
+import { TimelineData } from './Data.js';
 
 const Timeline = () => {
   return (
-    <div className="w-full max-w-4xl mx-auto p-6">
-      <ul className="relative">
-        {/* Vertical line */}
-        <div className="absolute top-0 left-4 md:left-1/2 w-[2px] h-full bg-gray-200 dark:bg-slate-800 -translate-x-0 md:-translate-x-1/2" />
-
+    <div className="w-full mx-auto md:p-6 px-2 py-6">
+      {/* Vertical Line */}
+      <div className="relative border-l-4 dark:border-slate-700 border-gray-300">
         {TimelineData.map((milestone, index) => (
-          <li
-            key={index}
-            className={`relative flex w-full mb-10
-              ${index % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}
-            `}
-          >
-            {/* Dot */}
-            <div className="absolute left-4 md:left-1/2 top-6 -translate-x-0 md:-translate-x-1/2 bg-gray-200 dark:bg-slate-800 rounded-full p-2 z-10" />
-
-            {/* Card */}
+          <div key={index} className="mb-20 relative">
+            {/* Icon / Dot */}
             <div
               className={`
-                w-full max-w-sm ml-12 md:ml-0
-                ${index % 2 === 0 ? 'md:mr-12 text-left' : 'md:ml-12 text-left md:text-right'}
+                absolute top-1/2 -left-0 transform -translate-x-1/2 -translate-y-1/2
+                rounded-full p-2 z-10
+                flex items-center justify-center
+                bg-gradient-to-tr from-blue-400 to-indigo-500
+                dark:from-slate-600 dark:to-slate-500
+                shadow-lg
               `}
             >
+              {/* Render the React icon component */}
+              {milestone.icon && <milestone.icon className="w-5 h-5 text-white" />}
+            </div>
+
+            {/* Timeline card */}
+            <div className="pl-10 w-full max-w-xl text-start">
               <MagicHoverCard title={milestone.title} company={milestone.company} date={milestone.date} description={milestone.description} image={milestone.image} />
             </div>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
