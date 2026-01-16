@@ -38,6 +38,9 @@ import { BsInstagram, BsLinkedin, BsTwitter } from 'react-icons/bs';
 import { FaGithub } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
 import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+
+import Timeline from './components/Tracker/Timeline';
 
 const OPTIONS = { loop: true };
 const SLIDE_COUNT = 3;
@@ -113,22 +116,22 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    const lenis = new Lenis({
-      autoRaf: true,
-    });
+  // useEffect(() => {
+  //   const lenis = new Lenis({
+  //     autoRaf: true,
+  //   });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+  //   function raf(time) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
 
-    requestAnimationFrame(raf);
+  //   requestAnimationFrame(raf);
 
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
+  //   return () => {
+  //     lenis.destroy();
+  //   };
+  // }, []);
 
   return (
     <>
@@ -203,7 +206,7 @@ function App() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden pb-20 w-full" aria-label="About">
+      {/* <section className="relative overflow-hidden pb-20 w-full" aria-label="About">
         <div className={`flex p-8 bg-white items-center justify-center flex-col md:flex-row md:h-screen `}>
           <div className="w-full max-w-[1000px] md:w-1/2 text-start items-center justify-center px-0 text-black md:px-10">
             <div className="relative">
@@ -315,7 +318,7 @@ function App() {
             </div>
           </AnimatedContent>
         </div>
-      </section>
+      </section> */}
 
       <section className="relative overflow-hidden w-full items-center justify-center flex flex-col  mt-[80px] pb-[50px] projects" aria-label="Projects">
         <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
@@ -331,14 +334,14 @@ function App() {
           <h2 className="text-6xl font-bold pt-40 pb-40 text-black">Experiences</h2>
         </AnimatedContent>
 
-        <ExperienceTimeline></ExperienceTimeline>
+        <Timeline></Timeline>
       </section>
 
       <div className="mt-20 md:mt-40"></div>
       <ScrollVelocity texts={['React Portfolio', 'Full Stack Developer']} velocity={50} />
       <div className="mb-20 md:mb-40"></div>
 
-      <section className="relative w-full bg-black h-full">
+      {/* <section className="relative w-full bg-black h-full">
         <div className="absolute inset-0">
           <AnimatedContent distance={100} direction="horizontal" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <GlobeComponent />
@@ -416,7 +419,7 @@ function App() {
           </AnimatedContent>
         </div>
       </section>
-      <footer className="py-5 text-center text-gray-400">© {new Date().getFullYear()} Julius Yayain. All Rights Reserved.</footer>
+      <footer className="py-5 text-center text-gray-400">© {new Date().getFullYear()} Julius Yayain. All Rights Reserved.</footer> */}
     </>
   );
 }
