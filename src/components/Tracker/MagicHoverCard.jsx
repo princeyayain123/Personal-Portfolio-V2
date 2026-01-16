@@ -1,7 +1,23 @@
 import { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 
 const MagicHoverCard = ({ title, company, date, description, image }) => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Spring = how slow / lazy it follows
+  const springX = useSpring(mouseX, {
+    stiffness: 80, // LOWER = slower follow
+    damping: 25,
+    mass: 1.2,
+  });
+
+  const springY = useSpring(mouseY, {
+    stiffness: 80,
+    damping: 25,
+    mass: 1.2,
+  });
+
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const cardRef = useRef(null);
@@ -10,10 +26,8 @@ const MagicHoverCard = ({ title, company, date, description, image }) => {
   const handleMouseMove = (e) => {
     if (cardRef.current) {
       const rect = cardRef.current.getBoundingClientRect();
-      setMousePosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
+      mouseX.set(e.clientX - rect.left - 160);
+      mouseY.set(e.clientY - rect.top - 100);
     }
   };
 
@@ -26,13 +40,12 @@ const MagicHoverCard = ({ title, company, date, description, image }) => {
         {isHovered && (
           <motion.div
             className="absolute top-0 left-0 z-50 w-80 rounded-xl backdrop-blur-lg dark:bg-slate-900/40 bg-white/60 border border-white/20 shadow-[0px_0px_10px_0px_rgba(0,0,0,0.1)] overflow-hidden"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              x: mousePosition.x - 160,
-              y: mousePosition.y - 100,
+            style={{
+              x: springX,
+              y: springY,
             }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{
               type: 'spring',
