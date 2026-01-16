@@ -31,7 +31,7 @@ import GlassContactForm from './components/ReactBits/GlassContactForm';
 import ScrollVelocity from './components/ScrollVelocity';
 import MagnetLines from './components/ReactBits/MagnetLines';
 import Masonry from './components/Masonry';
-import MagicHoverCard from './components/MagicHoverCard';
+
 import ChatScreenWithReaction from './components/ChatScreenWithReaction';
 import { CgFacebook } from 'react-icons/cg';
 import { BsInstagram, BsLinkedin, BsTwitter } from 'react-icons/bs';
@@ -90,6 +90,93 @@ function App() {
     },
   ];
 
+  const item = [
+    {
+      id: '1',
+      img: 'https://picsum.photos/id/1015/600/900?grayscale',
+      url: 'https://example.com/one',
+      height: 400,
+    },
+    {
+      id: '2',
+      img: 'https://picsum.photos/id/1011/600/750?grayscale',
+      url: 'https://example.com/two',
+      height: 250,
+    },
+    {
+      id: '3',
+      img: 'https://picsum.photos/id/1020/600/800?grayscale',
+      url: 'https://example.com/three',
+      height: 600,
+    },
+    {
+      id: '4',
+      img: 'https://picsum.photos/id/1035/600/850?grayscale',
+      url: 'https://example.com/four',
+      height: 500,
+    },
+    {
+      id: '5',
+      img: 'https://picsum.photos/id/1043/600/700?grayscale',
+      url: 'https://example.com/five',
+      height: 300,
+    },
+    {
+      id: '6',
+      img: 'https://picsum.photos/id/1050/600/900?grayscale',
+      url: 'https://example.com/six',
+      height: 650,
+    },
+    {
+      id: '7',
+      img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600&h=900&fit=crop&grayscale',
+      url: 'https://example.com/seven',
+      height: 550,
+    },
+    {
+      id: '8',
+      img: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&h=750&fit=crop&grayscale',
+      url: 'https://example.com/eight',
+      height: 350,
+    },
+    {
+      id: '9',
+      img: 'https://picsum.photos/id/180/600/900?grayscale',
+      url: 'https://example.com/fifteen',
+      height: 450,
+    },
+    {
+      id: '10',
+      img: 'https://picsum.photos/id/1069/600/900?grayscale',
+      url: 'https://example.com/ten',
+      height: 580,
+    },
+    {
+      id: '11',
+      img: 'https://picsum.photos/id/1074/600/780?grayscale',
+      url: 'https://example.com/eleven',
+      height: 420,
+    },
+    {
+      id: '12',
+      img: 'https://picsum.photos/id/1084/600/820?grayscale',
+      url: 'https://example.com/twelve',
+      height: 500,
+    },
+    {
+      id: '13',
+      img: 'https://picsum.photos/id/1012/600/850?grayscale',
+      url: 'https://example.com/thirteen',
+      height: 600,
+    },
+    {
+      id: '14',
+      img: 'https://picsum.photos/id/1008/600/700?grayscale',
+      url: 'https://example.com/fourteen',
+      height: 350,
+    },
+  ];
+
   const techLogos = [
     { node: <SiHtml5 />, title: 'HTML5', href: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
     { node: <SiCss3 />, title: 'CSS3', href: 'https://developer.mozilla.org/en-US/docs/Web/CSS' },
@@ -116,22 +203,22 @@ function App() {
     }
   };
 
-  // useEffect(() => {
-  //   const lenis = new Lenis({
-  //     autoRaf: true,
-  //   });
+  useEffect(() => {
+    const lenis = new Lenis({
+      autoRaf: true,
+    });
 
-  //   function raf(time) {
-  //     lenis.raf(time);
-  //     requestAnimationFrame(raf);
-  //   }
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
 
-  //   requestAnimationFrame(raf);
+    requestAnimationFrame(raf);
 
-  //   return () => {
-  //     lenis.destroy();
-  //   };
-  // }, []);
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   return (
     <>
@@ -145,10 +232,6 @@ function App() {
             </div>
           ) : (
             <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-0 pointer-events-none opacity-0`}>
-              {/* <LightPillar topColor="#5227FF" bottomColor="#FF9FFC" intensity={1.0} rotationSpeed={0.3} glowAmount={0.002} pillarWidth={3.0} pillarHeight={0.4} noiseIntensity={0.5} pillarRotation={25} interactive={false} mixBlendMode="normal" /> */}
-              {/* <Silk speed={5} scale={1.5} color="#800080" noiseIntensity={5.5} rotation={0} /> */}
-              {/* <Aurora colorStops={['#3A29FF', '#FF94B4', '#FF3232']} blend={0.5} amplitude={1.0} speed={0.5} /> */}
-              {/* <Plasma color="#ff6b35" speed={0.6} direction="forward" scale={0.8} opacity={0.8} mouseInteractive={true} /> */}
               <Beams beamWidth={1.3} beamHeight={25} beamNumber={10} lightColor="#fb00ff" speed={4} noiseIntensity={1.2} scale={0.2} rotation={45} />
             </div>
           )}
@@ -206,7 +289,7 @@ function App() {
         </div>
       </section>
 
-      {/* <section className="relative overflow-hidden pb-20 w-full" aria-label="About">
+      <section className="relative overflow-hidden pb-20 w-full" aria-label="About">
         <div className={`flex p-8 bg-white items-center justify-center flex-col md:flex-row md:h-screen `}>
           <div className="w-full max-w-[1000px] md:w-1/2 text-start items-center justify-center px-0 text-black md:px-10">
             <div className="relative">
@@ -318,7 +401,7 @@ function App() {
             </div>
           </AnimatedContent>
         </div>
-      </section> */}
+      </section>
 
       <section className="relative overflow-hidden w-full items-center justify-center flex flex-col  mt-[80px] pb-[50px] projects" aria-label="Projects">
         <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
@@ -327,23 +410,36 @@ function App() {
         <div className="flex flex-col w-full justify-center items-center lg:flex-row gap-10 max-w-[1600px]">
           <EmblaCarousel slides={SLIDES} options={OPTIONS} />
         </div>
+        <div className="pb-20"></div>
       </section>
 
-      <section className="relative bg-white">
+      <section className="relative bg-white items-center justify-center flex flex-col">
         <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-          <h2 className="text-6xl font-bold pt-40 pb-40 text-black">Experiences</h2>
+          <h2 className="text-6xl font-bold py-20 md:py-40 text-black">Experiences</h2>
         </AnimatedContent>
+        <div className="flex flex-col md:flex-row max-w-[1800px] w-full">
+          <div className="w-full md:w-1/2">
+            <AnimatedContent distance={100} direction="horizontal" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+              <Masonry items={item} ease="power3.out" duration={0.6} stagger={0.1} animateFrom="bottom" scaleOnHover={true} hoverScale={1.05} blurToFocus={true} colorShiftOnHover={true} />
+            </AnimatedContent>
+          </div>
+          <div className="w-full md:w-1/2">
+            <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+              <Timeline></Timeline>
+            </AnimatedContent>
+          </div>
+        </div>
 
-        <Timeline></Timeline>
+        <div className="pb-20"></div>
       </section>
 
       <div className="mt-20 md:mt-40"></div>
       <ScrollVelocity texts={['React Portfolio', 'Full Stack Developer']} velocity={50} />
       <div className="mb-20 md:mb-40"></div>
 
-      {/* <section className="relative w-full bg-black h-full">
+      <section className="relative w-full bg-black h-full">
         <div className="absolute inset-0">
-          <AnimatedContent distance={100} direction="horizontal" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+          <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <GlobeComponent />
           </AnimatedContent>
         </div>
@@ -419,7 +515,7 @@ function App() {
           </AnimatedContent>
         </div>
       </section>
-      <footer className="py-5 text-center text-gray-400">© {new Date().getFullYear()} Julius Yayain. All Rights Reserved.</footer> */}
+      <footer className="py-5 text-center text-gray-400">© {new Date().getFullYear()} Julius Yayain. All Rights Reserved.</footer>
     </>
   );
 }

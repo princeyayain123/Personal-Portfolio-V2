@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const MagicHoverCard = () => {
+const MagicHoverCard = ({ title, company, date, description, image }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const cardRef = useRef(null);
@@ -18,7 +18,9 @@ const MagicHoverCard = () => {
 
   return (
     <div className="relative py-4 px-8 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onMouseMove={handleMouseMove} ref={cardRef}>
-      Open Magic Hover Card
+      <h3 className="css-v5mywq mb-auto embla-titles">{title}</h3>
+      <p className="text-lg font-semibold opacity-75 mb-2">{company}</p> <p className="text-normal opacity-75 font-normal mb-4">{date}</p>
+      <button className="eb-demo-cta-2 cursor-target w-[100px] mt-10">Read More</button>
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -38,9 +40,10 @@ const MagicHoverCard = () => {
             }}
           >
             <div className="p-5">
-              <img alt="zenui banner" src="https://camo.githubusercontent.com/9e8ab41e42e1b9eaba15f4f947fcd3e1ae7bfac3cf6fc1f3f784b7f84c26da36/68747470733a2f2f692e6962622e636f2e636f6d2f435774645231392f706f73742e706e67" className="object-cover rounded-xl" />
-              <h3 className="mb-1 text-lg font-bold dark:text-[#abc2d3] text-gray-700 mt-4">ZenUI Library</h3>
-              <p className="text-sm text-gray-500 dark:text-[#abc2d3] font-[400]">Elevate your project with free UI components, customizable icons, and a color palette. No dependencies required 🤫</p>
+              <img alt="zenui banner" src={image} className="object-cover rounded-xl" />
+              <h3 className="mb-1 text-lg font-bold text-white mt-4">{title}</h3>
+              {date}
+              <p className="text-sm text-white opacity-75 font-[400]">{description}</p>
             </div>
           </motion.div>
         )}
