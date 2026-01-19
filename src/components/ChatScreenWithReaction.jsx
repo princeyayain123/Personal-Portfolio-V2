@@ -31,7 +31,7 @@ const ChatScreenWithReaction = () => {
   // Load messages
   useEffect(() => {
     axios
-      .get('http://localhost:3000/api/users')
+      .get('https://personal-portfolio-server-1-sh0m.onrender.com/api/users')
       .then((res) => setMessages(res.data))
       .catch(console.log);
   }, []);
@@ -57,7 +57,12 @@ const ChatScreenWithReaction = () => {
 
     setMessages((prev) => [...prev, message]);
 
-    axios.post('http://localhost:3000/api/users', message).catch(console.log);
+    axios
+      .post('https://personal-portfolio-server-1-sh0m.onrender.com/api/users', message)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch(console.log);
 
     setNewMessage('');
     inputRef.current?.focus();
