@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { error } from 'console';
 
 const GlassContactForm = () => {
   const [name, setName] = useState('');
@@ -11,24 +12,17 @@ const GlassContactForm = () => {
   const handleRequest = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:3000/api/contacts', {
-      name,
-      email,
-      message,
-    });
-  };
-
-  useEffect(() => {
     axios
-      .get('http://localhost:3000/api/contacts')
+      .post('https://personal-portfolio-server-1-sh0m.onrender.com/api/contacts', {
+        name,
+        email,
+        message,
+      })
       .then((res) => {
-        setContacts(res.data);
         console.log(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+      .catch(console.log);
+  };
 
   return (
     <div className="flex w-full h-full items-center justify-end">
