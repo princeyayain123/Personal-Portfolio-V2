@@ -366,9 +366,9 @@ function App() {
         <div className="pb-10 md:pb-20"></div>
       </section>
 
-      <div className="mt-20 md:mt-40 bg-black"></div>
+      <div className="mt-20 md:mt-40 bg-black velocity"></div>
       <ScrollVelocity className="bg-black" texts={['React Portfolio', 'Full Stack Developer']} velocity={50} />
-      <div className="mb-20 md:mb-40 bg-black"></div>
+      <div className="mb-20 md:mb-40 bg-black velocity"></div>
 
       <section className="relative w-full bg-black h-full">
         <div className="absolute inset-0">
