@@ -39,7 +39,7 @@ const ChatScreenWithReaction = () => {
   const handleSendMessage = () => {
     if (!newMessage.trim()) return;
 
-    const newId = messages.length ? Math.max(...messages.map((m) => m.id)) + 1 : 1;
+    const newId = messages.length ? Math.max(...messages.map((m) => m._id)) + 1 : 1;
 
     const message = {
       id: newId,
@@ -69,7 +69,7 @@ const ChatScreenWithReaction = () => {
   };
 
   const handleReaction = (messageId, reaction) => {
-    setMessages((prev) => prev.map((m) => (m.id === messageId ? { ...m, reaction: m.reaction === reaction ? null : reaction } : m)));
+    setMessages((prev) => prev.map((m) => (m._id === messageId ? { ...m, reaction: m.reaction === reaction ? null : reaction } : m)));
     setReactingTo(null);
   };
 
@@ -98,7 +98,7 @@ const ChatScreenWithReaction = () => {
             const sender = getSender(message);
 
             return (
-              <motion.div key={message.id} custom={sender} variants={messageVariants} initial="hidden" animate="visible" exit="exit" layout className={`mb-4 flex ${sender === 'me' ? 'justify-end' : 'justify-start'}`}>
+              <motion.div key={message._id} custom={sender} variants={messageVariants} initial="hidden" animate="visible" exit="exit" layout className={`mb-4 flex ${sender === 'me' ? 'justify-end' : 'justify-start'}`}>
                 <div className="relative max-w-md flex items-end gap-2">
                   {sender === 'other' && <img src={message.senderProfile?.avatar} className="w-8 h-8 rounded-full" />}
 
@@ -110,7 +110,7 @@ const ChatScreenWithReaction = () => {
                   {sender === 'me' && <img src={message.senderProfile?.avatar} className="w-8 h-8 rounded-full" />}
 
                   {message.reaction && (
-                    <span onClick={() => setReactingTo(message.id)} className="absolute -right-2 bottom-2 bg-white dark:bg-slate-800 rounded-full min-w-[25px] min-h-[25px] flex items-center justify-center cursor-pointer">
+                    <span onClick={() => setReactingTo(message._id)} className="absolute -right-2 bottom-2 bg-white dark:bg-slate-800 rounded-full min-w-[25px] min-h-[25px] flex items-center justify-center cursor-pointer">
                       {message.reaction === 'love' && <LuHeart size={12} color="red" />}
                       {message.reaction === 'like' && <LuThumbsUp size={12} color="blue" />}
                       {message.reaction === 'smile' && <FaRegSmile size={12} color="gold" />}
@@ -118,21 +118,21 @@ const ChatScreenWithReaction = () => {
                   )}
 
                   {sender === 'other' && !message.reaction && (
-                    <button onClick={() => setReactingTo(message.id)} className="absolute bottom-2 -right-2 bg-gray-100 dark:bg-slate-700 rounded-full p-1">
+                    <button onClick={() => setReactingTo(message._id)} className="absolute bottom-2 -right-2 bg-gray-100 dark:bg-slate-700 rounded-full p-1">
                       <FaRegSmile size={14} />
                     </button>
                   )}
 
                   <AnimatePresence>
-                    {reactingTo === message.id && (
+                    {reactingTo === message._id && (
                       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="absolute -bottom-6 right-0 bg-white dark:bg-slate-800 rounded-full p-1 flex gap-1 shadow">
-                        <button onClick={() => handleReaction(message.id, 'love')}>
+                        <button onClick={() => handleReaction(message._id, 'love')}>
                           <LuHeart size={15} />
                         </button>
-                        <button onClick={() => handleReaction(message.id, 'like')}>
+                        <button onClick={() => handleReaction(message._id, 'like')}>
                           <LuThumbsUp size={15} />
                         </button>
-                        <button onClick={() => handleReaction(message.id, 'smile')}>
+                        <button onClick={() => handleReaction(message._id, 'smile')}>
                           <FaRegSmile size={16} />
                         </button>
                       </motion.div>
