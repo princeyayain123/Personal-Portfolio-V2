@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { error } from 'console';
 
 const GlassContactForm = () => {
   const [name, setName] = useState('');
@@ -19,7 +18,7 @@ const GlassContactForm = () => {
         message,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log('asdas');
       })
       .catch(console.log);
   };
