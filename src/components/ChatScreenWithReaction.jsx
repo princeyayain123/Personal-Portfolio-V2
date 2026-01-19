@@ -39,10 +39,7 @@ const ChatScreenWithReaction = () => {
   const handleSendMessage = () => {
     if (!newMessage.trim()) return;
 
-    const newId = messages.length ? Math.max(...messages.map((m) => m.id)) + 1 : 1;
-
     const message = {
-      id: newId,
       text: newMessage,
       senderId: MY_ID,
       senderProfile: {
@@ -60,7 +57,7 @@ const ChatScreenWithReaction = () => {
     axios
       .post('https://personal-portfolio-server-1-sh0m.onrender.com/api/users', message)
       .then((res) => {
-        console.log(res.data);
+        setMessages((prev) => [...prev, res.data]);
       })
       .catch(console.log);
 
