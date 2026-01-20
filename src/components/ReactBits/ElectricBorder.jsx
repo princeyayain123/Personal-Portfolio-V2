@@ -1,15 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import './ElectricBorder.css';
 
-const ElectricBorder = ({
-  children,
-  color = '#5227FF',
-  speed = 1,
-  chaos = 0.12,
-  borderRadius = 24,
-  className,
-  style
-}) => {
+const ElectricBorder = ({ children, color = '#5227FF', speed = 1, chaos = 0.12, borderRadius = 24, className, style }) => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const animationRef = useRef(null);
@@ -17,7 +9,7 @@ const ElectricBorder = ({
   const lastFrameTimeRef = useRef(0);
 
   // Noise functions
-  const random = useCallback(x => {
+  const random = useCallback((x) => {
     return (Math.sin(x * 12.9898) * 43758.5453) % 1;
   }, []);
 
@@ -66,7 +58,7 @@ const ElectricBorder = ({
     const angle = startAngle + progress * arcLength;
     return {
       x: centerX + radius * Math.cos(angle),
-      y: centerY + radius * Math.sin(angle)
+      y: centerY + radius * Math.sin(angle),
     };
   }, []);
 
@@ -172,7 +164,7 @@ const ElectricBorder = ({
 
     let { width, height } = updateSize();
 
-    const drawElectricBorder = currentTime => {
+    const drawElectricBorder = (currentTime) => {
       if (!canvas || !ctx) return;
 
       const deltaTime = (currentTime - lastFrameTimeRef.current) / 1000;
@@ -208,29 +200,9 @@ const ElectricBorder = ({
 
         const point = getRoundedRectPoint(progress, left, top, borderWidth, borderHeight, radius);
 
-        const xNoise = octavedNoise(
-          progress * 8,
-          octaves,
-          lacunarity,
-          gain,
-          amplitude,
-          frequency,
-          timeRef.current,
-          0,
-          baseFlatness
-        );
+        const xNoise = octavedNoise(progress * 8, octaves, lacunarity, gain, amplitude, frequency, timeRef.current, 0, baseFlatness);
 
-        const yNoise = octavedNoise(
-          progress * 8,
-          octaves,
-          lacunarity,
-          gain,
-          amplitude,
-          frequency,
-          timeRef.current,
-          1,
-          baseFlatness
-        );
+        const yNoise = octavedNoise(progress * 8, octaves, lacunarity, gain, amplitude, frequency, timeRef.current, 1, baseFlatness);
 
         const displacedX = point.x + xNoise * scale;
         const displacedY = point.y + yNoise * scale;
@@ -269,14 +241,11 @@ const ElectricBorder = ({
 
   const vars = {
     '--electric-border-color': color,
-    borderRadius: borderRadius
+    borderRadius: borderRadius,
   };
 
   return (
     <div ref={containerRef} className={`electric-border ${className ?? ''}`} style={{ ...vars, ...style }}>
-      <div className="eb-canvas-container">
-        <canvas ref={canvasRef} className="eb-canvas" />
-      </div>
       <div className="eb-layers">
         <div className="eb-glow-1" />
         <div className="eb-glow-2" />
