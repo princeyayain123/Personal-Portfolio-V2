@@ -92,7 +92,7 @@ const ChatScreenWithReaction = () => {
 
   return (
     <div className="flex flex-col border border-white/30 rounded-lg shadow w-full h-full">
-      <div className="flex-1 p-4 pr-8 overflow-y-auto max-h-[320px]">
+      <div data-lenis-prevent className="flex-1 p-4 pr-8 overflow-y-auto max-h-[320px]">
         <AnimatePresence>
           {messages.map((message) => {
             const sender = getSender(message);
@@ -118,7 +118,7 @@ const ChatScreenWithReaction = () => {
                   )}
 
                   {sender === 'other' && !message.reaction && (
-                    <button onClick={() => setReactingTo(message._id)} className="absolute bottom-2 -right-2 bg-gray-100 dark:bg-slate-700 rounded-full p-1">
+                    <button onClick={() => setReactingTo(message._id)} className="absolute bottom-2 -right-2 bg-gray-100 dark:bg-slate-700 rounded-full p-1 reaction-button">
                       <FaRegSmile size={14} />
                     </button>
                   )}
