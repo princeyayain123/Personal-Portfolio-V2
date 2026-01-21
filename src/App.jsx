@@ -378,9 +378,9 @@ function App() {
 
       <section className="relative w-full bg-black h-full">
         <div className="absolute inset-0">
-          {/* <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+          <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <GlobeComponent />
-          </AnimatedContent> */}
+          </AnimatedContent>
         </div>
 
         <div className="relative z-10 flex flex-col w-full max-w-[1800px] mx-auto  p-5 md:p-10 gap-10 h-full">
