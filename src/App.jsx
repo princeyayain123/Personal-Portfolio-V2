@@ -152,6 +152,12 @@ function App() {
     };
   }, []);
 
+  const openResume = () => {
+    console.log('asdasd');
+    const pdfUrl = '/pdf/Resume.pdf'; // Replace with your PDF file path
+    window.open(pdfUrl, '_blank');
+  };
+
   return (
     <>
       <section className="relative overflow-hidden h-screen w-full" aria-label="Home">
@@ -204,7 +210,7 @@ function App() {
                   <StarBorder as="button" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="5s" thickness={4}>
                     <button className="cursor-target bg-white text-black text-sm rounded-[50px] lg:text-xl w-full max-w-[160px] lg:max-w-[230px]">View Dashboards</button>
                   </StarBorder>
-                  <StarBorder as="button" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="4s" thickness={4}>
+                  <StarBorder onClick={openResume} as="button" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="4s" thickness={4}>
                     <button className="cursor-target bg-white text-white text-sm rounded-[50px] lg:text-xl hover:bg-black transition-all duration-300 ease-in-out inset-0 w-full max-w-[160px] lg:max-w-[230px]" style={{ background: '#800080' }}>
                       Download Resume
                     </button>
@@ -372,9 +378,9 @@ function App() {
 
       <section className="relative w-full bg-black h-full">
         <div className="absolute inset-0">
-          <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+          {/* <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <GlobeComponent />
-          </AnimatedContent>
+          </AnimatedContent> */}
         </div>
 
         <div className="relative z-10 flex flex-col w-full max-w-[1800px] mx-auto  p-5 md:p-10 gap-10 h-full">

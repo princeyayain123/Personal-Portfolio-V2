@@ -18,6 +18,7 @@ const GlassContactForm = () => {
         message,
       })
       .then((res) => {
+        console.log(res.data);
         console.log('asdas');
       })
       .catch(console.log);
