@@ -98,7 +98,31 @@ const ChatScreenWithReaction = () => {
     <div className="flex flex-col border border-white/30 rounded-lg shadow w-full h-full">
       {loading && (
         <div className="flex-1 p-4 pr-8 overflow-y-auto max-h-[320px] justify-center items-center text-2xl" style={{ display: 'flex' }}>
-          Loading...
+          <div
+            className="w-[56px] h-[56px]"
+            style={{
+              '--c': 'radial-gradient(farthest-side, #800080 92%, transparent)',
+              background: `
+                  var(--c) 50% 0,
+                  var(--c) 50% 100%,
+                  var(--c) 100% 50%,
+                  var(--c) 0 50%
+              `,
+              backgroundSize: '13.4px 13.4px',
+              backgroundRepeat: 'no-repeat',
+              animation: 'spinner-kh173p 1s infinite',
+            }}
+          >
+            <style>
+              {`
+          @keyframes spinner-kh173p {
+            to {
+              transform: rotate(0.5turn);
+              }
+            }
+            `}
+            </style>
+          </div>
         </div>
       )}
       {!loading && (

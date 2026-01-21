@@ -127,6 +127,31 @@ function App() {
     { node: <SiGithub />, title: 'GitHub', href: 'https://github.com' },
   ];
 
+  const certificates = [
+    {
+      title: 'Huawei Certified ICT Associate (HCIA) - Cloud Computing',
+      description: 'Beginner-level Huawei certification that validates foundational knowledge in cloud computing.',
+      skills: ['2022', 'HUAWEI', 'Cloud Computing'],
+      color: '#bf00bfff',
+      img: './img.png',
+    },
+    {
+      title: 'NC II – Computer System Servicing (CSS)',
+      description: 'A technical-vocational certification in the Philippines for people who want to work in IT support and computer maintenance.',
+      skills: ['2021', 'TESDA', 'NCII'],
+      color: '#808080',
+      img: './img.png',
+    },
+    {
+      title: 'IBM Full Stack Software Developer',
+      description: 'A professional training and certification program offered by IBM, usually online through platforms like Coursera',
+      skills: ['2024', 'IBM'],
+
+      color: '#B19EEF',
+      img: './img.png',
+    },
+  ];
+
   const showBg = () => {
     const bg = document.querySelector('.ballpit');
     if (bg) {
@@ -154,7 +179,7 @@ function App() {
 
   const openResume = () => {
     console.log('asdasd');
-    const pdfUrl = '/pdf/Resume.pdf'; // Replace with your PDF file path
+    const pdfUrl = '/pdf/Resume.pdf';
     window.open(pdfUrl, '_blank');
   };
 
@@ -293,49 +318,24 @@ function App() {
           </AnimatedContent>
           <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true} className="pb-40">
             <div className="items-center justify-center flex flex-col gap-20 md:flex-row">
-              <ElectricBorder color="#bf00bfff" speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
-                <div className="eb-demo-card h-[360px] w-[300px] items-start">
-                  <div className="eb-demo-badge items-start">Featured</div>
-                  <h3 className="eb-demo-title">Huawei Certified ICT Associate (HCIA) - Cloud Computing</h3>
-                  <p className="eb-demo-desc">Beginner-level Huawei certification that validates foundational knowledge in cloud computing.</p>
+              {certificates.map((certificate) => {
+                return (
+                  <ElectricBorder color={certificate.color} speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
+                    <div className="eb-demo-card h-[360px] w-[300px] items-start">
+                      <div className="eb-demo-badge items-start">Featured</div>
+                      <h3 className="eb-demo-title">{certificate.title}</h3>
+                      <p className="eb-demo-desc">{certificate.description}</p>
 
-                  <div className="eb-demo-row">
-                    <span className="eb-demo-chip">2022</span>
-                    <span className="eb-demo-chip">HUAWEI</span>
-                    <span className="eb-demo-chip">Cloud Computing</span>
-                  </div>
-                  <button className="eb-demo-cta cursor-target">View Certificate</button>
-                </div>
-              </ElectricBorder>
-
-              <ElectricBorder color="#808080" speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
-                <div className="eb-demo-card h-[360px] w-[300px] items-start">
-                  <div className="eb-demo-badge items-start">Featured</div>
-                  <h3 className="eb-demo-title">NC II – Computer System Servicing (CSS)</h3>
-                  <p className="eb-demo-desc">A technical-vocational certification in the Philippines for people who want to work in IT support and computer maintenance.</p>
-
-                  <div className="eb-demo-row">
-                    <span className="eb-demo-chip">2021</span>
-                    <span className="eb-demo-chip">TESDA</span>
-                    <span className="eb-demo-chip">NCII</span>
-                  </div>
-                  <button className="eb-demo-cta cursor-target">View Certificate</button>
-                </div>
-              </ElectricBorder>
-
-              <ElectricBorder color="#B19EEF" speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
-                <div className="eb-demo-card h-[360px] w-[300px] items-start">
-                  <div className="eb-demo-badge items-start">Featured</div>
-                  <h3 className="eb-demo-title">IBM Full Stack Software Developer</h3>
-                  <p className="eb-demo-desc">A professional training and certification program offered by IBM, usually online through platforms like Coursera</p>
-
-                  <div className="eb-demo-row">
-                    <span className="eb-demo-chip">2024</span>
-                    <span className="eb-demo-chip">IBM</span>
-                  </div>
-                  <button className="eb-demo-cta cursor-target">View Certificate</button>
-                </div>
-              </ElectricBorder>
+                      <div className="eb-demo-row">
+                        {certificate.skills.map((skill) => {
+                          return <span className="eb-demo-chip">{skill}</span>;
+                        })}
+                      </div>
+                      <button className="eb-demo-cta cursor-target">View Certificate</button>
+                    </div>
+                  </ElectricBorder>
+                );
+              })}
             </div>
           </AnimatedContent>
         </div>
@@ -378,9 +378,9 @@ function App() {
 
       <section className="relative w-full bg-black h-full">
         <div className="absolute inset-0">
-          <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+          {/* <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <GlobeComponent />
-          </AnimatedContent>
+          </AnimatedContent> */}
         </div>
 
         <div className="relative z-10 flex flex-col w-full max-w-[1800px] mx-auto  p-5 md:p-10 gap-10 h-full">
