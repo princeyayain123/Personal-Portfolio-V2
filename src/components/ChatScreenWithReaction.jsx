@@ -113,7 +113,7 @@ const ChatScreenWithReaction = () => {
                     {sender === 'other' && <img src={message.senderProfile?.avatar} className="w-8 h-8 rounded-full" />}
 
                     <div>
-                      <div className={`px-4 py-2 rounded-xl text-sm ${sender === 'me' ? 'bg-blue-50 dark:bg-blue-900/90 rounded-br-none' : 'bg-gray-50 dark:bg-slate-800 rounded-bl-none'}`}>{message.text}</div>
+                      <div className={`px-4 py-2 rounded-xl text-sm ${sender === 'me' ? 'bg-blue-50 dark:bg-blue-900/90 rounded-br-none text-end' : 'bg-gray-50 dark:bg-slate-800 rounded-bl-none text-start'}`}>{message.text}</div>
                       <div className={`mt-1 text-xs text-gray-500 ${sender === 'me' ? 'text-right' : 'text-left'}`}>{message.timestamp}</div>
                     </div>
 
