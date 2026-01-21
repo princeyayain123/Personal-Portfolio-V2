@@ -24,6 +24,7 @@ const ChatScreenWithReaction = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [reactingTo, setReactingTo] = useState(null);
+  const [loading, setLoading] = useState(true);
   const inputRef = useRef(null);
 
   const getSender = (message) => (message.senderId === MY_ID ? 'me' : 'other');
@@ -32,7 +33,10 @@ const ChatScreenWithReaction = () => {
   useEffect(() => {
     axios
       .get('https://personal-portfolio-server-1-sh0m.onrender.com/api/users')
-      .then((res) => setMessages(res.data))
+      .then((res) => {
+        setLoading(false);
+        setMessages(res.data);
+      })
       .catch(console.log);
   }, []);
 
@@ -92,58 +96,65 @@ const ChatScreenWithReaction = () => {
 
   return (
     <div className="flex flex-col border border-white/30 rounded-lg shadow w-full h-full">
-      <div data-lenis-prevent className="flex-1 p-4 pr-8 overflow-y-auto max-h-[320px]">
-        <AnimatePresence>
-          {messages.map((message) => {
-            const sender = getSender(message);
+      {loading && (
+        <div className="flex-1 p-4 pr-8 overflow-y-auto max-h-[320px] justify-center items-center text-2xl" style={{ display: 'flex' }}>
+          Loading...
+        </div>
+      )}
+      {!loading && (
+        <div data-lenis-prevent className="flex-1 p-4 pr-8 overflow-y-auto max-h-[320px]">
+          <AnimatePresence>
+            {messages.map((message) => {
+              const sender = getSender(message);
 
-            return (
-              <motion.div key={message._id} custom={sender} variants={messageVariants} initial="hidden" animate="visible" exit="exit" layout className={`mb-4 flex ${sender === 'me' ? 'justify-end' : 'justify-start'}`}>
-                <div className="relative max-w-md flex items-end gap-2">
-                  {sender === 'other' && <img src={message.senderProfile?.avatar} className="w-8 h-8 rounded-full" />}
+              return (
+                <motion.div key={message._id} custom={sender} variants={messageVariants} initial="hidden" animate="visible" exit="exit" layout className={`mb-4 flex ${sender === 'me' ? 'justify-end' : 'justify-start'}`}>
+                  <div className="relative max-w-md flex items-end gap-2">
+                    {sender === 'other' && <img src={message.senderProfile?.avatar} className="w-8 h-8 rounded-full" />}
 
-                  <div>
-                    <div className={`px-4 py-2 rounded-xl text-sm ${sender === 'me' ? 'bg-blue-50 dark:bg-blue-900/90 rounded-br-none' : 'bg-gray-50 dark:bg-slate-800 rounded-bl-none'}`}>{message.text}</div>
-                    <div className={`mt-1 text-xs text-gray-500 ${sender === 'me' ? 'text-right' : 'text-left'}`}>{message.timestamp}</div>
-                  </div>
+                    <div>
+                      <div className={`px-4 py-2 rounded-xl text-sm ${sender === 'me' ? 'bg-blue-50 dark:bg-blue-900/90 rounded-br-none' : 'bg-gray-50 dark:bg-slate-800 rounded-bl-none'}`}>{message.text}</div>
+                      <div className={`mt-1 text-xs text-gray-500 ${sender === 'me' ? 'text-right' : 'text-left'}`}>{message.timestamp}</div>
+                    </div>
 
-                  {sender === 'me' && <img src={message.senderProfile?.avatar} className="w-8 h-8 rounded-full" />}
+                    {sender === 'me' && <img src={message.senderProfile?.avatar} className="w-8 h-8 rounded-full" />}
 
-                  {message.reaction && (
-                    <span onClick={() => setReactingTo(message._id)} className="absolute -right-2 bottom-2 bg-white dark:bg-slate-800 rounded-full min-w-[25px] min-h-[25px] flex items-center justify-center cursor-pointer">
-                      {message.reaction === 'love' && <LuHeart size={12} color="red" />}
-                      {message.reaction === 'like' && <LuThumbsUp size={12} color="blue" />}
-                      {message.reaction === 'smile' && <FaRegSmile size={12} color="gold" />}
-                    </span>
-                  )}
-
-                  {sender === 'other' && !message.reaction && (
-                    <button onClick={() => setReactingTo(message._id)} className="absolute bottom-2 -right-2 bg-gray-100 dark:bg-slate-700 rounded-full p-1 reaction-button">
-                      <FaRegSmile size={14} />
-                    </button>
-                  )}
-
-                  <AnimatePresence>
-                    {reactingTo === message._id && (
-                      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="absolute -bottom-6 right-0 bg-white dark:bg-slate-800 rounded-full p-1 flex gap-1 shadow">
-                        <button onClick={() => handleReaction(message._id, 'love')}>
-                          <LuHeart size={15} />
-                        </button>
-                        <button onClick={() => handleReaction(message._id, 'like')}>
-                          <LuThumbsUp size={15} />
-                        </button>
-                        <button onClick={() => handleReaction(message._id, 'smile')}>
-                          <FaRegSmile size={16} />
-                        </button>
-                      </motion.div>
+                    {message.reaction && (
+                      <span onClick={() => setReactingTo(message._id)} className="absolute -right-2 bottom-2 bg-white dark:bg-slate-800 rounded-full min-w-[25px] min-h-[25px] flex items-center justify-center cursor-pointer">
+                        {message.reaction === 'love' && <LuHeart size={12} color="red" />}
+                        {message.reaction === 'like' && <LuThumbsUp size={12} color="blue" />}
+                        {message.reaction === 'smile' && <FaRegSmile size={12} color="gold" />}
+                      </span>
                     )}
-                  </AnimatePresence>
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
+
+                    {sender === 'other' && !message.reaction && (
+                      <button onClick={() => setReactingTo(message._id)} className="absolute bottom-2 -right-2 bg-gray-100 dark:bg-slate-700 rounded-full p-1 reaction-button">
+                        <FaRegSmile size={14} />
+                      </button>
+                    )}
+
+                    <AnimatePresence>
+                      {reactingTo === message._id && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="absolute -bottom-6 right-0 bg-white dark:bg-slate-800 rounded-full p-1 flex gap-1 shadow">
+                          <button onClick={() => handleReaction(message._id, 'love')}>
+                            <LuHeart size={15} />
+                          </button>
+                          <button onClick={() => handleReaction(message._id, 'like')}>
+                            <LuThumbsUp size={15} />
+                          </button>
+                          <button onClick={() => handleReaction(message._id, 'smile')}>
+                            <FaRegSmile size={16} />
+                          </button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
+      )}
 
       <div className="p-4">
         <div className="flex gap-2">
