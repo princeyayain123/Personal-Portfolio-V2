@@ -416,6 +416,25 @@ a.icon:hover {
 }
 
 .velocity {
-
   background-color: black !important;
+}
+
+@keyframes bounceSlow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+.bounce-slow {
+  animation: bounceSlow 1.6s infinite ease-in-out;
+}
+
+.nav-card-link {
+  color: white !important;
 }
