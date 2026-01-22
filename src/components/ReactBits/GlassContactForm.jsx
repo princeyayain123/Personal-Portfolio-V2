@@ -96,7 +96,7 @@ const GlassContactForm = () => {
         <div className="flex items-center gap-[10px]">
           <MdOutlineDone className="text-green-500 text-[1.3rem] mt-0.5 border border-green-500 rounded-full p-0.5" />
           <div className="text-start">
-            <h3 className="text-[1rem] dark:text-[#abc2d3] font-[600]">Thank you for contacting us!</h3>
+            <h3 className="text-[1rem] dark:text-[#abc2d3] font-[600]">Thank you for contacting me!</h3>
             <p className="text-[0.8rem] dark:text-slate-400">I will reach you out ASAP!</p>
           </div>
         </div>

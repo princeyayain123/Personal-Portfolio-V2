@@ -97,7 +97,7 @@ const ChatScreenWithReaction = () => {
   return (
     <div className="flex flex-col border border-white/30 rounded-lg shadow w-full h-full">
       {loading && (
-        <div className="flex-1 p-4 pr-8 overflow-y-auto max-h-[320px] justify-center items-center text-2xl" style={{ display: 'flex' }}>
+        <div className="flex-1 flex-row p-4 pr-8 overflow-y-auto max-h-[320px] justify-center items-center text-2xl gap-4" style={{ display: 'flex' }}>
           <div
             className="w-[56px] h-[56px]"
             style={{
@@ -123,6 +123,7 @@ const ChatScreenWithReaction = () => {
             `}
             </style>
           </div>
+          <div>Loading...</div>
         </div>
       )}
       {!loading && (
