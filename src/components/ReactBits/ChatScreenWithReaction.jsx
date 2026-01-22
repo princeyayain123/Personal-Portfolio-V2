@@ -1,0 +1,196 @@
+import { useState, useRef, useEffect, useMemo } from 'react';
+
+// framer motion
+import { motion, AnimatePresence } from 'framer-motion';
+
+// react icons
+import { LuHeart, LuSend, LuThumbsUp } from 'react-icons/lu';
+import { FaRegSmile } from 'react-icons/fa';
+
+import axios from 'axios';
+
+function getMyId() {
+  let id = localStorage.getItem('me');
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem('me', id);
+  }
+  return id;
+}
+
+const ChatScreenWithReaction = () => {
+  const MY_ID = useMemo(() => getMyId(), []);
+
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [reactingTo, setReactingTo] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const inputRef = useRef(null);
+
+  const getSender = (message) => (message.senderId === MY_ID ? 'me' : 'other');
+
+  // Load messages
+  useEffect(() => {
+    axios
+      .get('https://personal-portfolio-server-1-sh0m.onrender.com/api/users')
+      .then((res) => {
+        setLoading(false);
+        setMessages(res.data);
+      })
+      .catch(console.log);
+  }, []);
+
+  const handleSendMessage = () => {
+    if (!newMessage.trim()) return;
+
+    const newId = messages.length ? Math.max(...messages.map((m) => m._id)) + 1 : 1;
+
+    const message = {
+      id: newId,
+      text: newMessage,
+      senderId: MY_ID,
+      senderProfile: {
+        avatar: 'https://i.pravatar.cc/40?u=' + MY_ID,
+      },
+      timestamp: new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+      reaction: null,
+    };
+
+    setMessages((prev) => [...prev, message]);
+
+    axios
+      .post('https://personal-portfolio-server-1-sh0m.onrender.com/api/users', message)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch(console.log);
+
+    setNewMessage('');
+    inputRef.current?.focus();
+  };
+
+  const handleReaction = (messageId, reaction) => {
+    setMessages((prev) => prev.map((m) => (m._id === messageId ? { ...m, reaction: m.reaction === reaction ? null : reaction } : m)));
+    setReactingTo(null);
+  };
+
+  const messageVariants = {
+    hidden: (sender) => ({
+      opacity: 0,
+      y: 20,
+      x: sender === 'me' ? 50 : -50,
+      scale: 0.9,
+    }),
+    visible: {
+      opacity: 1,
+      y: 0,
+      x: 0,
+      scale: 1,
+      transition: { type: 'spring', stiffness: 220, damping: 18 },
+    },
+    exit: { opacity: 0, y: 10, scale: 0.9 },
+  };
+
+  return (
+    <div className="flex flex-col border border-white/30 rounded-lg shadow w-full h-full">
+      {loading && (
+        <div className="flex-1 flex-row p-4 pr-8 overflow-y-auto max-h-[320px] justify-center items-center text-2xl gap-4" style={{ display: 'flex' }}>
+          <div
+            className="w-[56px] h-[56px]"
+            style={{
+              '--c': 'radial-gradient(farthest-side, #800080 92%, transparent)',
+              background: `
+                  var(--c) 50% 0,
+                  var(--c) 50% 100%,
+                  var(--c) 100% 50%,
+                  var(--c) 0 50%
+              `,
+              backgroundSize: '13.4px 13.4px',
+              backgroundRepeat: 'no-repeat',
+              animation: 'spinner-kh173p 1s infinite',
+            }}
+          >
+            <style>
+              {`
+          @keyframes spinner-kh173p {
+            to {
+              transform: rotate(0.5turn);
+              }
+            }
+            `}
+            </style>
+          </div>
+          <div>Loading...</div>
+        </div>
+      )}
+      {!loading && (
+        <div data-lenis-prevent className="flex-1 p-4 pr-8 overflow-y-auto max-h-[320px]">
+          <AnimatePresence>
+            {messages.map((message) => {
+              const sender = getSender(message);
+
+              return (
+                <motion.div key={message._id} custom={sender} variants={messageVariants} initial="hidden" animate="visible" exit="exit" layout className={`mb-4 flex ${sender === 'me' ? 'justify-end' : 'justify-start'}`}>
+                  <div className="relative max-w-md flex items-end gap-2">
+                    {sender === 'other' && <img src={message.senderProfile?.avatar} className="w-8 h-8 rounded-full" />}
+
+                    <div>
+                      <div className={`px-4 py-2 rounded-xl text-sm ${sender === 'me' ? 'bg-blue-50 dark:bg-blue-900/90 rounded-br-none text-end' : 'bg-gray-50 dark:bg-slate-800 rounded-bl-none text-start'}`}>{message.text}</div>
+                      <div className={`mt-1 text-xs text-gray-500 ${sender === 'me' ? 'text-right' : 'text-left'}`}>{message.timestamp}</div>
+                    </div>
+
+                    {sender === 'me' && <img src={message.senderProfile?.avatar} className="w-8 h-8 rounded-full" />}
+
+                    {message.reaction && (
+                      <span onClick={() => setReactingTo(message._id)} className="absolute -right-2 bottom-2 bg-white dark:bg-slate-800 rounded-full min-w-[25px] min-h-[25px] flex items-center justify-center cursor-pointer">
+                        {message.reaction === 'love' && <LuHeart size={12} color="red" />}
+                        {message.reaction === 'like' && <LuThumbsUp size={12} color="blue" />}
+                        {message.reaction === 'smile' && <FaRegSmile size={12} color="gold" />}
+                      </span>
+                    )}
+
+                    {sender === 'other' && !message.reaction && (
+                      <button onClick={() => setReactingTo(message._id)} className="absolute bottom-2 -right-2 bg-gray-100 dark:bg-slate-700 rounded-full p-1 reaction-button">
+                        <FaRegSmile size={14} />
+                      </button>
+                    )}
+
+                    <AnimatePresence>
+                      {reactingTo === message._id && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="absolute -bottom-6 right-0 bg-white dark:bg-slate-800 rounded-full p-1 flex gap-1 shadow">
+                          <button onClick={() => handleReaction(message._id, 'love')}>
+                            <LuHeart size={15} />
+                          </button>
+                          <button onClick={() => handleReaction(message._id, 'like')}>
+                            <LuThumbsUp size={15} />
+                          </button>
+                          <button onClick={() => handleReaction(message._id, 'smile')}>
+                            <FaRegSmile size={16} />
+                          </button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
+      )}
+
+      <div className="p-4">
+        <div className="flex gap-2">
+          <input ref={inputRef} value={newMessage} onChange={(e) => setNewMessage(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()} className="flex-1 px-4 py-3 rounded-full border dark:bg-slate-900" placeholder="Type a message..." />
+          <motion.button whileTap={{ scale: 0.95 }} onClick={handleSendMessage} className="min-w-[50px] rounded-full bg-[#ff9cff] flex items-center justify-center">
+            <LuSend size={20} />
+          </motion.button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ChatScreenWithReaction;

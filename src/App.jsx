@@ -1,12 +1,20 @@
 import './App.css';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import Lenis from '@studio-freight/lenis';
+
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
+import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
+import { BsInstagram, BsLinkedin, BsTwitter } from 'react-icons/bs';
+import { CgFacebook } from 'react-icons/cg';
+import { FaGithub } from 'react-icons/fa';
+import { IoLocationOutline } from 'react-icons/io5';
+
 import Ballpit from './components/ReactBits/Ballpit';
 import MagicBento from './components/ReactBits/MagicBento';
 import RotatingText from './components/ReactBits/RotatingText';
 import GradientText from './components/ReactBits/GradientText';
 import TargetCursor from './components/ReactBits/TargetCursor';
-import Magnet from './components/ReactBits/Magnet';
 import TextType from './components/ReactBits/TextType';
 import CircularText from './components/ReactBits/CircularText';
 import StarBorder from './components/ReactBits/StarBorder';
@@ -15,31 +23,15 @@ import CardNav from './components/ReactBits/CardNav';
 import logo from './components/ReactBits/logo.svg';
 import LogoLoop from './components/ReactBits/LogoLoop';
 import CountUp from './components/ReactBits/CountUp';
-import ExperienceTimeline from './components/Tracker/ExperienceTimeline';
 import ElectricBorder from './components/ReactBits/ElectricBorder';
 import MetaBalls from './components/ReactBits/MetaBalls';
-
-import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
-
-import Lenis from '@studio-freight/lenis';
-
 import EmblaCarousel from './components/Embla/EmblaCarousel';
-
 import Beams from './components/ReactBits/Beams';
 import GlobeComponent from './components/ReactBits/GlobeComponent';
 import GlassContactForm from './components/ReactBits/GlassContactForm';
-import ScrollVelocity from './components/ScrollVelocity';
-import MagnetLines from './components/ReactBits/MagnetLines';
-import Masonry from './components/Masonry';
-
-import ChatScreenWithReaction from './components/ChatScreenWithReaction';
-import { CgFacebook } from 'react-icons/cg';
-import { BsInstagram, BsLinkedin, BsTwitter } from 'react-icons/bs';
-import { FaGithub } from 'react-icons/fa';
-import { IoLocationOutline } from 'react-icons/io5';
-import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-
+import ScrollVelocity from './components/ReactBits/ScrollVelocity';
+import Masonry from './components/ReactBits/Masonry';
+import ChatScreenWithReaction from './components/ReactBits/ChatScreenWithReaction';
 import Timeline from './components/Tracker/Timeline';
 
 const OPTIONS = { loop: true };
@@ -62,30 +54,27 @@ function App() {
 
   const items = [
     {
-      label: 'Home',
       bgColor: '#0D0716',
       textColor: '#fff',
       links: [
-        { label: 'Company', ariaLabel: 'About Company' },
-        { label: 'Careers', ariaLabel: 'About Careers' },
+        { label: 'Home', ariaLabel: 'About Company' },
+        { label: 'About', ariaLabel: 'About Careers' },
       ],
     },
     {
-      label: 'About',
       bgColor: '#0D0716',
       textColor: '#fff',
       links: [
-        { label: 'Company', ariaLabel: 'About Company' },
-        { label: 'Careers', ariaLabel: 'About Careers' },
+        { label: 'Certificates', ariaLabel: 'About Company' },
+        { label: 'Projects', ariaLabel: 'About Careers' },
       ],
     },
     {
-      label: 'Projects',
       bgColor: '#170D27',
       textColor: '#fff',
       links: [
-        { label: 'Featured', ariaLabel: 'Featured Projects' },
-        { label: 'Case Studies', ariaLabel: 'Project Case Studies' },
+        { label: 'Experience', ariaLabel: 'Featured Projects' },
+        { label: 'Contact Us', ariaLabel: 'Project Case Studies' },
       ],
     },
   ];
@@ -230,18 +219,17 @@ function App() {
               <div className="py-5 text-1xl lg:text-3xl shadowText opacity-90">
                 <TextType text={['From concept to code — websites that users love.']} initialDelay={2000} typingSpeed={75} pauseDuration={2000} deletingSpeed={30} cursorCharacter={'█'} cursorBlinkDuration={0.5} loop={false} />
               </div>
-              <AnimatedContent distance={60} direction="horizontal" reverse={true} duration={0.8} ease="power3.out" initialOpacity={0} animateOpacity={true} scale={1} threshold={0.1} delay={0.7}>
-                <div className="flex flex-row justify-center items-center gap-3 shadowText md:flex-row">
-                  <StarBorder as="button" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="5s" thickness={4}>
-                    <button className="cursor-target bg-white text-black text-sm rounded-[50px] lg:text-xl w-full max-w-[160px] lg:max-w-[230px]">View Dashboards</button>
-                  </StarBorder>
-                  <StarBorder onClick={openResume} as="button" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="4s" thickness={4}>
-                    <button className="cursor-target bg-white text-white text-sm rounded-[50px] lg:text-xl hover:bg-black transition-all duration-300 ease-in-out inset-0 w-full max-w-[160px] lg:max-w-[230px]" style={{ background: '#800080' }}>
-                      Download Resume
-                    </button>
-                  </StarBorder>
-                </div>
-              </AnimatedContent>
+
+              <div className="flex flex-row justify-center items-center gap-3 shadowText md:flex-row">
+                <StarBorder as="button" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="5s" thickness={4}>
+                  <button className="cursor-target bg-white text-black text-sm rounded-[50px] lg:text-xl w-full max-w-[160px] lg:max-w-[230px]">View Dashboards</button>
+                </StarBorder>
+                <StarBorder onClick={openResume} as="button" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="4s" thickness={4}>
+                  <button className="cursor-target bg-white text-white text-sm rounded-[50px] lg:text-xl hover:bg-black transition-all duration-300 ease-in-out inset-0 w-full max-w-[160px] lg:max-w-[230px]" style={{ background: '#800080' }}>
+                    Download Resume
+                  </button>
+                </StarBorder>
+              </div>
             </AnimatedContent>
           </div>
           <div className="absolute top-[20px] right-[20px] hidden lg:block">
@@ -249,13 +237,14 @@ function App() {
               <CircularText text="I*AM*JULIUS*" onHover="goBonkers" spinDuration={50} className="custom-class" />
             </AnimatedContent>
           </div>
-          <div class="absolute bottom-[50px] left-1/2 -translate-x-1/2 bounce-slow z-2">
+
+          <AnimatedContent className="absolute bottom-[50px] left-1/2 -translate-x-1/2 bounce-slow z-2" distance={60} direction="vertical" duration={0.8} ease="power3.out" initialOpacity={0} animateOpacity={true} scale={1} threshold={0.1} delay={1}>
             <div className="w-12 h-12 rounded-full bg-gradient-to-b from-white to-gray-200  shadow-lg shadow-black/30 flex items-center justify-center animate-bounce-slow ">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </div>
-          </div>
+          </AnimatedContent>
         </div>
       </section>
 
@@ -385,9 +374,9 @@ function App() {
 
       <section className="relative w-full bg-black h-full">
         <div className="absolute inset-0">
-          <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+          {/* <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <GlobeComponent />
-          </AnimatedContent>
+          </AnimatedContent> */}
         </div>
 
         <div className="relative z-10 flex flex-col w-full max-w-[1800px] mx-auto  p-5 md:p-10 gap-10 h-full">

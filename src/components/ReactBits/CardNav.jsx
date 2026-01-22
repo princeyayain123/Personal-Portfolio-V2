@@ -13,7 +13,7 @@ const CardNav = ({ logo, logoAlt = 'Logo', items, className = '', ease = 'power3
 
   const calculateHeight = () => {
     const navEl = navRef.current;
-    if (!navEl) return 260;
+    if (!navEl) return 160;
 
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     if (isMobile) {
@@ -43,7 +43,7 @@ const CardNav = ({ logo, logoAlt = 'Logo', items, className = '', ease = 'power3
         return topBar + contentHeight + padding;
       }
     }
-    return 260;
+    return 160;
   };
 
   const createTimeline = () => {
@@ -144,10 +144,9 @@ const CardNav = ({ logo, logoAlt = 'Logo', items, className = '', ease = 'power3
         <div className="card-nav-content" aria-hidden={!isExpanded}>
           {(items || []).slice(0, 3).map((item, idx) => (
             <div key={`${item.label}-${idx}`} className="nav-card" ref={setCardRef(idx)} style={{ backgroundColor: item.bgColor, color: item.textColor }}>
-              <div className="nav-card-label">{item.label}</div>
               <div className="nav-card-links">
                 {item.links?.map((lnk, i) => (
-                  <a key={`${lnk.label}-${i}`} className="nav-card-link cursor-target" href={lnk.href} aria-label={lnk.ariaLabel}>
+                  <a key={`${lnk.label}-${i}`} className="nav-card-link" href={lnk.href} aria-label={lnk.ariaLabel}>
                     <GoArrowUpRight className="nav-card-link-icon" aria-hidden="true" />
                     {lnk.label}
                   </a>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lenis TRUE Horizontal Scroll</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            overflow: hidden;
+            background: #000;
+            color: #fff;
+            font-family: Arial;
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        /* =====================
+       Horizontal Section
+    ====================== */
+        .horizontal-wrapper {
+            position: relative;
+            height: 100vh;
+        }
+
+        .horizontal-pin {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .horizontal {
+            display: flex;
+            height: 100%;
+            will-change: transform;
+        }
+
+        .panel {
+            min-width: 100vw;
+            height: 100vh;
+            background: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 2px solid #444;
+        }
+
+        /* Parallax */
+        .parallax {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            font-size: 2rem;
+            opacity: .6;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: Arial;
+        }
+
+        /* desktop only */
+        @media (min-width: 768px) {
+            body {
+                overflow: hidden;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section>VERTICAL 1</section>
+
+    <!-- Horizontal Section -->
+    <section class="horizontal-wrapper">
+        <div class="horizontal-pin">
+            <div class="parallax" data-parallax="0.4">PARALLAX</div>
+
+            <div class="horizontal">
+                <div class="panel">PANEL 1</div>
+                <div class="panel">PANEL 2</div>
+                <div class="panel">PANEL 3</div>
+            </div>
+        </div>
+    </section>
+
+    <section>VERTICAL 2</section>
+
+    <script>
+        const lenis = new Lenis({
+            smooth: true,
+            smoothTouch: true,
+        })
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+
+        const wrapper = document.querySelector('.horizontal-wrapper')
+        const horizontal = document.querySelector('.horizontal')
+        const panels = document.querySelectorAll('.panel')
+
+        // Create vertical scroll distance for horizontal movement
+        const totalWidth = panels.length * window.innerWidth
+        wrapper.style.height = `${totalWidth}px`
+
+        lenis.on('scroll', ({ scroll }) => {
+            const start = wrapper.offsetTop
+            const end = start + totalWidth - window.innerHeight
+
+            if (scroll >= start && scroll <= end) {
+                const progress = (scroll - start) / (totalWidth - window.innerHeight)
+                horizontal.style.transform =
+                    `translateX(${-progress * (totalWidth - window.innerWidth)}px)`
+            }
+
+            // Parallax
+            document.querySelectorAll('[data-parallax]').forEach(el => {
+                const speed = el.dataset.parallax
+                el.style.transform = `translateY(${scroll * speed * 0.1}px)`
+            })
+        })
+    </script>
+
+</body>
+
+</html>
