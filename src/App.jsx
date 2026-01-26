@@ -20,7 +20,7 @@ import CircularText from './components/ReactBits/CircularText';
 import StarBorder from './components/ReactBits/StarBorder';
 import AnimatedContent from './components/ReactBits/AnimatedContent';
 import CardNav from './components/ReactBits/CardNav';
-import logo from './components/ReactBits/logo.svg';
+import logo from './components/ReactBits/logo.png';
 import LogoLoop from './components/ReactBits/LogoLoop';
 import CountUp from './components/ReactBits/CountUp';
 import ElectricBorder from './components/ReactBits/ElectricBorder';
