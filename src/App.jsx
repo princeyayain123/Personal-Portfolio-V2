@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
 
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
+
 import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
 import { BsInstagram, BsLinkedin, BsTwitter } from 'react-icons/bs';
 import { CgFacebook } from 'react-icons/cg';
@@ -34,69 +35,16 @@ import Masonry from './components/ReactBits/Masonry';
 import ChatScreenWithReaction from './components/ReactBits/ChatScreenWithReaction';
 import Timeline from './components/Tracker/Timeline';
 
+import item from './utils/Items.js';
+import items from './utils/NavItems.js';
+import certificates from './utils/Certificates.js';
+
 const OPTIONS = { loop: true };
 const SLIDE_COUNT = 3;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth >= 992);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  const items = [
-    {
-      bgColor: '#0D0716',
-      textColor: '#fff',
-      links: [
-        { label: 'Home', ariaLabel: 'About Company' },
-        { label: 'About', ariaLabel: 'About Careers' },
-      ],
-    },
-    {
-      bgColor: '#0D0716',
-      textColor: '#fff',
-      links: [
-        { label: 'Certificates', ariaLabel: 'About Company' },
-        { label: 'Projects', ariaLabel: 'About Careers' },
-      ],
-    },
-    {
-      bgColor: '#170D27',
-      textColor: '#fff',
-      links: [
-        { label: 'Experience', ariaLabel: 'Featured Projects' },
-        { label: 'Contact Us', ariaLabel: 'Project Case Studies' },
-      ],
-    },
-  ];
-
-  const item = [
-    { id: '1', img: './images/masonry/1.jpeg', url: 'https://example.com/one', height: 400 },
-    { id: '2', img: './images/masonry/2.jpeg', url: 'https://example.com/two', height: 250 },
-    { id: '3', img: './images/masonry/3.jpeg', url: 'https://example.com/three', height: 600 },
-    { id: '4', img: './images/masonry/4.jpeg', url: 'https://example.com/four', height: 500 },
-    { id: '5', img: './images/masonry/5.jpeg', url: 'https://example.com/five', height: 300 },
-    { id: '6', img: './images/masonry/16.jpeg', url: 'https://example.com/six', height: 650 },
-    { id: '7', img: './images/masonry/17.jpeg', url: 'https://example.com/seven', height: 550 },
-    { id: '8', img: './images/masonry/8.jpeg', url: 'https://example.com/eight', height: 350 },
-    { id: '9', img: './images/masonry/9.jpeg', url: 'https://example.com/nine', height: 450 },
-    { id: '10', img: './images/masonry/10.jpeg', url: 'https://example.com/ten', height: 500 },
-    { id: '11', img: './images/masonry/11.jpeg', url: 'https://example.com/eleven', height: 320 },
-    { id: '12', img: './images/masonry/12.jpeg', url: 'https://example.com/twelve', height: 500 },
-    { id: '13', img: './images/masonry/13.jpeg', url: 'https://example.com/thirteen', height: 420 },
-    { id: '14', img: './images/masonry/15.jpeg', url: 'https://example.com/fourteen', height: 400 },
-    { id: '15', img: './images/masonry/14.jpeg', url: 'https://example.com/fourteen', height: 250 },
-    { id: '16', img: './images/masonry/6.jpeg', url: 'https://example.com/fourteen', height: 200 },
-  ];
 
   const techLogos = [
     { node: <SiHtml5 />, title: 'HTML5', href: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
@@ -116,30 +64,16 @@ function App() {
     { node: <SiGithub />, title: 'GitHub', href: 'https://github.com' },
   ];
 
-  const certificates = [
-    {
-      title: 'Huawei Certified ICT Associate (HCIA) - Cloud Computing',
-      description: 'Beginner-level Huawei certification that validates foundational knowledge in cloud computing.',
-      skills: ['2022', 'HUAWEI', 'Cloud Computing'],
-      color: '#bf00bfff',
-      img: './img.png',
-    },
-    {
-      title: 'NC II – Computer System Servicing (CSS)',
-      description: 'A technical-vocational certification in the Philippines for people who want to work in IT support and computer maintenance.',
-      skills: ['2021', 'TESDA', 'NCII'],
-      color: '#808080',
-      img: './img.png',
-    },
-    {
-      title: 'IBM Full Stack Software Developer',
-      description: 'A professional training and certification program offered by IBM, usually online through platforms like Coursera',
-      skills: ['2024', 'IBM'],
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth >= 992);
+    };
 
-      color: '#B19EEF',
-      img: './img.png',
-    },
-  ];
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const showBg = () => {
     const bg = document.querySelector('.ballpit');
@@ -150,9 +84,8 @@ function App() {
   };
 
   useEffect(() => {
-    const lenis = new Lenis({
-      autoRaf: true,
-    });
+    const lenis = new Lenis({ autoRaf: true });
+    window.lenis = lenis;
 
     function raf(time) {
       lenis.raf(time);
@@ -163,18 +96,59 @@ function App() {
 
     return () => {
       lenis.destroy();
+      window.lenis = null;
     };
   }, []);
 
+  useEffect(() => {
+    const homeEl = document.getElementById('home');
+    const navBar = document.querySelector('.card-nav');
+    if (!homeEl) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          navBar.classList.add('glass');
+        } else {
+          navBar.classList.remove('glass');
+        }
+      },
+      {
+        threshold: 0.6,
+      }
+    );
+
+    observer.observe(homeEl);
+
+    return () => observer.disconnect();
+  }, []);
+
   const openResume = () => {
-    console.log('asdasd');
     const pdfUrl = '/pdf/Resume.pdf';
     window.open(pdfUrl, '_blank');
   };
 
+  const scrollToSection = (id) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    window.lenis?.scrollTo(target, {
+      offset: 0,
+      duration: 1.2,
+      easing: (t) => 1 - Math.pow(1 - t, 3),
+    });
+  };
+
   return (
     <>
-      <section className="relative overflow-hidden h-screen w-full" aria-label="Home">
+      <div className="fixed z-50 top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto flex items-center justify-center gap-2 w-full">
+        <AnimatedContent className="w-full" distance={60} direction="vertical" reverse={false} duration={0.8} ease="power3.out" initialOpacity={0} animateOpacity={true} scale={1} threshold={0.1} delay={1}>
+          <div className="w-full" style={{ width: '1000px' }}>
+            <CardNav onNavigate={scrollToSection} logo={logo} logoAlt="Company Logo" items={items} baseColor="#800080" menuColor="#ffffffff" buttonBgColor="#ffffffff" buttonTextColor="#000000ff" ease="power3.out" />
+          </div>
+        </AnimatedContent>
+      </div>
+      <section className="relative overflow-hidden h-screen w-full" aria-label="Home" id="home">
         <div className="overflow-hidden h-screen">
           <TargetCursor spinDuration={2} hideDefaultCursor={true} parallaxOn={true} />
 
@@ -188,13 +162,6 @@ function App() {
             </div>
           )}
 
-          <div className="relative z-50 pointer-events-auto flex items-center justify-center gap-2">
-            <AnimatedContent className="w-full" distance={60} direction="vertical" reverse={false} duration={0.8} ease="power3.out" initialOpacity={0} animateOpacity={true} scale={1} threshold={0.1} delay={1}>
-              <div className="w-full" style={{ width: '1000px' }}>
-                <CardNav logo={logo} logoAlt="Company Logo" items={items} baseColor="#800080" menuColor="#ffffffff" buttonBgColor="#ffffffff" buttonTextColor="#000000ff" ease="power3.out" />
-              </div>
-            </AnimatedContent>
-          </div>
           <div className={`hero-banner absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center items-center justify-center flex w-full max-w-[320px] md:max-w-full`} style={{ color: 'white', transition: '0.5s ease', alignItems: 'center' }}>
             <AnimatedContent
               distance={100}
@@ -248,7 +215,7 @@ function App() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden pb-20 w-full" aria-label="About">
+      <section className="relative overflow-hidden pb-20 w-full" aria-label="About" id="about">
         <div className={`flex p-8 bg-white items-center justify-center flex-col md:flex-row md:h-screen `}>
           <div className="w-full max-w-[1000px] md:w-1/2 text-start items-center justify-center px-0 text-black md:px-10">
             <div className="relative">
@@ -310,7 +277,9 @@ function App() {
           </div>
 
           <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-            <h2 className="text-6xl font-bold pb-40">Professional Certificates</h2>
+            <h2 className="text-6xl font-bold pb-40" id="certificates">
+              Professional Certificates
+            </h2>
           </AnimatedContent>
           <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true} className="pb-40">
             <div className="items-center justify-center flex flex-col gap-20 md:flex-row">
@@ -337,7 +306,7 @@ function App() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden w-full items-center justify-center flex flex-col  mt-[80px] pb-[50px] projects" aria-label="Projects">
+      <section className="relative overflow-hidden w-full items-center justify-center flex flex-col  mt-[80px] pb-[50px] projects" aria-label="Projects" id="projects">
         <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
           <h2 className="text-6xl font-bold pb-20">Projects</h2>
         </AnimatedContent>
@@ -347,7 +316,7 @@ function App() {
         <div className="pb-20"></div>
       </section>
 
-      <section className="relative bg-white items-center justify-center flex flex-col">
+      <section className="relative bg-white items-center justify-center flex flex-col" id="experience">
         <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
           <h2 className="text-6xl font-bold py-20 text-black ">Experiences</h2>
         </AnimatedContent>
@@ -372,11 +341,11 @@ function App() {
       <ScrollVelocity className="bg-black" texts={['React Portfolio', 'Full Stack Developer']} velocity={50} />
       <div className="pb-20 md:pb-40 bg-black velocity"></div>
 
-      <section className="relative w-full bg-black h-full">
+      <section className="relative w-full bg-black h-full" id="contact">
         <div className="absolute inset-0">
-          <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+          {/* <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
             <GlobeComponent />
-          </AnimatedContent>
+          </AnimatedContent> */}
         </div>
 
         <div className="relative z-10 flex flex-col w-full max-w-[1800px] mx-auto  p-5 md:p-10 gap-10 h-full">

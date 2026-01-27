@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 import { GoArrowUpRight } from 'react-icons/go';
 import './CardNav.css';
 
-const CardNav = ({ logo, logoAlt = 'Logo', items, className = '', ease = 'power3.out', baseColor = '#fff', menuColor, buttonBgColor, buttonTextColor }) => {
+const CardNav = ({ logo, logoAlt = 'Logo', items, onNavigate, className = '', ease = 'power3.out', baseColor = '#fff', menuColor, buttonBgColor, buttonTextColor }) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const navRef = useRef(null);
@@ -125,7 +125,7 @@ const CardNav = ({ logo, logoAlt = 'Logo', items, className = '', ease = 'power3
 
   return (
     <div className={`card-nav-container ${className}`}>
-      <nav ref={navRef} className={`card-nav ${isExpanded ? 'open' : ''}`} style={{ backgroundColor: baseColor }}>
+      <nav ref={navRef} className={`card-nav ${isExpanded ? 'open' : ''} transition-all duration-300 ease-in-out `} style={{ backgroundColor: baseColor }}>
         <div className="card-nav-top">
           <div className={`hamburger-menu cursor-target ${isHamburgerOpen ? 'open' : ''}`} onClick={toggleMenu} role="button" aria-label={isExpanded ? 'Close menu' : 'Open menu'} tabIndex={0} style={{ color: menuColor || '#000' }}>
             <div className="hamburger-line" />
@@ -146,7 +146,17 @@ const CardNav = ({ logo, logoAlt = 'Logo', items, className = '', ease = 'power3
             <div key={`${item.label}-${idx}`} className="nav-card" ref={setCardRef(idx)} style={{ backgroundColor: item.bgColor, color: item.textColor }}>
               <div className="nav-card-links">
                 {item.links?.map((lnk, i) => (
-                  <a key={`${lnk.label}-${i}`} className="nav-card-link" href={lnk.href} aria-label={lnk.ariaLabel}>
+                  <a
+                    key={`${lnk.label}-${i}`}
+                    className="nav-card-link"
+                    href={`#${lnk.target}`}
+                    aria-label={lnk.ariaLabel}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigate?.(lnk.target);
+                      toggleMenu();
+                    }}
+                  >
                     <GoArrowUpRight className="nav-card-link-icon" aria-hidden="true" />
                     {lnk.label}
                   </a>
