@@ -423,11 +423,11 @@ a.icon:hover {
 
   0%,
   100% {
-    transform: translateY(0);
+    transform: translate(-50%, 0);
   }
 
   50% {
-    transform: translateY(10px);
+    transform: translate(-50%, 10px);
   }
 }
 
