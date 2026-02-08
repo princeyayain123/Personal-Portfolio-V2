@@ -92,12 +92,12 @@ const GlassContactForm = () => {
         </div>
       </div>
 
-      <div className={` ${visible ? 'translate-y-0 opacity-100' : 'translate-y-[100px] opacity-0'} transition-all duration-300  rounded-md bg-white fixed bottom-[20px] left-[20px] z-50 text-text notificationShadow flex items-start justify-between px-5 py-4 dark:bg-slate-800 dark:shadow-none dark:border dark:border-slate-700 gap-[10px]`}>
+      <div className={` ${visible ? 'translate-y-0 opacity-100' : 'translate-y-[100px] opacity-0'} transition-all duration-300  rounded-md fixed bottom-[20px] left-[20px] z-50 text-text notificationShadow flex items-start justify-between px-5 py-4 bg-slate-800 shadow-none border border-slate-700 gap-[10px]`}>
         <div className="flex items-center gap-[10px]">
           <MdOutlineDone className="text-green-500 text-[1.3rem] mt-0.5 border border-green-500 rounded-full p-0.5" />
           <div className="text-start">
-            <h3 className="text-[1rem] dark:text-[#abc2d3] font-[600]">Thank you for contacting me!</h3>
-            <p className="text-[0.8rem] dark:text-slate-400">I will reach you out ASAP!</p>
+            <h3 className="text-[1rem] text-[#abc2d3] font-[600]">Thank you for contacting me!</h3>
+            <p className="text-[0.8rem] text-slate-400">I will reach you out ASAP!</p>
           </div>
         </div>
 

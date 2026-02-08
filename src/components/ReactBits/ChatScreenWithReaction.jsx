@@ -138,14 +138,14 @@ const ChatScreenWithReaction = () => {
                     {sender === 'other' && <img src={message.senderProfile?.avatar} className="w-8 h-8 rounded-full" />}
 
                     <div>
-                      <div className={`px-4 py-2 rounded-xl text-sm ${sender === 'me' ? 'bg-blue-50 dark:bg-blue-900/90 rounded-br-none text-end' : 'bg-gray-50 dark:bg-slate-800 rounded-bl-none text-start'}`}>{message.text}</div>
+                      <div className={`px-4 py-2 rounded-xl text-sm ${sender === 'me' ? 'bg-blue-900/90 rounded-br-none text-end' : 'bg-slate-800 rounded-bl-none text-start'}`}>{message.text}</div>
                       <div className={`mt-1 text-xs text-gray-500 ${sender === 'me' ? 'text-right' : 'text-left'}`}>{message.timestamp}</div>
                     </div>
 
                     {sender === 'me' && <img src={message.senderProfile?.avatar} className="w-8 h-8 rounded-full" />}
 
                     {message.reaction && (
-                      <span onClick={() => setReactingTo(message._id)} className="absolute -right-2 bottom-2 bg-white dark:bg-slate-800 rounded-full min-w-[25px] min-h-[25px] flex items-center justify-center cursor-pointer">
+                      <span onClick={() => setReactingTo(message._id)} className="absolute -right-2 bottom-2 bg-slate-800 rounded-full min-w-[25px] min-h-[25px] flex items-center justify-center cursor-pointer">
                         {message.reaction === 'love' && <LuHeart size={12} color="red" />}
                         {message.reaction === 'like' && <LuThumbsUp size={12} color="blue" />}
                         {message.reaction === 'smile' && <FaRegSmile size={12} color="gold" />}
@@ -153,14 +153,14 @@ const ChatScreenWithReaction = () => {
                     )}
 
                     {sender === 'other' && !message.reaction && (
-                      <button onClick={() => setReactingTo(message._id)} className="absolute bottom-2 -right-2 bg-gray-100 dark:bg-slate-700 rounded-full p-1 reaction-button">
+                      <button onClick={() => setReactingTo(message._id)} className="absolute bottom-2 -right-2 bg-slate-700 rounded-full p-1 reaction-button">
                         <FaRegSmile size={14} />
                       </button>
                     )}
 
                     <AnimatePresence>
                       {reactingTo === message._id && (
-                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="absolute -bottom-6 right-0 bg-white dark:bg-slate-800 rounded-full p-1 flex gap-1 shadow">
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="absolute -bottom-6 ml-[10px] bg-slate-800 rounded-full p-1 flex gap-1 shadow">
                           <button onClick={() => handleReaction(message._id, 'love')}>
                             <LuHeart size={15} />
                           </button>
