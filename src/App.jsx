@@ -2,7 +2,7 @@ import './App.css';
 
 import { useState, useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
-
+import '@google/model-viewer';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
 
 import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
@@ -31,7 +31,6 @@ import Beams from './components/ReactBits/Beams';
 import GlobeComponent from './components/ReactBits/GlobeComponent';
 import GlassContactForm from './components/ReactBits/GlassContactForm';
 import ScrollVelocity from './components/ReactBits/ScrollVelocity';
-import Masonry from './components/ReactBits/Masonry';
 import ChatScreenWithReaction from './components/ReactBits/ChatScreenWithReaction';
 import Timeline from './components/Tracker/Timeline';
 
@@ -324,7 +323,11 @@ function App() {
           <div className="w-full px-6 lg:px-20 lg:w-2/3">
             <AnimatedContent distance={100} direction="horizontal" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
               <p className="text-black text-xl  mb-10 text-justify">I have 1+ year of experience in front-end and web development, building responsive and user-friendly web interfaces. I’ve worked on projects ranging from image labeling for machine learning to custom boat seat configurators, and most recently, online cybersecurity training platforms. I focus on creating interactive, accessible, and visually engaging web applications.</p>
-              <Masonry items={item} ease="power3.out" duration={0.6} stagger={0.1} animateFrom="bottom" scaleOnHover={true} hoverScale={0.9} blurToFocus={true} />
+              {/* <Masonry items={item} ease="power3.out" duration={0.6} stagger={0.1} animateFrom="bottom" scaleOnHover={true} hoverScale={0.9} blurToFocus={true} /> */}
+
+              <div style={{ width: '100%', height: '700px' }}>
+                <model-viewer src="/model/model.glb" auto-rotate auto-rotate-delay={0} shadow-intensity="1" disable-pan camera-controls autoplay disable-zoom camera-orbit="0deg 90deg 70%" min-camera-orbit="auto auto 40%" max-camera-orbit="auto auto 150%" style={{ width: '100%', height: '100%' }} />
+              </div>
             </AnimatedContent>
           </div>
           <div className="w-full px-6 lg:w-1/3">
@@ -344,7 +347,7 @@ function App() {
       <section className="relative w-full bg-black h-full" id="contact">
         <div className="absolute inset-0">
           <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-            <GlobeComponent />
+            {/* <GlobeComponent /> */}
           </AnimatedContent>
         </div>
 
