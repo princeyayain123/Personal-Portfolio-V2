@@ -347,7 +347,7 @@ function App() {
       <section className="relative w-full bg-black h-full" id="contact">
         <div className="absolute inset-0">
           <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-            {/* <GlobeComponent /> */}
+            <GlobeComponent />
           </AnimatedContent>
         </div>
 
