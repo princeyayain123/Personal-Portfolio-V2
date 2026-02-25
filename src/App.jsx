@@ -2,7 +2,6 @@ import './App.css';
 
 import { useState, useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
-import '@google/model-viewer';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
 
 import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
@@ -29,6 +28,7 @@ import MetaBalls from './components/ReactBits/MetaBalls';
 import EmblaCarousel from './components/Embla/EmblaCarousel';
 import Beams from './components/ReactBits/Beams';
 import GlobeComponent from './components/ReactBits/GlobeComponent';
+import Viewer from './components/Viewer/Viewer';
 import GlassContactForm from './components/ReactBits/GlassContactForm';
 import ScrollVelocity from './components/ReactBits/ScrollVelocity';
 import ChatScreenWithReaction from './components/ReactBits/ChatScreenWithReaction';
@@ -326,7 +326,7 @@ function App() {
               {/* <Masonry items={item} ease="power3.out" duration={0.6} stagger={0.1} animateFrom="bottom" scaleOnHover={true} hoverScale={0.9} blurToFocus={true} /> */}
 
               <div style={{ width: '100%', height: '700px' }}>
-                <model-viewer src="/model/model.glb" auto-rotate auto-rotate-delay={0} shadow-intensity="1" disable-pan camera-controls autoplay disable-zoom camera-orbit="0deg 90deg 70%" min-camera-orbit="auto auto 40%" max-camera-orbit="auto auto 150%" style={{ width: '100%', height: '100%' }} />
+                <Viewer></Viewer>
               </div>
             </AnimatedContent>
           </div>
