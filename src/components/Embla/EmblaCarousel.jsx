@@ -112,8 +112,6 @@ const EmblaCarousel = ({ slides, options }) => {
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
-    player.on('waiting', () => console.log('player is waiting'));
-    player.on('dispose', () => console.log('player will dispose'));
   };
 
   return (
@@ -127,6 +125,7 @@ const EmblaCarousel = ({ slides, options }) => {
                   muted: true,
                   playsInline: true,
                   controls: true,
+                  preload: 'metadata',
                   responsive: true,
                   fluid: true,
                   poster: `./videos/${index + 1}.png`,

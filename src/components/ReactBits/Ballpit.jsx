@@ -641,8 +641,9 @@ function createBallpit(e, t = {}) {
   const i = new x({
     canvas: e,
     size: 'parent',
-    rendererOptions: { antialias: true, alpha: true },
+    rendererOptions: { antialias: false, alpha: true },
   });
+  i.maxPixelRatio = 1.25;
   let s;
   i.renderer.toneMapping = v;
   i.camera.position.set(0, 0, 20);

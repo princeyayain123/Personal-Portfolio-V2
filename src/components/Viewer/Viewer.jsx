@@ -29,10 +29,10 @@ export default function Viewer() {
   return (
     <div style={{ width: '100%', height: '700px' }}>
       <Canvas
-  shadows
+  dpr={[1, 1.25]}
   camera={{ fov: 30 }}
   gl={{
-    antialias: true,
+    antialias: false,
     toneMapping: THREE.ACESFilmicToneMapping,
     toneMappingExposure: 1,
   }}
@@ -52,11 +52,7 @@ export default function Viewer() {
 
   <directionalLight
     position={[6, 12, 6]}
-    intensity={3}
-    castShadow
-    shadow-mapSize-width={1024}
-    shadow-mapSize-height={1024}
-    shadow-bias={-0.0001}
+    intensity={2.4}
   />
 
   <Bounds fit clip margin={1.2}>
@@ -67,9 +63,9 @@ export default function Viewer() {
     enablePan={false}
     enableZoom={false}
     autoRotate
-    autoRotateSpeed={1}
+    autoRotateSpeed={0.45}
     enableDamping
-    dampingFactor={0.05}
+    dampingFactor={0.08}
   />
 </Canvas>
     </div>

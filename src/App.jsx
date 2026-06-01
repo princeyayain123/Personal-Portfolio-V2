@@ -41,6 +41,29 @@ import certificates from './utils/Certificates.js';
 const OPTIONS = { loop: true };
 const SLIDE_COUNT = 3;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+const SERVICES = [
+  {
+    title: 'Interface Development',
+    description: 'Responsive React interfaces with clean layouts, strong interaction states, and mobile-first polish.',
+  },
+  {
+    title: 'Dashboard Experiences',
+    description: 'Data-heavy screens designed for scanning, filtering, tracking, and repeated daily use.',
+  },
+  {
+    title: '3D & Interactive Web',
+    description: 'Product previews, configurators, animated sections, and lightweight immersive web moments.',
+  },
+];
+
+const WORKFLOW = [
+  ['01', 'Discover', 'Clarify the goal, audience, content, and product behavior before touching the interface.'],
+  ['02', 'Design', 'Shape the screen hierarchy, spacing, colors, and interaction rhythm around the user journey.'],
+  ['03', 'Build', 'Translate the design into responsive, maintainable React components and production-ready CSS.'],
+  ['04', 'Refine', 'Test performance, responsiveness, visual consistency, and the tiny details that make it feel finished.'],
+];
+
+const TOOLKIT = ['React', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Express', 'MongoDB', 'MySQL', 'Three.js', 'GSAP', 'Video.js', 'GitHub'];
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
@@ -65,7 +88,7 @@ function App() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth >= 992);
+      setIsMobile(window.innerWidth <= 992);
     };
 
     checkMobile();
@@ -83,17 +106,19 @@ function App() {
   };
 
   useEffect(() => {
-    const lenis = new Lenis({ autoRaf: true });
+    const lenis = new Lenis();
     window.lenis = lenis;
+    let rafId;
 
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
       window.lenis = null;
     };
@@ -152,7 +177,7 @@ function App() {
           <TargetCursor spinDuration={2} hideDefaultCursor={true} parallaxOn={true} />
 
           <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-1 pointer-events-none opacity-0`}>
-            <Ballpit count={100} gravity={0.01} friction={0.9975} wallBounce={0.95} followCursor={false} colors={['#808080', '#800080', '#FFFFFF']} ambientColor={0xffffff} ambientIntensity={1} lightIntensity={200} minSize={0.5} maxSize={1} size0={1} maxVelocity={0.15} maxX={5} maxY={5} maxZ={5} />
+            <Ballpit count={45} gravity={0.01} friction={0.9975} wallBounce={0.95} followCursor={false} colors={['#808080', '#800080', '#FFFFFF']} ambientColor={0xffffff} ambientIntensity={0.8} lightIntensity={120} minSize={0.45} maxSize={0.9} size0={1} maxVelocity={0.12} maxX={5} maxY={5} maxZ={5} />
           </div>
           {/* {isMobile ? (
             <div className={`ballpit absolute top-0 left-0 w-full h-full transition-all duration-300 ease-in-out inset-0 z-1 pointer-events-none opacity-0`}>
@@ -235,9 +260,9 @@ function App() {
           <div>
             <AnimatedContent className="relative" distance={100} direction="vertical" duration={1.3} delay={0.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
               <div className="absolute top-[-60px] right-[-100px] z-0 md:top-[-80px]">
-                <MetaBalls color="#000000" cursorBallColor="#000000" cursorBallSize={2} ballCount={15} animationSize={25} enableMouseInteraction={true} enableTransparency={true} hoverSmoothness={0.05} clumpFactor={1} speed={0.3} />
+                <MetaBalls color="#000000" cursorBallColor="#000000" cursorBallSize={2} ballCount={8} animationSize={20} enableMouseInteraction={!isMobile} enableTransparency={true} hoverSmoothness={0.05} clumpFactor={1} speed={0.18} />
               </div>
-              <MagicBento textAutoHide={true} enableStars={true} enableSpotlight={true} enableBorderGlow={true} enableTilt={true} enableMagnetism={true} clickEffect={true} spotlightRadius={740} particleCount={200} glowColor="132, 0, 255" />
+              <MagicBento textAutoHide={true} enableStars={!isMobile} enableSpotlight={!isMobile} enableBorderGlow={true} enableTilt={!isMobile} enableMagnetism={!isMobile} clickEffect={!isMobile} spotlightRadius={420} particleCount={60} glowColor="132, 0, 255" />
             </AnimatedContent>
           </div>
         </div>
@@ -316,6 +341,73 @@ function App() {
           <EmblaCarousel slides={SLIDES} options={OPTIONS} />
         </div>
         <div className="pb-20"></div>
+      </section>
+
+      <section className="portfolio-section services-section" aria-label="Services">
+        <div className="portfolio-shell">
+          <AnimatedContent distance={80} direction="vertical" duration={1.1} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+            <div className="section-intro">
+              <span>What I Build</span>
+              <h2>Web experiences with structure, motion, and purpose.</h2>
+              <p>I focus on interfaces that look sharp, stay usable, and feel smooth without overloading the browser.</p>
+            </div>
+          </AnimatedContent>
+
+          <div className="service-grid">
+            {SERVICES.map((service, index) => (
+              <AnimatedContent key={service.title} distance={80} direction="vertical" duration={1.1} delay={index * 0.12} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+                <article className="service-card">
+                  <div className="service-card__number">{String(index + 1).padStart(2, '0')}</div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                </article>
+              </AnimatedContent>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="portfolio-section process-section" aria-label="Process">
+        <div className="portfolio-shell process-shell">
+          <AnimatedContent distance={80} direction="horizontal" reverse duration={1.1} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+            <div className="process-heading">
+              <span>How I Work</span>
+              <h2>From rough idea to polished release.</h2>
+            </div>
+          </AnimatedContent>
+
+          <div className="process-list">
+            {WORKFLOW.map(([step, title, description], index) => (
+              <AnimatedContent key={title} distance={70} direction="horizontal" duration={1.1} delay={index * 0.08} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+                <article className="process-item">
+                  <span>{step}</span>
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                </article>
+              </AnimatedContent>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="portfolio-section toolkit-section" aria-label="Toolkit">
+        <div className="portfolio-shell toolkit-shell">
+          <AnimatedContent distance={80} direction="vertical" duration={1.1} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+            <div className="toolkit-panel">
+              <div className="toolkit-copy">
+                <span>Toolkit</span>
+                <h2>Modern stack, practical execution.</h2>
+                <p>These are the tools I use to build fast interfaces, useful dashboards, backend integrations, and interactive visual experiences.</p>
+              </div>
+
+              <div className="toolkit-tags">
+                {TOOLKIT.map((tool) => (
+                  <span key={tool}>{tool}</span>
+                ))}
+              </div>
+            </div>
+          </AnimatedContent>
+        </div>
       </section>
 
       <section className="relative bg-white items-center justify-center flex flex-col" id="experience">

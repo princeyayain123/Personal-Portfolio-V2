@@ -59,17 +59,19 @@ const GlobeComponent = () => {
       map: new THREE.TextureLoader().load(CLOUDS_IMG_URL),
       transparent: true,
     });
-    const cloudsGeometry = new THREE.SphereGeometry(radius, 75, 75);
+    const cloudsGeometry = new THREE.SphereGeometry(radius, 36, 36);
     const cloudsMesh = new THREE.Mesh(cloudsGeometry, cloudsMaterial);
     globe.scene().add(cloudsMesh);
+    let animationFrameId;
 
     const rotate = () => {
       cloudsMesh.rotation.y += (CLOUDS_ROT_SPEED * Math.PI) / 180;
-      requestAnimationFrame(rotate);
+      animationFrameId = requestAnimationFrame(rotate);
     };
     rotate();
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
       globe.scene().remove(cloudsMesh);
       cloudsMesh.geometry.dispose();
       cloudsMesh.material.dispose();
@@ -78,7 +80,7 @@ const GlobeComponent = () => {
 
   return (
     <div className="w-full h-full globe-position">
-      <Globe ref={globeEl} animateIn={false} globeImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-blue-marble.jpg" bumpImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-topology.png" width={isMobile ? dimensions.width : dimensions.width + 900} height={isMobile ? dimensions.height : dimensions.height + 600} />
+      <Globe ref={globeEl} animateIn={false} backgroundColor="rgba(0,0,0,0)" globeImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-blue-marble.jpg" bumpImageUrl="//cdn.jsdelivr.net/npm/three-globe/example/img/earth-topology.png" width={isMobile ? dimensions.width : dimensions.width + 220} height={isMobile ? dimensions.height : dimensions.height + 160} />
     </div>
   );
 };
