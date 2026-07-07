@@ -411,6 +411,28 @@ section {
   background: #0b0b0d;
 }
 
+.horizontal-portfolio {
+  width: 100%;
+  overflow: hidden;
+}
+
+.horizontal-portfolio__track {
+  display: flex;
+  width: 300%;
+}
+
+.horizontal-panel {
+  flex: 0 0 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.horizontal-panel > .portfolio-shell {
+  will-change: transform, opacity;
+  transform-origin: center center;
+}
+
 .portfolio-section::before {
   content: "";
   position: absolute;
@@ -614,6 +636,20 @@ section {
 }
 
 @media screen and (max-width: 992px) {
+  .horizontal-portfolio {
+    overflow: visible;
+  }
+
+  .horizontal-portfolio__track {
+    display: block;
+    width: 100%;
+  }
+
+  .horizontal-panel {
+    min-height: auto;
+    display: block;
+  }
+
   .portfolio-section {
     padding: 84px 18px;
   }
@@ -656,6 +692,28 @@ section {
 
 a.icon {
   color: #ff9cff !important;
+}
+
+.experience-intro { width: min(900px, calc(100% - 40px)); margin: 0 auto; }
+.experience-path { position: relative; width: min(1180px, calc(100% - 40px)); height: 1300px; margin: 20px auto 80px; }
+.experience-path__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.experience-path__base, .experience-path__progress { fill: none; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.experience-path__base { stroke: #e8ddec; stroke-width: 5; }
+.experience-path__progress { stroke: url(#experienceGradient); stroke-width: 7; filter: drop-shadow(0 0 10px #e43cda); }
+.experience-path__card { position: absolute; width: min(420px, 40%); padding: 30px; text-align: left; color: #171219; border: 1px solid rgba(128, 0, 128, .13); border-radius: 22px; background: rgba(255, 255, 255, .9); box-shadow: 0 24px 70px rgba(74, 16, 78, .12); backdrop-filter: blur(14px); }
+.experience-path__card--1 { top: 90px; right: 2%; }
+.experience-path__card--2 { top: 500px; left: 2%; }
+.experience-path__card--3 { top: 900px; right: 2%; }
+.experience-path__icon { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 22px; color: #fff; border-radius: 14px; background: linear-gradient(135deg, #800080, #ff58e6); box-shadow: 0 10px 30px rgba(128, 0, 128, .28); }
+.experience-path__card span { color: #800080; font-size: 13px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.experience-path__card h3 { margin: 10px 0 4px; font-size: clamp(24px, 3vw, 36px); font-weight: 900; line-height: 1.05; }
+.experience-path__card h4 { margin: 0 0 16px; color: #7b667d; font-weight: 800; }
+.experience-path__card p { margin: 0; color: #514653; line-height: 1.7; }
+
+@media screen and (max-width: 768px) {
+  .experience-path { height: auto; display: grid; gap: 28px; padding-left: 42px; }
+  .experience-path__svg { left: -44%; width: 100%; height: 100%; }
+  .experience-path__card { position: relative; inset: auto; width: 100%; padding: 24px; }
 }
 
 a.icon:hover {

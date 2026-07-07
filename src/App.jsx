@@ -1,7 +1,9 @@
 import './App.css';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
 
 import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
@@ -67,6 +69,8 @@ const TOOLKIT = ['React', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'Node.js',
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
+  const horizontalSectionRef = useRef(null);
+  const horizontalTrackRef = useRef(null);
 
   const techLogos = [
     { node: <SiHtml5 />, title: 'HTML5', href: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
@@ -95,6 +99,96 @@ function App() {
     window.addEventListener('resize', checkMobile);
 
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const media = gsap.matchMedia();
+    media.add('(min-width: 993px)', () => {
+      const track = horizontalTrackRef.current;
+      const wrapper = horizontalSectionRef.current;
+      if (!track || !wrapper) return;
+
+      const panels = gsap.utils.toArray('.horizontal-panel', track);
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          pin: true,
+          scrub: 0.75,
+          anticipatePin: 1,
+          start: 'top top',
+          end: () => `+=${window.innerWidth * (panels.length - 1)}`,
+          invalidateOnRefresh: true,
+          snap: {
+            snapTo: 1 / (panels.length - 1),
+            duration: { min: 0.25, max: 0.65 },
+            delay: 0.08,
+            ease: 'power2.inOut',
+          },
+        },
+      });
+
+      timeline.to(panels, {
+        xPercent: -100 * (panels.length - 1),
+        ease: 'none',
+        duration: panels.length - 1,
+      }, 0);
+
+      panels.slice(1).forEach((panel, index) => {
+        const shell = panel.querySelector('.portfolio-shell');
+        timeline.fromTo(shell,
+          { autoAlpha: 0.2, scale: 0.84, rotate: index % 2 ? -2 : 2, y: 50 },
+          { autoAlpha: 1, scale: 1, rotate: 0, y: 0, ease: 'power2.out', duration: 0.55 },
+          index + 0.42
+        );
+      });
+
+      const firstPanelElements = panels[0].querySelectorAll('.horizontal-reveal');
+      const firstPanelReveal = gsap.fromTo(firstPanelElements,
+        { autoAlpha: 0, y: 42, scale: 0.96 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.65,
+          stagger: 0.09,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 82%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+
+      panels.slice(1).forEach((panel, index) => {
+        const panelIndex = index + 1;
+        const elements = panel.querySelectorAll('.horizontal-reveal');
+        const revealAt = panelIndex - 0.3;
+
+        timeline.fromTo(elements,
+          { autoAlpha: 0, y: 42, scale: 0.96 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.25,
+            stagger: 0.025,
+            ease: 'power3.out',
+          },
+          revealAt
+        );
+      });
+
+      return () => {
+        firstPanelReveal.scrollTrigger?.kill();
+        firstPanelReveal.kill();
+        timeline.kill();
+      };
+    });
+
+    return () => media.revert();
   }, []);
 
   const showBg = () => {
@@ -343,56 +437,58 @@ function App() {
         <div className="pb-20"></div>
       </section>
 
-      <section className="portfolio-section services-section" aria-label="Services">
+      <div className="horizontal-portfolio" ref={horizontalSectionRef}>
+        <div className="horizontal-portfolio__track" ref={horizontalTrackRef}>
+      <section className="portfolio-section services-section horizontal-panel" aria-label="Services">
         <div className="portfolio-shell">
-          <AnimatedContent distance={80} direction="vertical" duration={1.1} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+          <div className="horizontal-reveal">
             <div className="section-intro">
               <span>What I Build</span>
               <h2>Web experiences with structure, motion, and purpose.</h2>
               <p>I focus on interfaces that look sharp, stay usable, and feel smooth without overloading the browser.</p>
             </div>
-          </AnimatedContent>
+          </div>
 
           <div className="service-grid">
             {SERVICES.map((service, index) => (
-              <AnimatedContent key={service.title} distance={80} direction="vertical" duration={1.1} delay={index * 0.12} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+              <div className="horizontal-reveal" key={service.title}>
                 <article className="service-card">
                   <div className="service-card__number">{String(index + 1).padStart(2, '0')}</div>
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
                 </article>
-              </AnimatedContent>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="portfolio-section process-section" aria-label="Process">
+      <section className="portfolio-section process-section horizontal-panel" aria-label="Process">
         <div className="portfolio-shell process-shell">
-          <AnimatedContent distance={80} direction="horizontal" reverse duration={1.1} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+          <div className="horizontal-reveal">
             <div className="process-heading">
               <span>How I Work</span>
               <h2>From rough idea to polished release.</h2>
             </div>
-          </AnimatedContent>
+          </div>
 
           <div className="process-list">
             {WORKFLOW.map(([step, title, description], index) => (
-              <AnimatedContent key={title} distance={70} direction="horizontal" duration={1.1} delay={index * 0.08} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+              <div className="horizontal-reveal" key={title}>
                 <article className="process-item">
                   <span>{step}</span>
                   <h3>{title}</h3>
                   <p>{description}</p>
                 </article>
-              </AnimatedContent>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="portfolio-section toolkit-section" aria-label="Toolkit">
+      <section className="portfolio-section toolkit-section horizontal-panel" aria-label="Toolkit">
         <div className="portfolio-shell toolkit-shell">
-          <AnimatedContent distance={80} direction="vertical" duration={1.1} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+          <div className="horizontal-reveal">
             <div className="toolkit-panel">
               <div className="toolkit-copy">
                 <span>Toolkit</span>
@@ -406,9 +502,11 @@ function App() {
                 ))}
               </div>
             </div>
-          </AnimatedContent>
+          </div>
         </div>
       </section>
+        </div>
+      </div>
 
       <section className="relative bg-white items-center justify-center flex flex-col" id="experience">
         <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
