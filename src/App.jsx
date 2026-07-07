@@ -1,6 +1,7 @@
 import './App.css';
 
 import { useState, useEffect, useRef } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import Lenis from '@studio-freight/lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -616,6 +617,7 @@ function App() {
         </div>
       </section>
       <footer className="py-5 text-center text-gray-400">© {new Date().getFullYear()} Julius Yayain. All Rights Reserved.</footer>
+      <Analytics />
     </>
   );
 }
