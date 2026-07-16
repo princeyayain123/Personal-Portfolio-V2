@@ -93,8 +93,11 @@ const TOOLKIT_GROUPS = [
   },
 ];
 
+const PORTFOLIO_PANELS = ['Services', 'Process', 'Toolkit'];
+
 function App() {
   const [isMobile, setIsMobile] = useState(false);
+  const [activePortfolioPanel, setActivePortfolioPanel] = useState(0);
 
   const techLogos = [
     { node: <SiHtml5 />, title: 'HTML5', href: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
@@ -189,6 +192,10 @@ function App() {
       duration: 1.2,
       easing: (t) => 1 - Math.pow(1 - t, 3),
     });
+  };
+
+  const goToPortfolioPanel = (direction) => {
+    setActivePortfolioPanel((current) => (current + direction + PORTFOLIO_PANELS.length) % PORTFOLIO_PANELS.length);
   };
 
   return (
@@ -371,8 +378,26 @@ function App() {
         <div className="pb-20"></div>
       </section>
 
-      <div className="portfolio-stack">
-      <section className="portfolio-section services-section" aria-label="Services">
+      <section className="portfolio-carousel" aria-label="Portfolio highlights">
+        <div className="portfolio-carousel__topbar">
+          <div>
+            <span>Highlights</span>
+            <strong>{PORTFOLIO_PANELS[activePortfolioPanel]}</strong>
+          </div>
+
+          <div className="portfolio-carousel__controls" aria-label="Portfolio page controls">
+            <button type="button" onClick={() => goToPortfolioPanel(-1)} aria-label="Previous portfolio page">
+              <span aria-hidden="true">&lt;</span>
+            </button>
+            <button type="button" onClick={() => goToPortfolioPanel(1)} aria-label="Next portfolio page">
+              <span aria-hidden="true">&gt;</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="portfolio-carousel__viewport">
+          <div className="portfolio-carousel__track" style={{ transform: `translate3d(-${activePortfolioPanel * 100}%, 0, 0)` }}>
+      <section className="portfolio-section services-section portfolio-panel" aria-label="Services">
         <div className="portfolio-shell">
           <div>
             <div className="section-intro">
@@ -396,7 +421,7 @@ function App() {
         </div>
       </section>
 
-      <section className="portfolio-section process-section" aria-label="Process">
+      <section className="portfolio-section process-section portfolio-panel" aria-label="Process">
         <div className="portfolio-shell process-shell">
           <div>
             <div className="process-heading">
@@ -419,7 +444,7 @@ function App() {
         </div>
       </section>
 
-      <section className="portfolio-section toolkit-section" aria-label="Toolkit">
+      <section className="portfolio-section toolkit-section portfolio-panel" aria-label="Toolkit">
         <div className="portfolio-shell toolkit-shell">
           <div>
             <div className="toolkit-panel">
@@ -445,7 +470,22 @@ function App() {
           </div>
         </div>
       </section>
-      </div>
+          </div>
+        </div>
+
+        <div className="portfolio-carousel__dots" aria-label="Choose portfolio page">
+          {PORTFOLIO_PANELS.map((panel, index) => (
+            <button
+              type="button"
+              className={activePortfolioPanel === index ? 'is-active' : ''}
+              key={panel}
+              onClick={() => setActivePortfolioPanel(index)}
+              aria-label={`Show ${panel}`}
+              aria-current={activePortfolioPanel === index ? 'true' : undefined}
+            />
+          ))}
+        </div>
+      </section>
 
       <section className="relative bg-white items-center justify-center flex flex-col" id="experience">
         <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
