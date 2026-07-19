@@ -1,7 +1,9 @@
 import './App.css';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
 
 import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
@@ -93,11 +95,10 @@ const TOOLKIT_GROUPS = [
   },
 ];
 
-const PORTFOLIO_PANELS = ['Services', 'Process', 'Toolkit'];
-
 function App() {
   const [isMobile, setIsMobile] = useState(false);
-  const [activePortfolioPanel, setActivePortfolioPanel] = useState(0);
+  const horizontalSectionRef = useRef(null);
+  const horizontalTrackRef = useRef(null);
 
   const techLogos = [
     { node: <SiHtml5 />, title: 'HTML5', href: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
@@ -126,6 +127,95 @@ function App() {
     window.addEventListener('resize', checkMobile);
 
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const media = gsap.matchMedia();
+    media.add('(min-width: 993px)', () => {
+      const track = horizontalTrackRef.current;
+      const wrapper = horizontalSectionRef.current;
+      if (!track || !wrapper) return;
+
+      const panels = gsap.utils.toArray('.horizontal-panel', track);
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          pin: true,
+          scrub: 0.75,
+          anticipatePin: 1,
+          start: 'top top',
+          end: () => `+=${wrapper.offsetWidth * (panels.length - 1)}`,
+          invalidateOnRefresh: true,
+          snap: {
+            snapTo: 1 / (panels.length - 1),
+            duration: { min: 0.25, max: 0.65 },
+            delay: 0.08,
+            ease: 'power2.inOut',
+          },
+        },
+      });
+
+      timeline.to(panels, {
+        xPercent: -100 * (panels.length - 1),
+        ease: 'none',
+        duration: panels.length - 1,
+      }, 0);
+
+      panels.slice(1).forEach((panel, index) => {
+        const shell = panel.querySelector('.portfolio-shell');
+        timeline.fromTo(shell,
+          { autoAlpha: 0.2, scale: 0.88, y: 36 },
+          { autoAlpha: 1, scale: 1, y: 0, ease: 'power2.out', duration: 0.55 },
+          index + 0.42
+        );
+      });
+
+      const firstPanelElements = panels[0].querySelectorAll('.horizontal-reveal');
+      const firstPanelReveal = gsap.fromTo(firstPanelElements,
+        { autoAlpha: 0, y: 42, scale: 0.96 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.65,
+          stagger: 0.09,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: wrapper,
+            start: 'top 82%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+
+      panels.slice(1).forEach((panel, index) => {
+        const panelIndex = index + 1;
+        const elements = panel.querySelectorAll('.horizontal-reveal');
+
+        timeline.fromTo(elements,
+          { autoAlpha: 0, y: 42, scale: 0.96 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.25,
+            stagger: 0.025,
+            ease: 'power3.out',
+          },
+          panelIndex - 0.3
+        );
+      });
+
+      return () => {
+        firstPanelReveal.scrollTrigger?.kill();
+        firstPanelReveal.kill();
+        timeline.kill();
+      };
+    });
+
+    return () => media.revert();
   }, []);
 
   const showBg = () => {
@@ -192,10 +282,6 @@ function App() {
       duration: 1.2,
       easing: (t) => 1 - Math.pow(1 - t, 3),
     });
-  };
-
-  const goToPortfolioPanel = (direction) => {
-    setActivePortfolioPanel((current) => (current + direction + PORTFOLIO_PANELS.length) % PORTFOLIO_PANELS.length);
   };
 
   return (
@@ -277,24 +363,24 @@ function App() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden pb-20 w-full" aria-label="About" id="about">
-        <div className={`flex p-8 bg-white items-center justify-center flex-col md:flex-row md:h-screen `}>
-          <div className="w-full max-w-[1000px] md:w-1/2 text-start items-center justify-center px-0 text-black md:px-10">
+      <section className="about-section relative overflow-hidden pb-20 w-full" aria-label="About" id="about">
+        <div className={`about-shell flex p-8 bg-white items-center justify-center flex-col md:flex-row md:h-screen `}>
+          <div className="about-copy w-full max-w-[1000px] md:w-1/2 text-start items-center justify-center px-0 text-black md:px-10">
             <div className="relative">
               <AnimatedContent className="relative" distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
                 <img className="w-[75px] ml-[-10px] z-0 md:ml-[-20px] md:w-[100px]" src="./images/quotation.png" alt="" />
                 <h2 className="text-4xl font-bold pb-5">About Me</h2>
                 <p className="text-xl">I’m Julius—a web explorer who turns code into experiences. From pixels to interactions, I craft websites that don’t just work, they tell a story. React, Node.js, and a dash of curiosity are my tools of choice. When I’m not coding, I’m discovering ways to make the web a little more delightful.</p>
 
-                <div className="w-full h-[150px] relative overflow-hidden pt-10">
+                <div className="about-logo-loop w-full h-[150px] relative overflow-hidden pt-10">
                   <LogoLoop logos={techLogos} speed={20} direction="left" logoHeight={48} gap={40} hoverSpeed={0} scaleOnHover fadeOut fadeOutColor="#ffffff" ariaLabel="Technology partners" />
                 </div>
               </AnimatedContent>
             </div>
           </div>
-          <div>
+          <div className="about-visual">
             <AnimatedContent className="relative" distance={100} direction="vertical" duration={1.3} delay={0.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-              <div className="absolute top-[-60px] right-[-100px] z-0 md:top-[-80px]">
+              <div className="about-metaballs absolute top-[-60px] right-[-100px] z-0 md:top-[-80px]">
                 <MetaBalls color="#000000" cursorBallColor="#000000" cursorBallSize={2} ballCount={8} animationSize={20} enableMouseInteraction={!isMobile} enableTransparency={true} hoverSmoothness={0.05} clumpFactor={1} speed={0.18} />
               </div>
               <MagicBento textAutoHide={true} enableStars={!isMobile} enableSpotlight={!isMobile} enableBorderGlow={true} enableTilt={!isMobile} enableMagnetism={!isMobile} clickEffect={!isMobile} spotlightRadius={420} particleCount={60} glowColor="132, 0, 255" />
@@ -339,23 +425,23 @@ function App() {
           </div>
 
           <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-            <h2 className="text-6xl font-bold pb-40" id="certificates">
+            <h2 className="certificates-title text-6xl font-bold pb-40" id="certificates">
               Professional Certificates
             </h2>
           </AnimatedContent>
-          <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true} className="pb-40">
-            <div className="items-center justify-center flex flex-col gap-20 md:flex-row">
+          <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true} className="certificates-content pb-40">
+            <div className="certificates-grid items-center justify-center flex flex-col gap-20 md:flex-row">
               {certificates.map((certificate) => {
                 return (
-                  <ElectricBorder color={certificate.color} speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
-                    <div className="eb-demo-card h-[360px] w-[300px] items-start">
+                  <ElectricBorder key={certificate.title} color={certificate.color} speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
+                    <div className="certificate-card eb-demo-card items-start">
                       <div className="eb-demo-badge items-start">Featured</div>
                       <h3 className="eb-demo-title">{certificate.title}</h3>
                       <p className="eb-demo-desc">{certificate.description}</p>
 
                       <div className="eb-demo-row">
                         {certificate.skills.map((skill) => {
-                          return <span className="eb-demo-chip">{skill}</span>;
+                          return <span className="eb-demo-chip" key={skill}>{skill}</span>;
                         })}
                       </div>
                       <button className="eb-demo-cta cursor-target">View Certificate</button>
@@ -378,28 +464,11 @@ function App() {
         <div className="pb-20"></div>
       </section>
 
-      <section className="portfolio-carousel" aria-label="Portfolio highlights">
-        <div className="portfolio-carousel__topbar">
-          <div>
-            <span>Highlights</span>
-            <strong>{PORTFOLIO_PANELS[activePortfolioPanel]}</strong>
-          </div>
-
-          <div className="portfolio-carousel__controls" aria-label="Portfolio page controls">
-            <button type="button" onClick={() => goToPortfolioPanel(-1)} aria-label="Previous portfolio page">
-              <span aria-hidden="true">&lt;</span>
-            </button>
-            <button type="button" onClick={() => goToPortfolioPanel(1)} aria-label="Next portfolio page">
-              <span aria-hidden="true">&gt;</span>
-            </button>
-          </div>
-        </div>
-
-        <div className="portfolio-carousel__viewport">
-          <div className="portfolio-carousel__track" style={{ transform: `translate3d(-${activePortfolioPanel * 100}%, 0, 0)` }}>
-      <section className="portfolio-section services-section portfolio-panel" aria-label="Services">
+      <div className="horizontal-portfolio" ref={horizontalSectionRef}>
+        <div className="horizontal-portfolio__track" ref={horizontalTrackRef}>
+      <section className="portfolio-section services-section horizontal-panel" aria-label="Services">
         <div className="portfolio-shell">
-          <div>
+          <div className="horizontal-reveal">
             <div className="section-intro">
               <span>What I Build</span>
               <h2>Web experiences with structure, motion, and purpose.</h2>
@@ -409,7 +478,7 @@ function App() {
 
           <div className="service-grid">
             {SERVICES.map((service, index) => (
-              <div key={service.title}>
+              <div className="horizontal-reveal" key={service.title}>
                 <article className="service-card">
                   <div className="service-card__number">{String(index + 1).padStart(2, '0')}</div>
                   <h3>{service.title}</h3>
@@ -421,9 +490,9 @@ function App() {
         </div>
       </section>
 
-      <section className="portfolio-section process-section portfolio-panel" aria-label="Process">
+      <section className="portfolio-section process-section horizontal-panel" aria-label="Process">
         <div className="portfolio-shell process-shell">
-          <div>
+          <div className="horizontal-reveal">
             <div className="process-heading">
               <span>How I Work</span>
               <h2>From rough idea to polished release.</h2>
@@ -432,7 +501,7 @@ function App() {
 
           <div className="process-list">
             {WORKFLOW.map(([step, title, description]) => (
-              <div key={title}>
+              <div className="horizontal-reveal" key={title}>
                 <article className="process-item">
                   <span>{step}</span>
                   <h3>{title}</h3>
@@ -444,9 +513,9 @@ function App() {
         </div>
       </section>
 
-      <section className="portfolio-section toolkit-section portfolio-panel" aria-label="Toolkit">
+      <section className="portfolio-section toolkit-section horizontal-panel" aria-label="Toolkit">
         <div className="portfolio-shell toolkit-shell">
-          <div>
+          <div className="horizontal-reveal">
             <div className="toolkit-panel">
               <div className="toolkit-copy">
                 <span>Toolkit</span>
@@ -470,22 +539,8 @@ function App() {
           </div>
         </div>
       </section>
-          </div>
         </div>
-
-        <div className="portfolio-carousel__dots" aria-label="Choose portfolio page">
-          {PORTFOLIO_PANELS.map((panel, index) => (
-            <button
-              type="button"
-              className={activePortfolioPanel === index ? 'is-active' : ''}
-              key={panel}
-              onClick={() => setActivePortfolioPanel(index)}
-              aria-label={`Show ${panel}`}
-              aria-current={activePortfolioPanel === index ? 'true' : undefined}
-            />
-          ))}
-        </div>
-      </section>
+      </div>
 
       <section className="relative bg-white items-center justify-center flex flex-col" id="experience">
         <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
