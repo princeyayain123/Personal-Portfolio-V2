@@ -396,11 +396,14 @@ section {
 }
 
 .bg-image {
-  background-image: url('/images/hero.png');
+  background-image:
+    linear-gradient(135deg, rgba(5, 5, 6, 0.92), rgba(32, 7, 38, 0.82)),
+    url('/images/hero.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
+  color: #fff;
 }
 
 .about-section {
@@ -451,14 +454,15 @@ section {
 .certificates-title {
   max-width: min(1100px, calc(100% - 32px));
   margin: 0 auto;
-  padding-bottom: clamp(48px, 8vw, 120px) !important;
+  padding-bottom: clamp(36px, 5vw, 72px) !important;
+  color: #fff;
   font-size: clamp(36px, 6vw, 72px) !important;
   line-height: 1;
   text-wrap: balance;
 }
 
 .certificates-content {
-  padding-bottom: clamp(72px, 10vw, 160px) !important;
+  padding-bottom: clamp(72px, 8vw, 130px) !important;
 }
 
 .certificates-grid {
@@ -477,6 +481,10 @@ section {
 .certificate-card {
   width: 100% !important;
   min-height: 340px;
+  background:
+    linear-gradient(145deg, rgba(128, 0, 128, 0.24), rgba(255, 255, 255, 0.06)),
+    rgba(12, 8, 18, 0.88) !important;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.36);
 }
 
 .eb-demo-row {
