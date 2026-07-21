@@ -1,9 +1,8 @@
 import './App.css';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion as Motion, useScroll, useSpring } from 'framer-motion';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
 
 import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
@@ -15,7 +14,6 @@ import { IoLocationOutline } from 'react-icons/io5';
 import Ballpit from './components/ReactBits/Ballpit';
 import MagicBento from './components/ReactBits/MagicBento';
 import RotatingText from './components/ReactBits/RotatingText';
-import GradientText from './components/ReactBits/GradientText';
 import TargetCursor from './components/ReactBits/TargetCursor';
 import TextType from './components/ReactBits/TextType';
 import CircularText from './components/ReactBits/CircularText';
@@ -25,80 +23,54 @@ import CardNav from './components/ReactBits/CardNav';
 import logo from './components/ReactBits/logo.png';
 import LogoLoop from './components/ReactBits/LogoLoop';
 import CountUp from './components/ReactBits/CountUp';
-import ElectricBorder from './components/ReactBits/ElectricBorder';
 import MetaBalls from './components/ReactBits/MetaBalls';
-import EmblaCarousel from './components/Embla/EmblaCarousel';
 import Beams from './components/ReactBits/Beams';
 import GlobeComponent from './components/ReactBits/GlobeComponent';
-import Viewer from './components/Viewer/Viewer';
 import GlassContactForm from './components/ReactBits/GlassContactForm';
 import ScrollVelocity from './components/ReactBits/ScrollVelocity';
 import ChatScreenWithReaction from './components/ReactBits/ChatScreenWithReaction';
-import Timeline from './components/Tracker/Timeline';
+import PortfolioStory from './components/PortfolioStory/PortfolioStory';
 
 import items from './utils/NavItems.js';
-import certificates from './utils/Certificates.js';
 
-const OPTIONS = { loop: true };
-const SLIDE_COUNT = 3;
-const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
-const SERVICES = [
-  {
-    title: 'Interface Development',
-    description: 'Responsive React interfaces with clean layouts, strong interaction states, and mobile-first polish.',
-  },
-  {
-    title: 'Dashboard Experiences',
-    description: 'Data-heavy screens designed for scanning, filtering, tracking, and repeated daily use.',
-  },
-  {
-    title: '3D & Interactive Web',
-    description: 'Product previews, configurators, animated sections, and lightweight immersive web moments.',
-  },
+const METRICS = [
+  { value: 8, duration: 2, label: 'Projects completed', detail: 'Built and shipped', marker: '01' },
+  { value: 4, duration: 3, label: 'Happy clients', detail: 'Across collaborations', marker: '02' },
+  { value: 2, duration: 2.4, label: 'Year of experience', detail: 'Professional work', marker: '03' },
+  { value: 4, duration: 1.8, label: 'Professional reviews', detail: 'Feedback received', marker: '04' },
 ];
 
-const WORKFLOW = [
-  ['01', 'Discover', 'Clarify the goal, audience, content, and product behavior before touching the interface.'],
-  ['02', 'Design', 'Shape the screen hierarchy, spacing, colors, and interaction rhythm around the user journey.'],
-  ['03', 'Build', 'Translate the design into responsive, maintainable React components and production-ready CSS.'],
-  ['04', 'Refine', 'Test performance, responsiveness, visual consistency, and the tiny details that make it feel finished.'],
-];
-
-const TOOLKIT_GROUPS = [
+const CLIENT_REVIEWS = [
   {
-    category: 'Front-End',
-    tools: ['React', 'Next.js', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'HTML5', 'CSS3', 'Three.js', 'GSAP', 'Video.js'],
+    name: 'Bradley Tinch',
+    role: 'Manager — Keep Me Fresh LLC',
+    initials: 'BT',
+    quote: 'Julius took a complex idea and shaped it into an experience that feels clear, polished, and easy to use. He was thoughtful throughout the process and delivered work we could confidently move forward with.',
   },
   {
-    category: 'Back-End',
-    tools: ['Node.js', 'Express', 'NestJS', 'Laravel', 'REST APIs'],
+    name: 'Vin',
+    role: 'Freelance Client — Pompanette LLC',
+    initials: 'V',
+    quote: 'Working with Julius was straightforward from start to finish. He communicated clearly, responded well to feedback, and paid attention to the small details that made the final product feel complete.',
   },
   {
-    category: 'Databases',
-    tools: ['PostgreSQL', 'MySQL', 'MongoDB', 'Prisma'],
+    name: 'Andrea Ciani',
+    role: 'Freelance Client — SkinSoftware-GmbH',
+    initials: 'AC',
+    quote: 'Julius consistently approached each task with care and professionalism. He understood the requirements, found practical solutions, and could be trusted to produce reliable, high-quality work.',
   },
   {
-    category: 'Tools & Platforms',
-    tools: ['Git', 'GitHub', 'Postman', 'Vercel', 'Netlify', 'Render'],
-  },
-  {
-    category: 'DevOps & CI/CD',
-    tools: ['Docker', 'CI/CD Pipelines', 'GitHub Actions'],
-  },
-  {
-    category: 'Payments',
-    tools: ['Stripe', 'PayMongo', 'Xendit'],
-  },
-  {
-    category: 'Queues & Jobs',
-    tools: ['BullMQ', 'Redis'],
+    name: 'Madel Sacristia',
+    role: 'Supervisor — Your Asian Team',
+    initials: 'MS',
+    quote: 'Julius was attentive, collaborative, and committed to getting the experience right. He turned feedback into meaningful improvements and remained dependable throughout the project.',
   },
 ];
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
-  const horizontalSectionRef = useRef(null);
-  const horizontalTrackRef = useRef(null);
+  const { scrollYProgress } = useScroll();
+  const pageProgress = useSpring(scrollYProgress, { stiffness: 130, damping: 28, mass: 0.25 });
 
   const techLogos = [
     { node: <SiHtml5 />, title: 'HTML5', href: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
@@ -127,95 +99,6 @@ function App() {
     window.addEventListener('resize', checkMobile);
 
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const media = gsap.matchMedia();
-    media.add('(min-width: 993px)', () => {
-      const track = horizontalTrackRef.current;
-      const wrapper = horizontalSectionRef.current;
-      if (!track || !wrapper) return;
-
-      const panels = gsap.utils.toArray('.horizontal-panel', track);
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapper,
-          pin: true,
-          scrub: 0.75,
-          anticipatePin: 1,
-          start: 'top top',
-          end: () => `+=${wrapper.offsetWidth * (panels.length - 1)}`,
-          invalidateOnRefresh: true,
-          snap: {
-            snapTo: 1 / (panels.length - 1),
-            duration: { min: 0.25, max: 0.65 },
-            delay: 0.08,
-            ease: 'power2.inOut',
-          },
-        },
-      });
-
-      timeline.to(panels, {
-        xPercent: -100 * (panels.length - 1),
-        ease: 'none',
-        duration: panels.length - 1,
-      }, 0);
-
-      panels.slice(1).forEach((panel, index) => {
-        const shell = panel.querySelector('.portfolio-shell');
-        timeline.fromTo(shell,
-          { autoAlpha: 0.2, scale: 0.88, y: 36 },
-          { autoAlpha: 1, scale: 1, y: 0, ease: 'power2.out', duration: 0.55 },
-          index + 0.42
-        );
-      });
-
-      const firstPanelElements = panels[0].querySelectorAll('.horizontal-reveal');
-      const firstPanelReveal = gsap.fromTo(firstPanelElements,
-        { autoAlpha: 0, y: 42, scale: 0.96 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.65,
-          stagger: 0.09,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: wrapper,
-            start: 'top 82%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-
-      panels.slice(1).forEach((panel, index) => {
-        const panelIndex = index + 1;
-        const elements = panel.querySelectorAll('.horizontal-reveal');
-
-        timeline.fromTo(elements,
-          { autoAlpha: 0, y: 42, scale: 0.96 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.25,
-            stagger: 0.025,
-            ease: 'power3.out',
-          },
-          panelIndex - 0.3
-        );
-      });
-
-      return () => {
-        firstPanelReveal.scrollTrigger?.kill();
-        firstPanelReveal.kill();
-        timeline.kill();
-      };
-    });
-
-    return () => media.revert();
   }, []);
 
   const showBg = () => {
@@ -286,6 +169,7 @@ function App() {
 
   return (
     <>
+      <Motion.div className="page-scroll-progress" style={{ scaleX: pageProgress }} aria-hidden="true" />
       <div className="fixed z-50 top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto flex items-center justify-center gap-2 w-full">
         <AnimatedContent className="w-full" distance={60} direction="vertical" reverse={false} duration={0.8} ease="power3.out" initialOpacity={0} animateOpacity={true} scale={1} threshold={0.1} delay={1}>
           <div className="w-full" style={{ width: '1000px' }}>
@@ -363,7 +247,7 @@ function App() {
         </div>
       </section>
 
-      <section className="about-section relative overflow-hidden pb-20 w-full" aria-label="About" id="about">
+      <section className="about-section relative overflow-hidden w-full" aria-label="About" id="about">
         <div className={`about-shell flex p-8 bg-white items-center justify-center flex-col md:flex-row md:h-screen `}>
           <div className="about-copy w-full max-w-[1000px] md:w-1/2 text-start items-center justify-center px-0 text-black md:px-10">
             <div className="relative">
@@ -388,203 +272,91 @@ function App() {
           </div>
         </div>
 
-        <div className="bg-image">
-          <div className="grid grid-cols-1 gap-5 py-[100px] text-4xl font-bold w-full place-items-center md:grid-cols-2 lg:grid-cols-4">
-            <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-              <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
-                <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
-                  <CountUp from={0} to={8} duration={2} startWhen={true} className="count-up-text" />+
-                </GradientText>
-                <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Completed Projects</div>
-              </div>
+        <section className="portfolio-metrics" aria-labelledby="metrics-title">
+          <div className="metrics-shell">
+            <AnimatedContent distance={50} direction="vertical" duration={0.85} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+              <header className="metrics-heading">
+                <div>
+                  <span className="metrics-eyebrow">A quick snapshot</span>
+                  <h2 id="metrics-title">Work, measured.</h2>
+                </div>
+                <p>Numbers are only part of the story, but they reflect the trust, consistency, and hands-on work behind every project.</p>
+              </header>
             </AnimatedContent>
-            <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0.2} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-              <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
-                <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
-                  <CountUp from={0} to={60} duration={3} startWhen={true} className="count-up-text" />+
-                </GradientText>
-                <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Happy Clients</div>
-              </div>
-            </AnimatedContent>
-            <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0.4} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-              <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
-                <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
-                  <CountUp from={0} to={1} duration={3} startWhen={true} className="count-up-text" />+
-                </GradientText>
-                <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Year Experiences</div>
-              </div>
-            </AnimatedContent>
-            <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} delay={0.5} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-              <div className="h-[200px] w-[350px]  flex flex-row gap-2 items-center justify-center">
-                <GradientText colors={['#5227FF', '#FF9FFC', '#B19EEF']} animationSpeed={3} showBorder={false} className="custom-class text-6xl">
-                  <CountUp from={0} to={24} duration={1} startWhen={true} className="count-up-text" />+
-                </GradientText>
-                <div className="w-[200px] shadowText bg-gradient-to-b from-white from-0% to-white to-90% via-[#808080] via-100% bg-clip-text text-transparent">Client Reviews</div>
-              </div>
-            </AnimatedContent>
-          </div>
 
-          <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-            <h2 className="certificates-title text-6xl font-bold pb-40" id="certificates">
-              Professional Certificates
-            </h2>
-          </AnimatedContent>
-          <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true} className="certificates-content pb-40">
-            <div className="certificates-grid items-center justify-center flex flex-col gap-20 md:flex-row">
-              {certificates.map((certificate) => {
-                return (
-                  <ElectricBorder key={certificate.title} color={certificate.color} speed={1} chaos={0.06} thickness={2} style={{ borderRadius: 16 }}>
-                    <div className="certificate-card eb-demo-card items-start">
-                      <div className="eb-demo-badge items-start">Featured</div>
-                      <h3 className="eb-demo-title">{certificate.title}</h3>
-                      <p className="eb-demo-desc">{certificate.description}</p>
-
-                      <div className="eb-demo-row">
-                        {certificate.skills.map((skill) => {
-                          return <span className="eb-demo-chip" key={skill}>{skill}</span>;
-                        })}
-                      </div>
-                      <button className="eb-demo-cta cursor-target">View Certificate</button>
+            <div className="metrics-grid">
+              {METRICS.map((metric, index) => (
+                <AnimatedContent key={metric.label} distance={55} direction="vertical" duration={0.8} delay={index * 0.1} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+                  <article className="metric-card">
+                    <div className="metric-card__top">
+                      <span>{metric.marker}</span>
+                      <span>{metric.detail}</span>
                     </div>
-                  </ElectricBorder>
-                );
-              })}
-            </div>
-          </AnimatedContent>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden w-full items-center justify-center flex flex-col  mt-[80px] pb-[50px] projects" aria-label="Projects" id="projects">
-        <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-          <h2 className="text-6xl font-bold pb-20">Projects</h2>
-        </AnimatedContent>
-        <div className="flex flex-col w-full justify-center items-center lg:flex-row gap-10 max-w-[1600px]">
-          <EmblaCarousel slides={SLIDES} options={OPTIONS} />
-        </div>
-        <div className="pb-20"></div>
-      </section>
-
-      <div className="horizontal-portfolio" ref={horizontalSectionRef}>
-        <div className="horizontal-portfolio__track" ref={horizontalTrackRef}>
-      <section className="portfolio-section services-section horizontal-panel" aria-label="Services">
-        <div className="portfolio-shell">
-          <div className="horizontal-reveal">
-            <div className="section-intro">
-              <span>What I Build</span>
-              <h2>Web experiences with structure, motion, and purpose.</h2>
-              <p>I focus on interfaces that look sharp, stay usable, and feel smooth without overloading the browser.</p>
-            </div>
-          </div>
-
-          <div className="service-grid">
-            {SERVICES.map((service, index) => (
-              <div className="horizontal-reveal" key={service.title}>
-                <article className="service-card">
-                  <div className="service-card__number">{String(index + 1).padStart(2, '0')}</div>
-                  <h3>{service.title}</h3>
-                  <p>{service.description}</p>
-                </article>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="portfolio-section process-section horizontal-panel" aria-label="Process">
-        <div className="portfolio-shell process-shell">
-          <div className="horizontal-reveal">
-            <div className="process-heading">
-              <span>How I Work</span>
-              <h2>From rough idea to polished release.</h2>
-            </div>
-          </div>
-
-          <div className="process-list">
-            {WORKFLOW.map(([step, title, description]) => (
-              <div className="horizontal-reveal" key={title}>
-                <article className="process-item">
-                  <span>{step}</span>
-                  <h3>{title}</h3>
-                  <p>{description}</p>
-                </article>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="portfolio-section toolkit-section horizontal-panel" aria-label="Toolkit">
-        <div className="portfolio-shell toolkit-shell">
-          <div className="horizontal-reveal">
-            <div className="toolkit-panel">
-              <div className="toolkit-copy">
-                <span>Toolkit</span>
-                <h2>Modern stack, practical execution.</h2>
-                <p>These are the tools I use across interface work, backend systems, databases, automation, deployment, queues, and payment integrations.</p>
-              </div>
-
-              <div className="toolkit-groups">
-                {TOOLKIT_GROUPS.map((group) => (
-                  <article className="toolkit-group" key={group.category}>
-                    <h3>{group.category}</h3>
-                    <div className="toolkit-tags">
-                      {group.tools.map((tool) => (
-                        <span key={tool}>{tool}</span>
-                      ))}
+                    <div className="metric-card__value">
+                      <CountUp from={0} to={metric.value} duration={metric.duration} startWhen={true} className="count-up-text" />
+                      <sup>+</sup>
                     </div>
+                    <h3>{metric.label}</h3>
+                    <div className="metric-card__line" aria-hidden="true"><span /></div>
                   </article>
+                </AnimatedContent>
+              ))}
+            </div>
+
+            <div className="reviews-block" aria-labelledby="reviews-title">
+              <AnimatedContent distance={45} direction="vertical" duration={0.8} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+                <header className="reviews-heading">
+                  <div>
+                    <span className="metrics-eyebrow">Testimonials / 04</span>
+                    <h3 id="reviews-title">Words from the people behind the work.</h3>
+                  </div>
+                  <p>Feedback from managers, supervisors, and clients who have worked with me across professional and freelance projects.</p>
+                </header>
+              </AnimatedContent>
+
+              <div className="reviews-grid">
+                {CLIENT_REVIEWS.map((review, index) => (
+                  <AnimatedContent key={review.name} distance={45} direction="vertical" duration={0.75} delay={index * 0.08} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+                    <article className={`review-card${review.placeholder ? ' review-card--placeholder' : ''}`}>
+                      <div className="review-card__top">
+                        <span className="review-card__index">{String(index + 1).padStart(2, '0')}</span>
+                        <span className="review-card__status">Professional testimonial</span>
+                      </div>
+                      <blockquote>{review.quote}</blockquote>
+                      <footer>
+                        <span className="review-card__avatar" aria-hidden="true">{review.initials}</span>
+                        <span>
+                          <strong>{review.name}</strong>
+                          <small>{review.role}</small>
+                        </span>
+                      </footer>
+                    </article>
+                  </AnimatedContent>
                 ))}
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </section>
-        </div>
-      </div>
 
-      <section className="relative bg-white items-center justify-center flex flex-col" id="experience">
-        <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-          <h2 className="text-6xl font-bold py-20 text-black ">Experiences</h2>
-        </AnimatedContent>
-        <div className="flex flex-col md:flex-row max-w-[1800px] w-full">
-          <div className="w-full px-6 lg:px-20 lg:w-2/3">
-            <AnimatedContent distance={100} direction="horizontal" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-              <p className="text-black text-xl  mb-10 text-justify">I have 1+ year of experience in front-end and web development, building responsive and user-friendly web interfaces. I’ve worked on projects ranging from image labeling for machine learning to custom boat seat configurators, and most recently, online cybersecurity training platforms. I focus on creating interactive, accessible, and visually engaging web applications.</p>
-              {/* <Masonry items={item} ease="power3.out" duration={0.6} stagger={0.1} animateFrom="bottom" scaleOnHover={true} hoverScale={0.9} blurToFocus={true} /> */}
-
-              <div style={{ width: '100%', height: '700px' }}>
-                <Viewer></Viewer>
-              </div>
-            </AnimatedContent>
-          </div>
-          <div className="w-full px-6 lg:w-1/3">
-            <AnimatedContent distance={100} direction="horizontal" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-              <Timeline></Timeline>
-            </AnimatedContent>
-          </div>
-        </div>
-
-        <div className="pb-10 md:pb-20"></div>
-      </section>
+      <PortfolioStory />
 
       <div className="pt-20 md:pt-40 bg-black velocity"></div>
       <ScrollVelocity className="bg-black" texts={['React Portfolio', 'Full Stack Developer']} velocity={50} />
       <div className="pb-20 md:pb-40 bg-black velocity"></div>
 
-      <section className="relative w-full bg-black h-full" id="contact">
-        <div className="absolute inset-0">
-          <AnimatedContent distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
-            <GlobeComponent />
-          </AnimatedContent>
+      <section className="contact-section relative w-full bg-black" id="contact">
+        <div className="contact-globe absolute inset-0" aria-hidden="true">
+          <GlobeComponent />
         </div>
 
-        <div className="relative z-10 flex flex-col w-full max-w-[1800px] mx-auto  p-5 md:p-10 gap-10 h-full">
-          <AnimatedContent distance={100} direction="vertical" reverse duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+        <div className="contact-content relative z-10 flex flex-col w-full max-w-[1800px] mx-auto p-5 md:p-10 gap-10">
+          <header className="contact-heading">
             <h2 className="text-4xl font-bold text-white text-center pb-5 pt-20">Get In Touch</h2>
             <h2 className="text-6xl font-bold text-[#ff9cff] text-center pb-10">Let's Work Together</h2>
-          </AnimatedContent>
+          </header>
 
-          <AnimatedContent className="h-full" distance={100} direction="vertical" duration={1.3} ease="power3.out" initialOpacity={0} animateOpacity={true}>
+          <div className="contact-layout">
             <div className="flex flex-col-reverse md:flex-row flex-1 gap-10 h-full md:h-[650px]">
               <div className="w-full md:w-2/3 h-full overflow-hidden flex flex-col gap-5 ">
                 <div className="flex flex-1/3 flex-col md:flex-row gap-5">
@@ -646,7 +418,7 @@ function App() {
                 <GlassContactForm />
               </div>
             </div>
-          </AnimatedContent>
+          </div>
         </div>
       </section>
       <footer className="py-5 text-center text-gray-400">© {new Date().getFullYear()} Julius Yayain. All Rights Reserved.</footer>

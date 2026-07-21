@@ -451,6 +451,291 @@ section {
   pointer-events: none;
 }
 
+.portfolio-metrics {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  padding: clamp(76px, 9vw, 130px) 24px;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(circle at 82% 10%, rgba(255, 156, 255, .16), transparent 32%),
+    radial-gradient(circle at 8% 100%, rgba(128, 0, 128, .28), transparent 30%),
+    #0d0716;
+}
+
+.portfolio-metrics::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .22;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .055) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+}
+
+.metrics-shell {
+  width: min(1750px, 100%);
+  margin: 0 auto;
+}
+
+.metrics-heading {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(280px, 520px);
+  gap: clamp(28px, 6vw, 90px);
+  align-items: end;
+  margin-bottom: clamp(44px, 6vw, 76px);
+  text-align: left;
+}
+
+.metrics-eyebrow {
+  display: block;
+  margin-bottom: 16px;
+  color: #ff9cff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.metrics-heading h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(46px, 7vw, 94px);
+  font-weight: 650;
+  letter-spacing: -.065em;
+  line-height: .9;
+}
+
+.metrics-heading p {
+  margin: 0;
+  color: #c4b8c8;
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.7;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metrics-grid > * {
+  min-width: 0;
+  height: 100%;
+}
+
+.metric-card {
+  position: relative;
+  min-height: 330px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(22px, 2.4vw, 30px);
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, .13);
+  border-radius: 8px;
+  background: linear-gradient(145deg, rgba(128, 0, 128, .2), rgba(255, 255, 255, .035));
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), border-color .35s ease, background .35s ease;
+}
+
+.metric-card::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -80px;
+  bottom: -90px;
+  border-radius: 50%;
+  background: #ff9cff;
+  filter: blur(55px);
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.metric-card:hover {
+  z-index: 2;
+  transform: translateY(-8px);
+  border-color: rgba(255, 156, 255, .48);
+  background: linear-gradient(145deg, rgba(128, 0, 128, .34), rgba(255, 255, 255, .06));
+}
+
+.metric-card:hover::after { opacity: .22; }
+
+.metric-card__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: #9f8fa5;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.metric-card__top span:first-child { color: #ff9cff; }
+
+.metric-card__value {
+  display: flex;
+  align-items: flex-start;
+  margin: auto 0 18px;
+  color: #fff;
+  font-size: clamp(62px, 7vw, 98px);
+  font-weight: 700;
+  letter-spacing: -.075em;
+  line-height: .8;
+}
+
+.metric-card__value sup {
+  margin: -.08em 0 0 .08em;
+  color: #ff9cff;
+  font-size: .35em;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.metric-card h3 {
+  margin: 0 0 24px;
+  color: #fff;
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 600;
+  letter-spacing: -.025em;
+}
+
+.metric-card__line {
+  width: 100%;
+  height: 2px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .1);
+}
+
+.metric-card__line span {
+  display: block;
+  width: 36%;
+  height: 100%;
+  background: linear-gradient(90deg, #800080, #ff9cff);
+  transition: width .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.metric-card:hover .metric-card__line span { width: 100%; }
+
+.reviews-block {
+  margin-top: clamp(80px, 10vw, 140px);
+  padding-top: clamp(50px, 6vw, 76px);
+  border-top: 1px solid rgba(255, 255, 255, .13);
+}
+
+.reviews-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 430px);
+  gap: clamp(28px, 6vw, 90px);
+  align-items: end;
+  margin-bottom: clamp(38px, 5vw, 62px);
+  text-align: left;
+}
+
+.reviews-heading h3 {
+  max-width: 760px;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(36px, 5vw, 66px);
+  font-weight: 650;
+  letter-spacing: -.055em;
+  line-height: .98;
+  text-wrap: balance;
+}
+
+.reviews-heading p {
+  margin: 0;
+  color: #b9abbf;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.reviews-grid > * { min-width: 0; height: 100%; }
+
+.review-card {
+  min-height: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 36px);
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, .13);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(128, 0, 128, .2), rgba(255, 255, 255, .035));
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), border-color .35s ease, background .35s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 156, 255, .42);
+  background: linear-gradient(145deg, rgba(128, 0, 128, .3), rgba(255, 255, 255, .055));
+}
+
+.review-card--placeholder { border-style: dashed; }
+
+.review-card__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: #9f8fa5;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.review-card__index { color: #ff9cff; }
+
+.review-card blockquote {
+  max-width: 560px;
+  margin: auto 0;
+  padding: 42px 0;
+  color: #ddd3e1;
+  font-family: Georgia, serif;
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.review-card footer { display: flex; gap: 14px; align-items: center; }
+
+.review-card__avatar {
+  display: grid;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  color: #fff;
+  border: 1px solid rgba(255, 156, 255, .35);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #800080, #3c144d);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .05em;
+}
+
+.review-card footer > span:last-child { display: grid; gap: 4px; }
+.review-card footer strong { color: #fff; font-size: 15px; }
+.review-card footer small { color: #9f8fa5; font-size: 11px; }
+
+@media screen and (max-width: 980px) {
+  .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .metric-card { min-height: 280px; }
+  .reviews-heading { grid-template-columns: 1fr; align-items: start; }
+}
+
 .certificates-title {
   max-width: min(1100px, calc(100% - 32px));
   margin: 0 auto;
@@ -509,7 +794,7 @@ section {
 
 @media screen and (max-width: 768px) {
   .about-section {
-    padding-bottom: 56px !important;
+    padding-bottom: 0 !important;
   }
 
   .about-shell {
@@ -530,10 +815,21 @@ section {
     display: none;
   }
 
+  .portfolio-metrics { padding: 72px 18px; }
+  .metrics-heading { grid-template-columns: 1fr; align-items: start; }
+
   .certificates-grid {
     grid-template-columns: minmax(0, 1fr);
     width: min(420px, calc(100% - 32px));
   }
+}
+
+@media screen and (max-width: 560px) {
+  .metrics-grid { grid-template-columns: 1fr; }
+  .metric-card { min-height: 245px; }
+  .metric-card__value { font-size: clamp(68px, 22vw, 90px); }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .review-card { min-height: 270px; }
 }
 
 @media screen and (max-width: 420px) {
@@ -994,6 +1290,41 @@ a.icon:hover {
 
 .velocity {
   background-color: black !important;
+}
+
+.contact-section {
+  isolation: isolate;
+  min-height: 860px;
+  overflow: hidden;
+}
+
+.contact-globe {
+  z-index: 0;
+  overflow: hidden;
+  opacity: .52;
+  pointer-events: none;
+}
+
+.contact-content {
+  z-index: 2;
+  min-height: 860px;
+}
+
+.contact-heading,
+.contact-layout {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .contact-section,
+  .contact-content {
+    min-height: auto;
+  }
+
+  .contact-globe {
+    opacity: .3;
+  }
 }
 
 @keyframes bounceSlow {
