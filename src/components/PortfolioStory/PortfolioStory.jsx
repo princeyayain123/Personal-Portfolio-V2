@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { motion as Motion } from 'framer-motion';
 import { ArrowUpRight, Award, BriefcaseBusiness, Check, Code2, Layers3, Sparkles } from 'lucide-react';
 import './portfolio-story.css';
@@ -35,6 +36,7 @@ const projects = [
     result: 'Turned a complex custom-order flow into a visual, guided buying experience.',
     stack: ['JavaScript', 'Three.js', 'Node.js', 'Express'],
     image: '/videos/1.png',
+    video: '/videos/1.mp4',
     link: 'https://design.pompanette.com/products/8400/',
   },
   {
@@ -45,6 +47,7 @@ const projects = [
     result: 'Made compliance content easier to understand through active participation.',
     stack: ['JavaScript', 'jQuery', 'Bootstrap', 'Game logic'],
     image: '/videos/2.png',
+    video: '/videos/2.mp4',
     link: 'https://search-practice.netlify.app/',
   },
   {
@@ -55,23 +58,27 @@ const projects = [
     result: 'Centralized daily workforce tracking in one secure, responsive workspace.',
     stack: ['React', 'TypeScript', 'Node.js', 'MongoDB'],
     image: '/videos/3.png',
+    video: '/videos/3.mp4',
     link: 'https://attendance-tracking-employee-app.vercel.app/',
   },
   {
     number: '04',
-    title: 'New Project Coming Soon',
-    type: 'In development',
-    description: 'A new product case study is currently being prepared. Project details, visuals, and outcomes will be added here soon.',
-    stack: ['Case study', 'In progress', 'Coming soon'],
-    placeholder: true,
+    title: 'Dubraes | Personalized Sneaker Dubraes',
+    type: 'E-commerce personalization',
+    description: 'A personalized shopping experience for creating custom sneaker dubraes, shaped around clear choices and an easy customization flow.',
+    stack: ['Shopify', 'E-commerce', 'Personalization'],
+    video: '/videos/4.mp4',
+    link: 'https://www.dubraes.com/',
   },
   {
     number: '05',
-    title: 'Next Case Study',
-    type: 'Reserved project',
-    description: 'This space is reserved for another upcoming project, including the challenge, solution, technology, and final results.',
-    stack: ['New work', 'Details soon', 'Stay tuned'],
+    title: 'KeepMeFresh Inventory Hub',
+    type: 'Private internal platform',
+    description: 'A private inventory workspace for Keep Me Fresh. The portfolio includes a limited video preview, while system access and operational data remain confidential.',
+    stack: ['Private system', 'Inventory operations', 'Confidential'],
+    video: '/videos/5.mp4',
     placeholder: true,
+    private: true,
   },
 ];
 
@@ -88,11 +95,24 @@ const workflow = [
   ['Refine', 'Test responsiveness, accessibility, performance, and the details users feel.'],
 ];
 
-const toolkit = ['React', 'Next.js', 'TypeScript', 'Node.js', 'Express', 'Laravel', 'Three.js', 'GSAP', 'Tailwind CSS', 'MongoDB', 'PostgreSQL', 'Docker'];
+const toolkitGroups = [
+  { label: 'Interface', tools: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'] },
+  { label: 'Server', tools: ['Node.js', 'Express', 'Laravel'] },
+  { label: 'Motion & 3D', tools: ['Three.js', 'GSAP'] },
+  { label: 'Data & delivery', tools: ['MongoDB', 'PostgreSQL', 'Docker'] },
+];
 
 const experiences = [
   {
-    date: '2024 — Present',
+    date: '2026 — Present',
+    role: 'Full-Stack & Mobile App Developer',
+    company: 'Keep Me Fresh LLC',
+    description: 'Develop full-stack web and mobile applications that support internal operations, inventory workflows, and reliable day-to-day product management.',
+    highlights: ['Full-stack development', 'Mobile app development', 'Inventory systems'],
+    logo: '/images/KMF.jpg',
+  },
+  {
+    date: '2024 — 2026',
     role: 'Web Developer',
     company: 'Your Asian Team',
     description: 'Build responsive web experiences for online cybersecurity training, translating learning requirements into interactive course interfaces and quality-assured releases.',
@@ -131,6 +151,91 @@ function SectionHeading({ eyebrow, title, copy }) {
       <h2>{title}</h2>
       {copy && <p>{copy}</p>}
     </Motion.header>
+  );
+}
+
+function ProjectCard({ project, index }) {
+  const videoRef = useRef(null);
+  const hoverTimerRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const Card = project.link ? Motion.a : Motion.article;
+  const linkProps = project.link
+    ? { href: project.link, target: '_blank', rel: 'noreferrer', 'aria-label': `View ${project.title}` }
+    : { 'aria-label': project.private ? `${project.title}, private internal project` : `${project.title} placeholder` };
+
+  const stopPreview = () => {
+    window.clearTimeout(hoverTimerRef.current);
+    hoverTimerRef.current = null;
+
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+
+    setIsPlaying(false);
+  };
+
+  const startPreview = () => {
+    if (!project.video || hoverTimerRef.current || isPlaying) return;
+
+    hoverTimerRef.current = window.setTimeout(async () => {
+      hoverTimerRef.current = null;
+
+      try {
+        await videoRef.current?.play();
+        setIsPlaying(true);
+      } catch {
+        setIsPlaying(false);
+      }
+    }, 1000);
+  };
+
+  useEffect(() => () => {
+    window.clearTimeout(hoverTimerRef.current);
+  }, []);
+
+  return (
+    <Card
+      className={`gallery-card gallery-card--${index + 1}${project.placeholder ? ' gallery-card--placeholder' : ' cursor-target'}${isPlaying ? ' gallery-card--playing' : ''}`}
+      {...linkProps}
+      onPointerEnter={(event) => {
+        if (event.pointerType !== 'touch') startPreview();
+      }}
+      onPointerLeave={stopPreview}
+      onFocus={startPreview}
+      onBlur={stopPreview}
+      initial={{ opacity: 0, y: 44, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {project.image || project.video ? (
+        <div className={`gallery-card__media${project.image ? '' : ' gallery-card__media--video-only'}`}>
+          {project.image && <img src={project.image} alt={`${project.title} interface preview`} loading="lazy" />}
+          {project.video && (
+            <video ref={videoRef} muted loop playsInline preload="metadata" aria-hidden="true">
+              <source src={project.video} type="video/mp4" />
+            </video>
+          )}
+        </div>
+      ) : (
+        <span className="gallery-card__placeholder-art" aria-hidden="true" />
+      )}
+      <span className="gallery-card__number">{project.number}</span>
+      <span className="gallery-card__category">{project.type}</span>
+      <span className="gallery-card__arrow">
+        {project.private ? <span className="gallery-card__soon">Private</span> : project.placeholder ? <span className="gallery-card__soon">Soon</span> : <ArrowUpRight size={22} />}
+      </span>
+      <div className="gallery-card__content">
+        <h3>{project.title}</h3>
+        <p>{project.description}</p>
+        <div className="gallery-card__tags">
+          {project.stack.slice(0, 3).map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      </div>
+    </Card>
   );
 }
 
@@ -198,28 +303,7 @@ export default function PortfolioStory() {
           </Motion.header>
 
           <div className="project-gallery">
-            {projects.map((project, index) => {
-              const Card = project.link ? Motion.a : Motion.article;
-              const linkProps = project.link ? { href: project.link, target: '_blank', rel: 'noreferrer', 'aria-label': `View ${project.title}` } : { 'aria-label': `${project.title} placeholder` };
-
-              return (
-                <Card className={`gallery-card gallery-card--${index + 1}${project.placeholder ? ' gallery-card--placeholder' : ' cursor-target'}`} {...linkProps} key={project.title} initial={{ opacity: 0, y: 44, scale: 0.98 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, amount: 0.18 }} transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}>
-                  {project.image ? <img src={project.image} alt={`${project.title} interface preview`} loading="lazy" /> : <span className="gallery-card__placeholder-art" aria-hidden="true" />}
-                  <span className="gallery-card__number">{project.number}</span>
-                  <span className="gallery-card__category">{project.type}</span>
-                  <span className="gallery-card__arrow">{project.placeholder ? <span className="gallery-card__soon">Soon</span> : <ArrowUpRight size={22} />}</span>
-                  <div className="gallery-card__content">
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                    <div className="gallery-card__tags">
-                      {project.stack.slice(0, 3).map((item) => (
-                        <span key={item}>{item}</span>
-                      ))}
-                    </div>
-                  </div>
-                </Card>
-              );
-            })}
+            {projects.map((project, index) => <ProjectCard project={project} index={index} key={project.title} />)}
           </div>
 
           <Motion.div className="gallery-footnote" {...reveal}>
@@ -229,7 +313,7 @@ export default function PortfolioStory() {
         </div>
       </section>
 
-      <section className="story-section practice" aria-labelledby="practice-title">
+      <section className="story-section practice" id="practice" aria-labelledby="practice-title">
         <div className="story-shell">
           <SectionHeading eyebrow="Practice" title={<span id="practice-title">Structure first. Motion with a reason.</span>} copy="I work across the interface and the system behind it, keeping the experience clear from the first sketch to release." />
 
@@ -262,19 +346,35 @@ export default function PortfolioStory() {
               </ol>
             </Motion.div>
             <Motion.aside className="toolkit-panel-new" {...reveal}>
-              <div className="panel-label">
-                <Code2 size={18} /> Core toolkit
+              <div className="toolkit-panel__header">
+                <div className="panel-label">
+                  <Code2 size={18} /> Core toolkit
+                </div>
+                <span>12 technologies</span>
               </div>
               <h3>
                 Modern tools.
                 <br />
                 Practical choices.
               </h3>
-              <div className="toolkit-cloud">
-                {toolkit.map((tool) => (
-                  <span key={tool}>{tool}</span>
+              <p className="toolkit-panel__intro">A flexible stack organized around the part each tool plays in a product.</p>
+              <div className="toolkit-groups">
+                {toolkitGroups.map((group, index) => (
+                  <div className="toolkit-group" key={group.label}>
+                    <div className="toolkit-group__heading">
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                      <h4>{group.label}</h4>
+                    </div>
+                    <div className="toolkit-cloud">
+                      {group.tools.map((tool) => (
+                        <span key={tool}>{tool}</span>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
+              <div className="toolkit-panel__footer"><Sparkles size={17} /><p>Chosen for the problem, not just the trend.</p></div>
+              <div className="toolkit-panel__code" aria-hidden="true">{'</>'}</div>
             </Motion.aside>
           </div>
         </div>
@@ -283,7 +383,7 @@ export default function PortfolioStory() {
       <section className="story-section experience" id="experience" aria-labelledby="experience-title">
         <div className="story-shell experience-shell">
           <div className="experience-intro-new">
-            <SectionHeading eyebrow="Experience / 03 roles" title={<span id="experience-title">Learning by shipping real work.</span>} copy="My path moves from detail-heavy data work into interactive front-end and full web development." />
+            <SectionHeading eyebrow="Experience / 04 roles" title={<span id="experience-title">Learning by shipping real work.</span>} copy="My path moves from detail-heavy data work into interactive front-end, full-stack web, and mobile application development." />
             <Motion.div className="experience-note" {...reveal}>
               <BriefcaseBusiness size={20} />
               <p>Available for product-focused web development opportunities and thoughtful freelance collaborations.</p>
@@ -294,7 +394,7 @@ export default function PortfolioStory() {
             {experiences.map((experience, index) => (
               <Motion.article className="experience-card-new" key={experience.role} {...reveal}>
                 <div className="experience-card__visual" aria-hidden="true">
-                  <img src={experience.logo} alt="" loading="lazy" />
+                  {experience.logo ? <img src={experience.logo} alt="" loading="lazy" /> : <div className="experience-card__visual-placeholder"><span>{experience.visualLabel}</span></div>}
                 </div>
                 <div className="experience-card-top">
                   <span className="experience-number">{String(index + 1).padStart(2, '0')}</span>

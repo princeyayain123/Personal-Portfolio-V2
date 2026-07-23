@@ -3,6 +3,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { motion as Motion, useScroll, useSpring } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiGithub, SiHtml5, SiCss3, SiJavascript, SiJquery, SiBootstrap, SiPhp, SiLaravel, SiExpress, SiMysql, SiMongodb } from 'react-icons/si';
 
 import { MdOutlineEmail, MdOutlineLocalPhone } from 'react-icons/md';
@@ -30,8 +31,10 @@ import GlassContactForm from './components/ReactBits/GlassContactForm';
 import ScrollVelocity from './components/ReactBits/ScrollVelocity';
 import ChatScreenWithReaction from './components/ReactBits/ChatScreenWithReaction';
 import PortfolioStory from './components/PortfolioStory/PortfolioStory';
+import PortfolioChatbot from './components/PortfolioChatbot/PortfolioChatbot';
 
 import items from './utils/NavItems.js';
+import { trackPortfolioVisit } from './utils/portfolioAnalytics';
 
 const METRICS = [
   { value: 8, duration: 2, label: 'Projects completed', detail: 'Built and shipped', marker: '01' },
@@ -69,6 +72,7 @@ const CLIENT_REVIEWS = [
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
+  const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
   const pageProgress = useSpring(scrollYProgress, { stiffness: 130, damping: 28, mass: 0.25 });
 
@@ -89,6 +93,10 @@ function App() {
     { node: <SiMongodb />, title: 'MongoDB', href: 'https://www.mongodb.com' },
     { node: <SiGithub />, title: 'GitHub', href: 'https://github.com' },
   ];
+
+  useEffect(() => {
+    trackPortfolioVisit();
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -220,8 +228,8 @@ function App() {
               </div>
 
               <div className="flex flex-row justify-center items-center gap-3 shadowText md:flex-row">
-                <StarBorder as="button" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="5s" thickness={4}>
-                  <button className="cursor-target bg-white text-black text-sm rounded-[50px] lg:text-xl w-full max-w-[160px] lg:max-w-[230px]">View Dashboards</button>
+                <StarBorder as="div" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="5s" thickness={4}>
+                  <button onClick={() => navigate('/dashboard')} className="cursor-target bg-white text-black text-sm rounded-[50px] lg:text-xl w-full max-w-[160px] lg:max-w-[230px]">View Dashboard</button>
                 </StarBorder>
                 <StarBorder onClick={openResume} as="button" className="w-full max-w-[160px] lg:max-w-[230px]" color="magenta" speed="4s" thickness={4}>
                   <button className="cursor-target bg-white text-white text-sm rounded-[50px] lg:text-xl hover:bg-black transition-all duration-300 ease-in-out inset-0 w-full max-w-[160px] lg:max-w-[230px]" style={{ background: '#800080' }}>
@@ -422,6 +430,7 @@ function App() {
         </div>
       </section>
       <footer className="py-5 text-center text-gray-400">© {new Date().getFullYear()} Julius Yayain. All Rights Reserved.</footer>
+      <PortfolioChatbot />
     </>
   );
 }
